@@ -131,7 +131,14 @@
   "g_intel_k": "Intelligence",
   "g_action_k": "Action",
   "g_verif_k": "Verification",
-  "g_hist_k": "History"
+  "g_hist_k": "History",
+  "nav_term": "Terminal",
+  "cta_term": "See it run",
+  "ey_term": "The real thing",
+  "h_term": "Substance, not screenshots.",
+  "p_term": "This is captured output from the canonical repository — the actual suite, the actual events. Not a mock-up.",
+  "term_copy": "copy",
+  "term_copied": "Terminal output copied"
  },
  "fr": {
   "lang_name": "Français",
@@ -265,7 +272,14 @@
   "g_intel_k": "Intelligence",
   "g_action_k": "Action",
   "g_verif_k": "Vérification",
-  "g_hist_k": "Historique"
+  "g_hist_k": "Historique",
+  "nav_term": "Terminal",
+  "cta_term": "Voir tourner",
+  "ey_term": "La vraie chose",
+  "h_term": "De la substance, pas des captures.",
+  "p_term": "Voici la sortie capturée du dépôt canonique — la vraie suite, les vrais événements. Pas une maquette.",
+  "term_copy": "copier",
+  "term_copied": "Sortie du terminal copiée"
  },
  "es": {
   "lang_name": "Español",
@@ -399,6 +413,13 @@
   "g_intel_k": "Inteligencia",
   "g_action_k": "Acción",
   "g_verif_k": "Verificación",
-  "g_hist_k": "Historial"
+  "g_hist_k": "Historial",
+  "nav_term": "Terminal",
+  "cta_term": "Verlo funcionar",
+  "ey_term": "Lo real",
+  "h_term": "Sustancia, no capturas.",
+  "p_term": "Esta es la salida capturada del repositorio canónico — la suite real, los eventos reales. No es una maqueta.",
+  "term_copy": "copiar",
+  "term_copied": "Salida del terminal copiada"
  }
 }
