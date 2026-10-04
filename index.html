@@ -3,158 +3,122 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Uniformity — Separate systems. Shared truth.</title>
-<meta name="description" content="Uniformity is the local-first coordination backbone behind a portfolio of deliberately distinct products." />
-<meta property="og:title" content="Uniformity — Separate systems. Shared truth." />
-<meta property="og:description" content="Local-first coordination for identity, shared object state, evidence, action, verification and history." />
-<meta property="og:image" content="https://raw.githubusercontent.com/maxiwhite/maxiwhite/main/banner.svg" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolygon points='16,3 28,10 28,22 16,29 4,22 4,10' fill='none' stroke='%236366f1' stroke-width='2'/%3E%3Cpolygon points='16,11 22,14.5 22,19.5 16,23 10,19.5 10,14.5' fill='%2322d3ee'/%3E%3C/svg%3E" />
+<title>Uniformity — the operating system that composes</title>
+<meta name="description" content="Uniformity is the operating system and composition layer for a portfolio of distinct products. Technical boundaries stay explicit even when the experience feels seamless." />
+<meta property="og:title" content="Uniformity — the operating system that composes" />
+<meta property="og:description" content="The OS composes; the domains remain real. Identity, canonical object state, evidence, action, verification and history." />
+<meta property="og:image" content="https://raw.githubusercontent.com/UNIFORM1TY/UNIFORM1TY.github.io/main/architecture.svg" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolygon points='16,3 28,10 28,22 16,29 4,22 4,10' fill='none' stroke='%23111' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%230ea5e9'/%3E%3C/svg%3E" />
 <style>
   :root{
-    --bg:#060910; --bg2:#0b1120; --card:#0e1526; --line:#1e293b;
-    --fg:#f8fafc; --muted:#94a3b8; --dim:#64748b;
-    --i:#6366f1; --c:#22d3ee; --p:#a855f7; --g:#22c55e;
+    --ink:#0a0a0b; --ink-2:#3f3f46; --ink-3:#71717a; --ink-4:#a1a1aa;
+    --rule:#e7e7ea; --rule-2:#f2f2f4; --paper:#ffffff; --paper-2:#fafafa;
+    --accent:#0ea5e9; --accent-2:#6366f1;
+    --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
     --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
-    --sans:Inter,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{
-    background:var(--bg); color:var(--fg); font-family:var(--sans);
-    -webkit-font-smoothing:antialiased; overflow-x:hidden; line-height:1.6;
-  }
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.65;font-size:16px}
   a{color:inherit;text-decoration:none}
-  .wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px}
 
-  /* ---------- ambient ---------- */
-  .amb{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-  .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;animation:drift 22s ease-in-out infinite}
-  .o1{width:560px;height:560px;background:var(--i);top:-160px;right:-120px}
-  .o2{width:480px;height:480px;background:var(--c);bottom:-200px;left:-140px;animation-delay:-7s}
-  .o3{width:420px;height:420px;background:var(--p);top:44%;left:46%;animation-delay:-13s;opacity:.34}
-  @keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(44px,-34px) scale(1.09)}66%{transform:translate(-34px,30px) scale(.94)}}
-  .grid-bg{
-    position:fixed;inset:0;z-index:0;pointer-events:none;
-    background-image:linear-gradient(rgba(30,41,59,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(30,41,59,.5) 1px,transparent 1px);
-    background-size:56px 56px;
-    mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 30%,transparent 100%);
-    -webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 30%,transparent 100%);
-  }
-  main,header,footer{position:relative;z-index:1}
+  nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--rule-2)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:.2em;font-size:12.5px}
+  .brand svg{width:24px;height:24px}
+  .nav-links{display:flex;gap:30px;font-size:14px;color:var(--ink-3)}
+  .nav-links a{transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  @media(max-width:800px){.nav-links{display:none}}
 
-  /* ---------- nav ---------- */
-  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(6,9,16,.74);border-bottom:1px solid var(--line)}
-  .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:.14em;font-size:13px}
-  .brand svg{width:26px;height:26px;animation:spin 26s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .nav-links{display:flex;gap:26px;font-size:13.5px;color:var(--muted)}
-  .nav-links a:hover{color:var(--fg)}
-  @media(max-width:760px){.nav-links{display:none}}
+  header{padding:120px 0 0;position:relative;overflow:hidden}
+  .kicker{font-size:11.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-4);margin-bottom:26px}
+  h1{font-size:clamp(40px,7.6vw,88px);line-height:1.02;font-weight:600;letter-spacing:-.045em;max-width:15ch}
+  h1 em{font-style:normal;color:var(--ink-4)}
+  .hero-sub{font-size:clamp(17px,2.2vw,21px);color:var(--ink-2);max-width:56ch;margin:34px 0 44px;line-height:1.55;font-weight:400}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:9px;font-size:14.5px;font-weight:500;transition:.22s}
+  .btn-p{background:var(--ink);color:#fff}
+  .btn-p:hover{background:#27272a;transform:translateY(-1px)}
+  .btn-s{border:1px solid var(--rule);color:var(--ink-2);background:#fff}
+  .btn-s:hover{border-color:var(--ink-4);color:var(--ink)}
+  .arrow{transition:transform .22s}
+  .btn:hover .arrow{transform:translateX(3px)}
 
-  /* ---------- hero ---------- */
-  header{padding:96px 0 72px;text-align:center}
-  .pill{
-    display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:600;
-    letter-spacing:.16em;text-transform:uppercase;color:var(--c);
-    border:1px solid rgba(34,211,238,.32);background:rgba(34,211,238,.07);
-    padding:7px 15px;border-radius:999px;margin-bottom:30px;
-  }
-  .dot{width:6px;height:6px;border-radius:50%;background:var(--c);box-shadow:0 0 12px var(--c);animation:pulse 2s ease-in-out infinite}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.8)}}
-  h1{
-    font-size:clamp(38px,7.2vw,80px);line-height:1.03;font-weight:800;letter-spacing:-.035em;
-    background:linear-gradient(170deg,#fff 8%,#cbd5e1 46%,#64748b 100%);
-    -webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:22px;
-  }
-  .sub{font-size:clamp(16px,2.1vw,20px);color:var(--muted);max-width:640px;margin:0 auto 40px}
-  .sub b{color:var(--fg);font-weight:600}
-  .cta{display:flex;gap:13px;justify-content:center;flex-wrap:wrap}
-  .btn{
-    display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:11px;
-    font-size:14.5px;font-weight:600;transition:.22s;border:1px solid transparent;
-  }
-  .btn-p{background:linear-gradient(135deg,var(--i),var(--p));color:#fff;box-shadow:0 8px 30px -10px rgba(99,102,241,.65)}
-  .btn-p:hover{transform:translateY(-2px);box-shadow:0 14px 40px -10px rgba(99,102,241,.8)}
-  .btn-s{border-color:var(--line);color:var(--muted);background:rgba(14,21,38,.6)}
-  .btn-s:hover{border-color:var(--c);color:var(--fg)}
+  .stage{margin-top:96px;border-top:1px solid var(--rule);padding:80px 0 0;display:grid;place-items:center;position:relative}
+  .stage-glow{position:absolute;width:760px;height:760px;top:-120px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(14,165,233,.07) 0%,rgba(99,102,241,.05) 40%,transparent 68%);pointer-events:none}
+  #object{width:min(560px,86vw);height:auto;position:relative}
 
-  /* ---------- stats ---------- */
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:15px;overflow:hidden;margin-top:64px}
-  .stat{background:var(--bg2);padding:26px 20px;text-align:center}
-  .stat-n{font-size:30px;font-weight:800;letter-spacing:-.02em;font-family:var(--mono)}
-  .stat-l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.13em;margin-top:7px;font-weight:600}
-  .n-i{color:var(--i)}.n-c{color:var(--c)}.n-p{color:var(--p)}.n-g{color:var(--g)}
+  .grammar{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper-2);padding:40px 0;margin-top:80px;overflow-x:auto}
+  .grammar-in{display:flex;align-items:center;justify-content:center;gap:0;font-family:var(--mono);font-size:clamp(11px,1.5vw,14px);white-space:nowrap;color:var(--ink-3);min-width:max-content;padding:0 32px}
+  .g-step{color:var(--ink);font-weight:500}
+  .g-ar{color:var(--ink-4);margin:0 14px}
 
-  /* ---------- sections ---------- */
-  section{padding:92px 0}
-  .eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--c);margin-bottom:14px}
-  h2{font-size:clamp(27px,4vw,42px);font-weight:800;letter-spacing:-.028em;margin-bottom:16px}
-  .lead{color:var(--muted);max-width:620px;font-size:16.5px;margin-bottom:48px}
+  section{padding:110px 0}
+  .eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-4);margin-bottom:18px}
+  h2{font-size:clamp(28px,4.4vw,46px);font-weight:600;letter-spacing:-.035em;line-height:1.12;margin-bottom:20px;max-width:22ch}
+  .lead{color:var(--ink-2);max-width:60ch;font-size:17px;margin-bottom:56px}
 
-  /* ---------- products ---------- */
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:20px}
-  .card{
-    background:linear-gradient(160deg,var(--card),rgba(11,17,32,.6));
-    border:1px solid var(--line);border-radius:16px;padding:28px;position:relative;overflow:hidden;transition:.28s;
-  }
-  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent,var(--i)),transparent);opacity:.75}
-  .card:hover{transform:translateY(-5px);border-color:rgba(99,102,241,.5);box-shadow:0 22px 50px -22px rgba(0,0,0,.9)}
-  .card-ico{width:42px;height:42px;margin-bottom:18px}
-  .card h3{font-size:19px;font-weight:700;letter-spacing:-.01em;margin-bottom:9px}
-  .card p{font-size:14.5px;color:var(--muted);margin-bottom:18px}
-  .tags{display:flex;gap:7px;flex-wrap:wrap}
-  .tag{font-size:11px;font-family:var(--mono);color:var(--dim);border:1px solid var(--line);padding:3px 9px;border-radius:6px;background:rgba(6,9,16,.6)}
+  .own{border-top:1px solid var(--rule)}
+  .own-row{display:grid;grid-template-columns:minmax(180px,240px) 1fr;gap:28px;padding:26px 0;border-bottom:1px solid var(--rule);align-items:start}
+  .own-name{font-weight:600;font-size:16px;letter-spacing:-.01em}
+  .own-name small{display:block;font-weight:400;font-size:12.5px;color:var(--ink-4);letter-spacing:0;margin-top:4px;font-family:var(--mono)}
+  .own-body{color:var(--ink-2);font-size:15px}
+  .own-body b{color:var(--ink);font-weight:500}
+  .own-body .never{color:var(--ink-4)}
+  @media(max-width:680px){.own-row{grid-template-columns:1fr;gap:10px}}
 
-  /* ---------- grammar / flow ---------- */
-  .flow{
-    background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:34px 22px;
-    font-family:var(--mono);font-size:clamp(10.5px,1.5vw,14.5px);text-align:center;
-    color:var(--muted);overflow-x:auto;white-space:nowrap;
-  }
-  .flow b{color:var(--c);font-weight:600}
-  .flow .ar{color:var(--i);margin:0 6px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+  .card{background:#fff;padding:30px;transition:.25s}
+  .card:hover{background:var(--paper-2)}
+  .card-tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-4);text-transform:uppercase;margin-bottom:14px}
+  .card h3{font-size:17px;font-weight:600;letter-spacing:-.015em;margin-bottom:9px}
+  .card p{font-size:14.5px;color:var(--ink-2);line-height:1.6}
 
-  /* ---------- principles ---------- */
-  .prin{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:26px}
-  .pr{display:flex;gap:15px}
-  .pr-n{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--i);border:1px solid rgba(99,102,241,.35);border-radius:8px;min-width:34px;height:34px;display:grid;place-items:center;background:rgba(99,102,241,.08)}
-  .pr h4{font-size:15.5px;font-weight:700;margin-bottom:5px}
-  .pr p{font-size:14px;color:var(--muted)}
+  .proj{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+  .proj-cell{background:#fff;padding:26px}
+  .proj-cell h4{font-size:15px;font-weight:600;margin-bottom:8px}
+  .proj-cell p{font-size:14px;color:var(--ink-2)}
+  .proj-cell .same{margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--ink-4)}
 
-  /* ---------- cta band ---------- */
-  .band{
-    background:linear-gradient(135deg,rgba(99,102,241,.14),rgba(168,85,247,.1));
-    border:1px solid rgba(99,102,241,.3);border-radius:20px;padding:54px 34px;text-align:center;
-  }
-  .band h2{margin-bottom:12px}
-  .band p{color:var(--muted);margin-bottom:30px}
+  figure{margin:0}
+  figure img{width:100%;border:1px solid var(--rule);border-radius:12px;display:block}
+  figcaption{margin-top:16px;font-size:13.5px;color:var(--ink-4);text-align:center}
 
-  footer{border-top:1px solid var(--line);padding:38px 0;text-align:center;color:var(--dim);font-size:13px}
-  footer .fbrand{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;color:var(--muted);font-weight:700;letter-spacing:.14em;font-size:12px}
+  .band{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper-2);padding:90px 0;text-align:center}
+  .band h2{margin:0 auto 18px}
+  .band p{color:var(--ink-2);margin-bottom:36px;max-width:52ch;margin-left:auto;margin-right:auto}
 
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  footer{border-top:1px solid var(--rule);padding:44px 0;color:var(--ink-4);font-size:13.5px}
+  .foot-in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .foot-brand{display:flex;align-items:center;gap:10px;color:var(--ink-2);font-weight:600;letter-spacing:.2em;font-size:12px}
+  .foot-brand svg{width:18px;height:18px}
+  .foot-links{display:flex;gap:22px}
+  .foot-links a:hover{color:var(--ink)}
+
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
   .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
-<div class="grid-bg"></div>
-<div class="amb"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
 
 <nav>
   <div class="wrap nav-in">
     <a href="#" class="brand">
       <svg viewBox="0 0 32 32" fill="none">
-        <polygon points="16,2.5 28.5,9.7 28.5,22.3 16,29.5 3.5,22.3 3.5,9.7" stroke="#6366f1" stroke-width="1.6"/>
-        <polygon points="16,9.5 22.5,13.2 22.5,19.8 16,23.5 9.5,19.8 9.5,13.2" stroke="#22d3ee" stroke-width="1.6"/>
-        <circle cx="16" cy="16" r="2.6" fill="#a855f7"/>
+        <polygon points="16,2.5 28.5,9.7 28.5,22.3 16,29.5 3.5,22.3 3.5,9.7" stroke="#0a0a0b" stroke-width="1.5"/>
+        <polygon points="16,9.5 22.5,13.2 22.5,19.8 16,23.5 9.5,19.8 9.5,13.2" stroke="#a1a1aa" stroke-width="1.5"/>
+        <circle cx="16" cy="16" r="2.4" fill="#0ea5e9"/>
       </svg>
       UNIFORMITY
     </a>
     <div class="nav-links">
-      <a href="#systems">Systems</a>
+      <a href="#model">Model</a>
+      <a href="#grammar">Grammar</a>
       <a href="#architecture">Architecture</a>
-      <a href="#principles">Principles</a>
+      <a href="#projections">Projections</a>
       <a href="https://github.com/UNIFORM1TY">GitHub</a>
     </div>
   </div>
@@ -162,115 +126,184 @@
 
 <header>
   <div class="wrap">
-    <div class="pill"><span class="dot"></span> Local-first coordination backbone</div>
-    <h1>Separate systems.<br/>Shared truth.</h1>
-    <p class="sub">Uniformity standardises <b>identity, object state, evidence, action, verification and history</b> across a portfolio of deliberately distinct products — without collapsing every domain into one application.</p>
-    <div class="cta">
-      <a class="btn btn-p" href="https://github.com/UNIFORM1TY">Explore the org →</a>
-      <a class="btn btn-s" href="#architecture">See the architecture</a>
+    <div class="kicker reveal">The operating system / composition layer</div>
+    <h1 class="reveal">The OS composes.<br/>The domains <em>remain real.</em></h1>
+    <p class="hero-sub reveal">Uniformity standardises identity, canonical object state, permissions, evidence, action, verification and history — without merging every project into one product.</p>
+    <div class="hero-cta reveal">
+      <a class="btn btn-p" href="#model">See the product model <span class="arrow">→</span></a>
+      <a class="btn btn-s" href="https://github.com/UNIFORM1TY">github.com/UNIFORM1TY</a>
     </div>
 
-    <div class="stats">
-      <div class="stat"><div class="stat-n n-g">91<span style="font-size:17px">/91</span></div><div class="stat-l">Tests passing</div></div>
-      <div class="stat"><div class="stat-n n-i">4</div><div class="stat-l">Active systems</div></div>
-      <div class="stat"><div class="stat-n n-c">8</div><div class="stat-l">Stage grammar</div></div>
-      <div class="stat"><div class="stat-n n-p">1</div><div class="stat-l">Owner per truth</div></div>
+    <div class="stage">
+      <div class="stage-glow"></div>
+      <svg id="object" viewBox="0 0 560 560" fill="none" aria-label="Canonical object — one identity, many projections">
+        <g stroke="#0a0a0b" stroke-width="1" opacity="0.14">
+          <line x1="280" y1="0" x2="280" y2="560"/>
+          <line x1="0" y1="280" x2="560" y2="280"/>
+        </g>
+        <g id="ring3" opacity="0.5">
+          <polygon points="280,60 470,170 470,390 280,500 90,390 90,170" stroke="#d4d4d8" stroke-width="1" fill="none"/>
+        </g>
+        <g id="ring2" opacity="0.75">
+          <polygon points="280,110 427,195 427,365 280,450 133,365 133,195" stroke="#a1a1aa" stroke-width="1.1" fill="none"/>
+        </g>
+        <g fill="#0a0a0b" opacity="0.55">
+          <circle cx="470" cy="170" r="4"/><circle cx="470" cy="390" r="4"/>
+          <circle cx="280" cy="500" r="4"/><circle cx="90" cy="390" r="4"/>
+          <circle cx="90" cy="170" r="4"/><circle cx="280" cy="60" r="4"/>
+        </g>
+        <polygon points="280,175 371,227.5 371,332.5 280,385 189,332.5 189,227.5" stroke="#0a0a0b" stroke-width="1.6" fill="none"/>
+        <polygon points="280,215 330,244 330,301 280,330 230,301 230,244" stroke="#71717a" stroke-width="1.2" fill="none"/>
+        <circle cx="280" cy="280" r="13" fill="#0ea5e9" opacity="0.14"/>
+        <circle cx="280" cy="280" r="5.5" fill="#0ea5e9"/>
+        <text x="280" y="536" font-family="ui-monospace,Consolas,monospace" font-size="12" fill="#a1a1aa" text-anchor="middle" letter-spacing="1.4">one canonical object_id</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="grammar">
+    <div class="grammar-in">
+      <span class="g-step">Object</span><span class="g-ar">→</span>
+      <span class="g-step">State</span><span class="g-ar">→</span>
+      <span class="g-step">Signal</span><span class="g-ar">→</span>
+      <span class="g-step">Evidence</span><span class="g-ar">→</span>
+      <span class="g-step">Intelligence</span><span class="g-ar">→</span>
+      <span class="g-step">Action</span><span class="g-ar">→</span>
+      <span class="g-step">Verification</span><span class="g-ar">→</span>
+      <span class="g-step">History</span>
     </div>
   </div>
 </header>
 
-<section id="systems">
+<section id="model">
   <div class="wrap reveal">
-    <div class="eyebrow">The portfolio</div>
-    <h2>Distinct products. One grammar.</h2>
-    <p class="lead">Each system owns its own domain truth. They compose through contracts — never through a shared database.</p>
+    <div class="eyebrow">Product model</div>
+    <h2>One OS. Separate worlds.</h2>
+    <p class="lead">Uniformity does not merge every project into one product. Each surface owns its own domain truth, and the boundary stays explicit even when the experience feels seamless.</p>
+
+    <div class="own">
+      <div class="own-row">
+        <div class="own-name">Uniformity<small>the OS</small></div>
+        <div class="own-body">Owns <b>identity, canonical object and state, permissions, events, orchestration and role/context projections</b>. <span class="never">Must not own instrument semantics or advisory reasoning.</span></div>
+      </div>
+      <div class="own-row">
+        <div class="own-name">LOGARHYTHM / SUBANGEL<small>one instrument world</small></div>
+        <div class="own-body">Public and cultural identity plus instrument archive, diagnostics, repair workflow and service-history depth. <span class="never">Must not own cross-domain OS truth.</span></div>
+      </div>
+      <div class="own-row">
+        <div class="own-name">JUNO-106<small>reference object</small></div>
+        <div class="own-body">A <b>reference object used to prove the runtime</b>. It is not a product and never becomes one.</div>
+      </div>
+      <div class="own-row">
+        <div class="own-name">Fridge Brain<small>advisory service</small></div>
+        <div class="own-body">May retrieve, interpret, rank, cite and propose one next action. <span class="never">Must never mutate canonical state, accept actions, or write history.</span></div>
+      </div>
+      <div class="own-row">
+        <div class="own-name">RESELL · UCMR<small>domain adapters</small></div>
+        <div class="own-body">Their own domain semantics and workflows, composed through the same runtime contract. <span class="never">Must not own instrument-domain truth.</span></div>
+      </div>
+      <div class="own-row">
+        <div class="own-name">Hermes + Nous<small>research / operator</small></div>
+        <div class="own-body">The research and governed-execution cross-reference. <span class="never">Not product truth.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="grammar" style="background:var(--paper-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
+  <div class="wrap reveal">
+    <div class="eyebrow">Shared runtime grammar</div>
+    <h2>Eight stages. Every domain.</h2>
+    <p class="lead">The same pipeline governs any object, whichever world owns it. Intelligence advises; it never mutates.</p>
     <div class="cards">
-      <div class="card" style="--accent:#6366f1">
-        <svg class="card-ico" viewBox="0 0 44 44" fill="none"><polygon points="22,4 39,13.5 39,30.5 22,40 5,30.5 5,13.5" stroke="#6366f1" stroke-width="2"/><polygon points="22,13 32,18.3 32,25.7 22,31 12,25.7 12,18.3" stroke="#22d3ee" stroke-width="2"/><circle cx="22" cy="22" r="3.4" fill="#a855f7"/></svg>
-        <h3>Uniformity OS</h3>
-        <p>The coordination backbone. Identity, shared object state, evidence, action, verification and history for every domain.</p>
-        <div class="tags"><span class="tag">node --test</span><span class="tag">91/91</span><span class="tag">local-first</span></div>
-      </div>
-      <div class="card" style="--accent:#22d3ee">
-        <svg class="card-ico" viewBox="0 0 44 44" fill="none"><rect x="7" y="11" width="30" height="24" rx="3" stroke="#22d3ee" stroke-width="2"/><path d="M7 18h30M13 26h9M13 31h14" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/></svg>
-        <h3>RESELL</h3>
-        <p>The life of the transaction. Inventory, stock plane, orders and sell flow — resale truth kept deliberately separate.</p>
-        <div class="tags"><span class="tag">convex</span><span class="tag">react 19</span><span class="tag">vite</span></div>
-      </div>
-      <div class="card" style="--accent:#a855f7">
-        <svg class="card-ico" viewBox="0 0 44 44" fill="none"><path d="M14 32V14a3 3 0 013-3h6a6 6 0 010 12h-9" stroke="#a855f7" stroke-width="2" stroke-linecap="round"/><circle cx="31" cy="30" r="4" stroke="#22d3ee" stroke-width="2"/><path d="M31 18v8" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/></svg>
-        <h3>SUBANGEL</h3>
-        <p>Calm intelligence for musicians, instrument builders, repairers and recording spaces. The life of the instrument.</p>
-        <div class="tags"><span class="tag">instruments</span><span class="tag">service history</span></div>
-      </div>
-      <div class="card" style="--accent:#22c55e">
-        <svg class="card-ico" viewBox="0 0 44 44" fill="none"><path d="M10 30l8-10 7 6 9-13" stroke="#22c55e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="30" r="2.6" fill="#22c55e"/><circle cx="34" cy="13" r="2.6" fill="#22c55e"/></svg>
-        <h3>FreeBuff</h3>
-        <p>Production SaaS API platform — auth, billing, products, users and error contracts as explicit, testable modules.</p>
-        <div class="tags"><span class="tag">express</span><span class="tag">typescript</span><span class="tag">jest</span></div>
-      </div>
+      <div class="card"><div class="card-tag">01 · Object</div><h3>Canonical identity</h3><p>One stable <code>object_id</code> that every projection resolves to.</p></div>
+      <div class="card"><div class="card-tag">02 · State</div><h3>Operational state</h3><p>The current condition of that object, versioned — never overwritten.</p></div>
+      <div class="card"><div class="card-tag">03 · Signal</div><h3>Observed event</h3><p>An event or condition detected against the object.</p></div>
+      <div class="card"><div class="card-tag">04 · Evidence</div><h3>Governed material</h3><p>Revision-aware, permission-scoped, provenance-bearing.</p></div>
+      <div class="card"><div class="card-tag">05 · Intelligence</div><h3>Advisory only</h3><p>Ranked hypotheses, confidence, contradictions — never canonical mutation.</p></div>
+      <div class="card"><div class="card-tag">06 · Action</div><h3>Domain-owned work</h3><p>Proposed, accepted, started, completed — owned by the workshop layer.</p></div>
+      <div class="card"><div class="card-tag">07 · Verification</div><h3>Result + new evidence</h3><p>Recorded at completion. Staging is not verification.</p></div>
+      <div class="card"><div class="card-tag">08 · History</div><h3>Immutable events</h3><p>The object can be reconstructed and audited from its history alone.</p></div>
     </div>
   </div>
 </section>
 
 <section id="architecture">
   <div class="wrap reveal">
-    <div class="eyebrow">The shared grammar</div>
-    <h2>One pipeline, every domain.</h2>
-    <p class="lead">Objects move through the same eight stages regardless of which system owns them.</p>
-    <div class="flow">
-      Object <span class="ar">→</span> <b>State</b> <span class="ar">→</span> <b>Signal</b> <span class="ar">→</span> <b>Evidence</b> <span class="ar">→</span> <b>Intelligence</b> <span class="ar">→</span> <b>Action</b> <span class="ar">→</span> <b>Verification</b> <span class="ar">→</span> <b>History</b>
-    </div>
-    <div style="margin-top:34px">
-      <img src="architecture.svg" alt="Uniformity architecture — coordination backbone with RESELL, SUBANGEL and FreeBuff as separate domain owners" style="width:100%;border:1px solid var(--line);border-radius:16px" />
-    </div>
+    <div class="eyebrow">Architecture</div>
+    <h2>Governed evidence in. Advisory assessment out.</h2>
+    <p class="lead">Uniformity filters evidence before it crosses the Fridge Brain boundary. The service validates defensively and returns interpretation — never authority.</p>
+    <figure>
+      <img src="architecture.svg" alt="Uniformity runtime topology: the OS core governs evidence into the Fridge Brain advisory service, which returns assessment only to the instrument domain" />
+      <figcaption>Uniformity OS · Fridge Brain advisory boundary · LOGARHYTHM / SUBANGEL instrument domain · role projections</figcaption>
+    </figure>
   </div>
 </section>
 
-<section id="principles">
+<section id="projections" style="background:var(--paper-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
   <div class="wrap reveal">
-    <div class="eyebrow">How we build</div>
-    <h2>Four rules, enforced.</h2>
-    <p class="lead">These are not aspirations. They are the constraints the runtime is built to reject violations of.</p>
-    <div class="prin">
-      <div class="pr"><div class="pr-n">01</div><div><h4>One owner per truth</h4><p>Coordination, product and runtime data never collapse into each other. Boundaries are enforced, not documented.</p></div></div>
-      <div class="pr"><div class="pr-n">02</div><div><h4>Evidence over assertion</h4><p>Every claim carries a command, a result and a timestamp. Staging is not verification.</p></div></div>
-      <div class="pr"><div class="pr-n">03</div><div><h4>Separate by design</h4><p>Systems compose through versioned contracts, never through a shared database.</p></div></div>
-      <div class="pr"><div class="pr-n">04</div><div><h4>Truth is versioned</h4><p>History is immutable and append-only. Records are superseded, never silently overwritten.</p></div></div>
+    <div class="eyebrow">Role projections</div>
+    <h2>Same object. Different eyes.</h2>
+    <p class="lead">Every projection resolves the same canonical <code>object_id</code>. Depth and language change; truth does not.</p>
+    <div class="proj">
+      <div class="proj-cell"><h4>Matt</h4><p>Technical bench projection. Signal → Reason → Evidence → full trace.</p><div class="same">object_id · identical</div></div>
+      <div class="proj-cell"><h4>Susanna</h4><p>Operational. Status, blocker, who acts next, the next workshop step.</p><div class="same">object_id · identical</div></div>
+      <div class="proj-cell"><h4>Customer</h4><p>Customer-safe status and any approval or action required.</p><div class="same">object_id · identical</div></div>
+      <div class="proj-cell"><h4>Logarhythm</h4><p>Public cultural presentation — no private workshop intelligence.</p><div class="same">object_id · identical</div></div>
     </div>
   </div>
 </section>
 
 <section>
   <div class="wrap reveal">
-    <div class="band">
-      <h2>Private by default. Verified by construction.</h2>
-      <p>Browse the systems, the contracts and the evidence.</p>
-      <div class="cta">
-        <a class="btn btn-p" href="https://github.com/UNIFORM1TY">github.com/UNIFORM1TY →</a>
-      </div>
-    </div>
+    <div class="eyebrow">Principle</div>
+    <h2>Technical boundaries stay explicit even when the experience feels seamless.</h2>
+    <p class="lead" style="margin-bottom:0">A completed action appends verified evidence, updates canonical state exactly once, and becomes visible through every permitted projection. The OS composes; the domains remain real.</p>
   </div>
 </section>
 
+<div class="band">
+  <div class="wrap reveal">
+    <h2>The OS composes. The domains remain real.</h2>
+    <p>Browse the runtime, the contracts and the reference slice.</p>
+    <a class="btn btn-p" href="https://github.com/UNIFORM1TY">github.com/UNIFORM1TY <span class="arrow">→</span></a>
+  </div>
+</div>
+
 <footer>
-  <div class="wrap">
-    <div class="fbrand">
-      <svg viewBox="0 0 32 32" fill="none" style="width:20px;height:20px">
-        <polygon points="16,2.5 28.5,9.7 28.5,22.3 16,29.5 3.5,22.3 3.5,9.7" stroke="#6366f1" stroke-width="1.6"/>
-        <circle cx="16" cy="16" r="2.4" fill="#22d3ee"/>
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <svg viewBox="0 0 32 32" fill="none">
+        <polygon points="16,2.5 28.5,9.7 28.5,22.3 16,29.5 3.5,22.3 3.5,9.7" stroke="#3f3f46" stroke-width="1.5"/>
+        <circle cx="16" cy="16" r="2.4" fill="#0ea5e9"/>
       </svg>
       UNIFORMITY
     </div>
-    <div>Separate systems. Shared truth.</div>
+    <div class="foot-links">
+      <a href="https://github.com/UNIFORM1TY/uniformity-os">uniformity-os</a>
+      <a href="https://github.com/UNIFORM1TY">Organization</a>
+    </div>
   </div>
 </footer>
 
 <script>
   const io = new IntersectionObserver((es)=>{
     es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-  },{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  },{threshold:.1});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    el.style.transitionDelay = (Math.min(i,4)*60)+'ms';
+    io.observe(el);
+  });
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    let t=0;
+    const r2=document.getElementById('ring2'), r3=document.getElementById('ring3');
+    (function spin(){
+      t+=0.0016;
+      r2.setAttribute('transform','rotate('+(Math.sin(t)*2.4)+' 280 280)');
+      r3.setAttribute('transform','rotate('+(-Math.sin(t)*1.6)+' 280 280)');
+      requestAnimationFrame(spin);
+    })();
+  }
 </script>
 </body>
 </html>
