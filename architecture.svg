@@ -1,95 +1,172 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="880" viewBox="0 0 1080 880" fill="none" font-family="Inter,-apple-system,Segoe UI,Helvetica,Arial,sans-serif" role="img" aria-label="Uniformity runtime topology">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" fill="none" role="img" aria-label="Uniformity runtime topology — perspective tunnel">
   <defs>
-    <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3.2" orient="auto">
-      <path d="M0,0 L0,6.4 L8,3.2 z" fill="#71717a"/>
-    </marker>
-    <marker id="ars" markerWidth="9" markerHeight="9" refX="7" refY="3.2" orient="auto">
-      <path d="M0,0 L0,6.4 L8,3.2 z" fill="#c4c4c8"/>
-    </marker>
-    <linearGradient id="accent" x1="0" y1="0" x2="1080" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#0ea5e9" stop-opacity="0"/>
-      <stop offset="0.5" stop-color="#0ea5e9"/>
-      <stop offset="1" stop-color="#6366f1" stop-opacity="0"/>
+    <linearGradient id="void" x1="0" y1="0" x2="1200" y2="820" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#07080B"/><stop offset="0.55" stop-color="#0B0E15"/><stop offset="1" stop-color="#101420"/>
     </linearGradient>
+    <radialGradient id="coreGlow" cx="0" cy="0" r="1" gradientTransform="translate(600 372) scale(300)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2DD4E8" stop-opacity="0.55"/>
+      <stop offset="0.35" stop-color="#2DD4E8" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#2DD4E8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="brainGlow" cx="0" cy="0" r="1" gradientTransform="translate(600 610) scale(230)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F0B429" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#F0B429" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="violetGlow" cx="0" cy="0" r="1" gradientTransform="translate(600 175) scale(340)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8B7CF6" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#8B7CF6" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2DD4E8" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#2DD4E8" stop-opacity="0.10"/>
+    </linearGradient>
+    <linearGradient id="beamAdv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F0B429" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#F0B429" stop-opacity="0.10"/>
+    </linearGradient>
+    <linearGradient id="rule" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2DD4E8" stop-opacity="0"/><stop offset="0.5" stop-color="#2DD4E8"/><stop offset="1" stop-color="#8B7CF6" stop-opacity="0"/>
+    </linearGradient>
+
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+    <filter id="softer" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="15"/>
+    </filter>
+
+    <marker id="ar" markerWidth="8" markerHeight="8" refX="6.4" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#2DD4E8"/>
+    </marker>
+    <marker id="arA" markerWidth="8" markerHeight="8" refX="6.4" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#F0B429"/>
+    </marker>
   </defs>
 
-  <rect width="1080" height="880" fill="#ffffff"/>
+  <rect width="1200" height="820" fill="url(#void)"/>
 
-  <text x="56" y="58" font-size="11.5" font-weight="700" letter-spacing="3" fill="#71717a">RUNTIME TOPOLOGY</text>
-  <text x="56" y="82" font-size="13" fill="#a1a1aa">Governed evidence in · advisory assessment out · authority never crosses the boundary</text>
-  <rect x="56" y="100" width="968" height="1.5" fill="url(#accent)"/>
-
-  <!-- ===== UNIFORMITY OS ===== -->
-  <rect x="196" y="136" width="688" height="152" rx="14" fill="#fafafa" stroke="#0a0a0b" stroke-width="1.6"/>
-  <text x="540" y="172" font-size="15" font-weight="700" letter-spacing="1.6" fill="#0a0a0b" text-anchor="middle">UNIFORMITY OS</text>
-  <text x="540" y="192" font-size="11.5" fill="#71717a" text-anchor="middle">the operating system / composition layer — owns no domain semantics</text>
-  <g font-size="11" font-weight="500">
-    <rect x="226" y="212" width="200" height="30" rx="7" fill="#ffffff" stroke="#e7e7ea"/>
-    <text x="326" y="232" fill="#3f3f46" text-anchor="middle">Store + immutable events</text>
-    <rect x="440" y="212" width="200" height="30" rx="7" fill="#ffffff" stroke="#e7e7ea"/>
-    <text x="540" y="232" fill="#3f3f46" text-anchor="middle">Runtime contract</text>
-    <rect x="654" y="212" width="200" height="30" rx="7" fill="#ffffff" stroke="#e7e7ea"/>
-    <text x="754" y="232" fill="#3f3f46" text-anchor="middle">Role / context projection</text>
-  </g>
-  <text x="540" y="270" font-size="10.5" font-family="ui-monospace,Consolas,monospace" fill="#a1a1aa" text-anchor="middle">Object → State → Signal → Evidence → Intelligence → Action → Verification → History</text>
-
-  <!-- evidence package -->
-  <path d="M540 288 L540 344" stroke="#71717a" stroke-width="1.6" marker-end="url(#ar)"/>
-  <rect x="368" y="302" width="344" height="30" rx="15" fill="#ffffff" stroke="#e7e7ea"/>
-  <text x="540" y="322" font-size="11" fill="#3f3f46" text-anchor="middle">governed evidence package (filtered before the call)</text>
-
-  <!-- ===== FRIDGE BRAIN ===== -->
-  <rect x="286" y="352" width="508" height="126" rx="14" fill="#fafafa" stroke="#0a0a0b" stroke-width="1.4" stroke-dasharray="6 4"/>
-  <text x="540" y="386" font-size="14" font-weight="700" letter-spacing="1.4" fill="#0a0a0b" text-anchor="middle">FRIDGE BRAIN</text>
-  <text x="540" y="406" font-size="11.5" fill="#71717a" text-anchor="middle">separate advisory intelligence service · HTTP + deterministic fallback</text>
-  <g font-size="10.5" fill="#3f3f46">
-    <rect x="316" y="422" width="220" height="26" rx="6" fill="#ffffff" stroke="#e7e7ea"/>
-    <text x="426" y="439" fill="#3f3f46" text-anchor="middle">may: interpret · rank · cite · propose</text>
-    <rect x="552" y="422" width="212" height="26" rx="6" fill="#ffffff" stroke="#e7e7ea"/>
-    <text x="658" y="439" fill="#a1a1aa" text-anchor="middle">never: mutate · accept · write history</text>
+  <!-- ================= TUNNEL ================= -->
+  <!-- nested rounded rectangles converging to the core: the depth axis of the OS -->
+  <g opacity="0.5">
+    <rect x="150" y="120" width="900" height="560" rx="42" stroke="#8B7CF6" stroke-opacity="0.14" stroke-width="1.4"/>
+    <rect x="205" y="170" width="790" height="460" rx="34" stroke="#8B7CF6" stroke-opacity="0.18" stroke-width="1.4"/>
+    <rect x="262" y="220" width="676" height="360" rx="27" stroke="#2DD4E8" stroke-opacity="0.20" stroke-width="1.4"/>
+    <rect x="320" y="270" width="560" height="260" rx="21" stroke="#2DD4E8" stroke-opacity="0.26" stroke-width="1.5"/>
+    <rect x="380" y="320" width="440" height="160" rx="16" stroke="#2DD4E8" stroke-opacity="0.34" stroke-width="1.6"/>
   </g>
 
-  <!-- assessment only -->
-  <path d="M540 478 L540 534" stroke="#71717a" stroke-width="1.6" marker-end="url(#ar)"/>
-  <rect x="396" y="492" width="288" height="30" rx="15" fill="#ffffff" stroke="#e7e7ea"/>
-  <text x="540" y="512" font-size="11" fill="#3f3f46" text-anchor="middle">advisory assessment only — exactly one proposed next action</text>
-
-  <!-- ===== INSTRUMENT DOMAIN ===== -->
-  <rect x="196" y="542" width="688" height="150" rx="14" fill="#fafafa" stroke="#0a0a0b" stroke-width="1.6"/>
-  <text x="540" y="578" font-size="15" font-weight="700" letter-spacing="1.4" fill="#0a0a0b" text-anchor="middle">LOGARHYTHM / SUBANGEL</text>
-  <text x="540" y="598" font-size="11.5" fill="#71717a" text-anchor="middle">one instrument world — public identity + archive, diagnostics, repair, service history</text>
-  <g font-size="10.5">
-    <rect x="226" y="618" width="150" height="30" rx="7" fill="#ffffff" stroke="#e7e7ea"/>
-    <text x="301" y="637" fill="#3f3f46" text-anchor="middle">Matt · technical</text>
-    <rect x="388" y="618" width="150" height="30" rx="7" fill="#ffffff" stroke="#e7e7ea"/>
-    <text x="463" y="637" fill="#3f3f46" text-anchor="middle">Susanna · operational</text>
-    <rect x="550" y="618" width="150" height="30" rx="7" fill="#ffffff" stroke="#e7e7ea"/>
-    <text x="625" y="637" fill="#3f3f46" text-anchor="middle">Customer · safe status</text>
-    <rect x="712" y="618" width="150" height="30" rx="7" fill="#ffffff" stroke="#e7e7ea"/>
-    <text x="787" y="637" fill="#3f3f46" text-anchor="middle">Logarhythm · public</text>
+  <!-- convergence rays -->
+  <g stroke="#2DD4E8" stroke-opacity="0.07" stroke-width="1">
+    <line x1="150" y1="120" x2="600" y2="372"/><line x1="1050" y1="120" x2="600" y2="372"/>
+    <line x1="150" y1="680" x2="600" y2="372"/><line x1="1050" y1="680" x2="600" y2="372"/>
   </g>
-  <text x="540" y="676" font-size="10.5" font-family="ui-monospace,Consolas,monospace" fill="#a1a1aa" text-anchor="middle">all four projections resolve the same canonical object_id</text>
 
-  <!-- JUNO reference object -->
-  <rect x="742" y="572" width="0" height="0" fill="none"/>
-  <rect x="56" y="560" width="118" height="112" rx="12" fill="#ffffff" stroke="#e7e7ea"/>
-  <text x="115" y="588" font-size="11" font-weight="700" letter-spacing="1" fill="#3f3f46" text-anchor="middle">JUNO-106</text>
-  <text x="115" y="608" font-size="10" fill="#a1a1aa" text-anchor="middle">reference object</text>
-  <text x="115" y="624" font-size="10" fill="#a1a1aa" text-anchor="middle">proves the runtime</text>
-  <text x="115" y="646" font-size="10" font-weight="600" fill="#0ea5e9" text-anchor="middle">not a product</text>
+  <!-- ================= CORE ================= -->
+  <circle cx="600" cy="372" r="300" fill="url(#coreGlow)"/>
+  <circle cx="600" cy="175" r="340" fill="url(#violetGlow)"/>
 
-  <!-- separate adapters -->
-  <rect x="906" y="560" width="118" height="112" rx="12" fill="#ffffff" stroke="#e7e7ea"/>
-  <text x="965" y="588" font-size="11" font-weight="700" letter-spacing="1" fill="#3f3f46" text-anchor="middle">RESELL · UCMR</text>
-  <text x="965" y="608" font-size="10" fill="#a1a1aa" text-anchor="middle">separate domain</text>
-  <text x="965" y="624" font-size="10" fill="#a1a1aa" text-anchor="middle">adapters</text>
-  <text x="965" y="646" font-size="10" font-weight="600" fill="#0ea5e9" text-anchor="middle">same contract</text>
+  <g>
+    <!-- three nested hexagons = the canonical object -->
+    <polygon points="600,268 690,320 690,424 600,476 510,424 510,320" stroke="#8B93A7" stroke-opacity="0.45" stroke-width="1.2" fill="none"/>
+    <polygon points="600,300 657,333 657,399 600,432 543,399 543,333" stroke="#8B7CF6" stroke-opacity="0.85" stroke-width="1.5" fill="none"/>
+    <polygon points="600,332 624,346 624,374 600,388 576,374 576,346" stroke="#2DD4E8" stroke-width="1.8" fill="none"/>
+    <circle cx="600" cy="372" r="34" fill="#2DD4E8" opacity="0.14" filter="url(#soft)"/>
+    <circle cx="600" cy="372" r="7" fill="#2DD4E8"/>
+    <circle cx="600" cy="372" r="13" fill="none" stroke="#2DD4E8" stroke-opacity="0.5" stroke-width="1.2"/>
+  </g>
 
-  <!-- Hermes + Nous -->
-  <rect x="196" y="716" width="688" height="62" rx="12" fill="#ffffff" stroke="#e7e7ea"/>
-  <text x="540" y="742" font-size="12" font-weight="600" fill="#3f3f46" text-anchor="middle">Hermes + Nous — research / operator cross-reference</text>
-  <text x="540" y="762" font-size="10.5" fill="#a1a1aa" text-anchor="middle">governed execution support · not product truth</text>
+  <text x="600" y="238" font-family="ui-monospace,Consolas,monospace" font-size="12.5" font-weight="700" letter-spacing="4" fill="#E8ECF4" text-anchor="middle">UNIFORMITY OS</text>
+  <text x="600" y="258" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif" font-size="11.5" fill="#8B93A7" text-anchor="middle">the composition layer · owns no domain semantics</text>
 
-  <text x="56" y="826" font-size="10.5" fill="#a1a1aa">Technical boundaries stay explicit even when the experience feels seamless. The OS composes; the domains remain real.</text>
-  <text x="56" y="848" font-size="10.5" font-family="ui-monospace,Consolas,monospace" fill="#c4c4c8">POST /v1/assessments  ·  GET /health  ·  transport: service | fallback</text>
+  <!-- identity label -->
+  <g font-family="ui-monospace,Consolas,monospace" font-size="10.5" fill="#5A6379">
+    <text x="600" y="512" text-anchor="middle" letter-spacing="2">ONE CANONICAL object_id</text>
+  </g>
+
+  <!-- ================= GRAMMAR RAIL (vertical, left) ================= -->
+  <g font-family="ui-monospace,Consolas,monospace" font-size="10.5">
+    <text x="72" y="352" fill="#8B7CF6" letter-spacing="2.4" transform="rotate(-90 72 352)" text-anchor="middle">SHARED RUNTIME GRAMMAR</text>
+  </g>
+  <g>
+    <line x1="112" y1="270" x2="112" y2="476" stroke="url(#rule)" stroke-width="2" opacity="0.55"/>
+    <circle cx="112" cy="286" r="3.4" fill="#2DD4E8"/><circle cx="112" cy="324" r="3.4" fill="#2DD4E8"/>
+    <circle cx="112" cy="362" r="3.4" fill="#8B7CF6"/><circle cx="112" cy="400" r="3.4" fill="#F0B429"/>
+    <circle cx="112" cy="438" r="3.4" fill="#2DD4E8"/>
+  </g>
+
+  <!-- ================= EVIDENCE BEAM (OS -> FRIDGE BRAIN) ================= -->
+  <path d="M600 500 L600 560" stroke="url(#beam)" stroke-width="3" marker-end="url(#ar)"/>
+  <rect x="472" y="524" width="256" height="26" rx="13" fill="#0E1219" stroke="#2DD4E8" stroke-opacity="0.35"/>
+  <text x="600" y="541" font-family="ui-monospace,Consolas,monospace" font-size="10.5" fill="#8FD8E8" text-anchor="middle">governed evidence package</text>
+
+  <!-- ================= FRIDGE BRAIN ================= -->
+  <circle cx="600" cy="610" r="230" fill="url(#brainGlow)"/>
+  <rect x="356" y="566" width="488" height="120" rx="18" fill="#0E1219" stroke="#F0B429" stroke-opacity="0.55" stroke-width="1.6" stroke-dasharray="8 6"/>
+  <text x="600" y="596" font-family="ui-monospace,Consolas,monospace" font-size="13" font-weight="700" letter-spacing="3" fill="#F0B429" text-anchor="middle">FRIDGE BRAIN</text>
+  <text x="600" y="615" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="#8B93A7" text-anchor="middle">separate advisory service · HTTP + deterministic fallback</text>
+
+  <g font-family="ui-monospace,Consolas,monospace" font-size="10">
+    <rect x="380" y="630" width="216" height="24" rx="6" fill="#0B0E15" stroke="#2DD4E8" stroke-opacity="0.3"/>
+    <text x="488" y="646" fill="#8FD8E8" text-anchor="middle">may: interpret · rank · cite · propose</text>
+    <rect x="608" y="630" width="212" height="24" rx="6" fill="#0B0E15" stroke="#5A6379" stroke-opacity="0.5"/>
+    <text x="714" y="646" fill="#5A6379" text-anchor="middle">never: mutate · accept · write history</text>
+  </g>
+
+  <!-- advisory return -->
+  <path d="M600 692 L600 736" stroke="url(#beamAdv)" stroke-width="2.4" marker-end="url(#arA)" stroke-dasharray="6 5"/>
+  <rect x="430" y="700" width="340" height="24" rx="12" fill="#0E1219" stroke="#F0B429" stroke-opacity="0.35"/>
+  <text x="600" y="716" font-family="ui-monospace,Consolas,monospace" font-size="10.5" fill="#E8C87A" text-anchor="middle">advisory assessment only · exactly one proposed next action</text>
+
+  <!-- ================= SIDE DOMAINS ================= -->
+  <!-- instrument world -->
+  <g>
+    <rect x="72" y="566" width="228" height="120" rx="16" fill="#0E1219" stroke="#8B7CF6" stroke-opacity="0.5" stroke-width="1.4"/>
+    <text x="186" y="594" font-family="ui-monospace,Consolas,monospace" font-size="11.5" font-weight="700" letter-spacing="1.6" fill="#A99CFF" text-anchor="middle">LOGARHYTHM / SUBANGEL</text>
+    <text x="186" y="613" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif" font-size="10.5" fill="#8B93A7" text-anchor="middle">one instrument world</text>
+    <line x1="92" y1="626" x2="280" y2="626" stroke="#1A1E27"/>
+    <g font-family="ui-monospace,Consolas,monospace" font-size="9.5" fill="#8B93A7">
+      <text x="92" y="645">archive · diagnostics</text>
+      <text x="92" y="662">repair · service history</text>
+      <text x="92" y="679" fill="#A99CFF">Matt · Susanna · Customer · Logarhythm</text>
+    </g>
+  </g>
+
+  <!-- adapters -->
+  <g>
+    <rect x="900" y="566" width="228" height="120" rx="16" fill="#0E1219" stroke="#2DD4E8" stroke-opacity="0.45" stroke-width="1.4"/>
+    <text x="1014" y="594" font-family="ui-monospace,Consolas,monospace" font-size="11.5" font-weight="700" letter-spacing="1.6" fill="#8FD8E8" text-anchor="middle">RESELL · UCMR</text>
+    <text x="1014" y="613" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif" font-size="10.5" fill="#8B93A7" text-anchor="middle">separate domain adapters</text>
+    <line x1="920" y1="626" x2="1108" y2="626" stroke="#1A1E27"/>
+    <g font-family="ui-monospace,Consolas,monospace" font-size="9.5" fill="#8B93A7">
+      <text x="920" y="645">own domain semantics</text>
+      <text x="920" y="662">same runtime contract</text>
+      <text x="920" y="679" fill="#8FD8E8">never instrument truth</text>
+    </g>
+  </g>
+
+  <!-- connectors to side domains -->
+  <path d="M510 620 L300 626" stroke="#8B7CF6" stroke-opacity="0.45" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <path d="M690 620 L900 626" stroke="#2DD4E8" stroke-opacity="0.45" stroke-width="1.4" stroke-dasharray="5 4"/>
+
+  <!-- ================= REFERENCE OBJECT + RESEARCH (top corners) ================= -->
+  <g>
+    <rect x="72" y="120" width="180" height="86" rx="14" fill="#0E1219" stroke="#5A6379" stroke-opacity="0.5"/>
+    <text x="162" y="146" font-family="ui-monospace,Consolas,monospace" font-size="11" font-weight="700" letter-spacing="1.4" fill="#E8ECF4" text-anchor="middle">JUNO-106</text>
+    <text x="162" y="164" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif" font-size="10" fill="#8B93A7" text-anchor="middle">reference object</text>
+    <text x="162" y="180" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif" font-size="10" fill="#8B93A7" text-anchor="middle">proves the runtime</text>
+    <text x="162" y="196" font-family="ui-monospace,Consolas,monospace" font-size="9.5" font-weight="700" fill="#2DD4E8" text-anchor="middle">NOT A PRODUCT</text>
+  </g>
+  <g>
+    <rect x="948" y="120" width="180" height="86" rx="14" fill="#0E1219" stroke="#5A6379" stroke-opacity="0.5"/>
+    <text x="1038" y="146" font-family="ui-monospace,Consolas,monospace" font-size="11" font-weight="700" letter-spacing="1.4" fill="#E8ECF4" text-anchor="middle">HERMES + NOUS</text>
+    <text x="1038" y="164" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif" font-size="10" fill="#8B93A7" text-anchor="middle">research / operator</text>
+    <text x="1038" y="180" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif" font-size="10" fill="#8B93A7" text-anchor="middle">governed execution</text>
+    <text x="1038" y="196" font-family="ui-monospace,Consolas,monospace" font-size="9.5" font-weight="700" fill="#5A6379" text-anchor="middle">NOT PRODUCT TRUTH</text>
+  </g>
+
+  <!-- ================= FOOTER ================= -->
+  <line x1="72" y1="762" x2="1128" y2="762" stroke="url(#rule)" stroke-width="1" opacity="0.4"/>
+  <text x="72" y="786" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="#5A6379">Technical boundaries stay explicit even when the experience feels seamless.</text>
+  <text x="1128" y="786" font-family="ui-monospace,Consolas,monospace" font-size="10.5" fill="#5A6379" text-anchor="end">POST /v1/assessments · GET /health · transport: service | fallback</text>
 </svg>
