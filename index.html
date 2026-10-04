@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" data-theme="light">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -13,9 +13,8 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="apple-touch-icon" href="favicon.svg" />
 <link rel="preconnect" href="https://img.shields.io" />
-<link rel="preconnect" href="https://raw.githubusercontent.com" />
+<link rel="preconnect" href="https://api.github.com" />
 
-<!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Uniformity" />
 <meta property="og:title" content="Uniformity — The OS composes. The domains remain real." />
@@ -29,13 +28,11 @@
 <meta name="twitter:title" content="Uniformity — The OS composes." />
 <meta name="twitter:description" content="The operating system and composition layer for a portfolio of distinct products." />
 
-<!-- hreflang -->
 <link rel="alternate" hreflang="en" href="https://uniform1ty.github.io/" />
 <link rel="alternate" hreflang="fr" href="https://uniform1ty.github.io/" />
 <link rel="alternate" hreflang="es" href="https://uniform1ty.github.io/" />
 <link rel="alternate" hreflang="x-default" href="https://uniform1ty.github.io/" />
 
-<!-- Structured data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -53,53 +50,73 @@
 </script>
 
 <style>
-  :root{
+  /* ================= TOKENS ================= */
+  :root,[data-theme="light"]{
     --ink:#0a0a0b; --ink-2:#3f3f46; --ink-3:#71717a; --ink-4:#a1a1aa;
-    --rule:#e7e7ea; --rule-2:#f4f4f6; --paper:#ffffff; --paper-2:#fafafa; --paper-3:#f6f6f8;
+    --rule:#e7e7ea; --paper:#ffffff; --paper-2:#fafafa; --paper-3:#f6f6f8;
     --accent:#0ea5e9; --accent-2:#6366f1; --ok:#16a34a; --warn:#d97706;
+    --glass:rgba(255,255,255,.72);
+    --shadow:0 18px 44px -20px rgba(10,10,11,.3);
     --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
     --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
     --ease:cubic-bezier(.16,1,.3,1);
   }
+  [data-theme="dark"]{
+    --ink:#f4f4f5; --ink-2:#d4d4d8; --ink-3:#a1a1aa; --ink-4:#71717a;
+    --rule:#27272a; --paper:#09090b; --paper-2:#0c0c0e; --paper-3:#18181b;
+    --accent:#38bdf8; --accent-2:#818cf8; --ok:#4ade80; --warn:#fbbf24;
+    --glass:rgba(9,9,11,.72);
+    --shadow:0 18px 44px -20px rgba(0,0,0,.85);
+  }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-  body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.65;font-size:16px}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.65;font-size:16px;transition:background .35s var(--ease),color .35s var(--ease)}
   a{color:inherit;text-decoration:none}
   code{font-family:var(--mono);font-size:.9em;background:var(--paper-3);padding:2px 6px;border-radius:5px;border:1px solid var(--rule)}
   .wrap{max-width:1120px;margin:0 auto;padding:0 32px}
-  ::selection{background:rgba(14,165,233,.18)}
+  ::selection{background:rgba(14,165,233,.2)}
   :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-  /* ============ reading progress ============ */
   #prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0;z-index:200;transition:width .1s linear}
 
-  /* ============ NAV ============ */
-  nav{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(18px);-webkit-backdrop-filter:saturate(180%) blur(18px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+  /* ================= NAV ================= */
+  nav{position:sticky;top:0;z-index:80;background:var(--glass);backdrop-filter:saturate(180%) blur(18px);-webkit-backdrop-filter:saturate(180%) blur(18px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
   nav.scrolled{border-bottom-color:var(--rule)}
-  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px;gap:18px}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
   .brand{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:.2em;font-size:12.5px;flex:none}
   .brand svg{width:23px;height:23px;transition:transform .6s var(--ease)}
   .brand:hover svg{transform:rotate(60deg)}
-  .nav-links{display:flex;gap:28px;font-size:14px;color:var(--ink-3);align-items:center}
+  .brand .mk{stroke:var(--ink)}
+  .brand .mk2{stroke:var(--ink-4)}
+  .nav-links{display:flex;gap:26px;font-size:14px;color:var(--ink-3);align-items:center}
   .nav-links a{transition:color .2s;position:relative;white-space:nowrap}
   .nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:-5px;height:1.5px;background:var(--ink);transition:right .3s var(--ease)}
   .nav-links a:hover{color:var(--ink)}
   .nav-links a:hover::after{right:0}
-  .nav-cta{padding:8px 16px;border:1px solid var(--rule);border-radius:8px;color:var(--ink);font-weight:500}
-  .nav-cta:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .nav-tools{display:flex;align-items:center;gap:8px;flex:none}
+  .icon-btn{display:grid;place-items:center;width:36px;height:36px;border:1px solid var(--rule);border-radius:9px;background:var(--paper);color:var(--ink-2);cursor:pointer;transition:.2s var(--ease)}
+  .icon-btn:hover{border-color:var(--ink-4);color:var(--ink)}
+  .icon-btn svg{width:16px;height:16px}
+  [data-theme="light"] .i-moon{display:block}[data-theme="light"] .i-sun{display:none}
+  [data-theme="dark"] .i-moon{display:none}[data-theme="dark"] .i-sun{display:block}
+  .kbd-btn{display:flex;align-items:center;gap:8px;height:36px;padding:0 11px;border:1px solid var(--rule);border-radius:9px;background:var(--paper);color:var(--ink-3);cursor:pointer;font-family:inherit;font-size:12.5px;transition:.2s var(--ease)}
+  .kbd-btn:hover{border-color:var(--ink-4);color:var(--ink-2)}
+  .kbd-btn kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--rule);border-bottom-width:2px;border-radius:4px;padding:1px 5px;color:var(--ink-4)}
+  .nav-cta{padding:8px 16px;border:1px solid var(--rule);border-radius:8px;color:var(--ink);font-weight:500;font-size:14px}
+  .nav-cta:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
   .nav-cta::after{display:none}
+  @media(max-width:1000px){.nav-links a:not(.nav-cta){display:none}}
+  @media(max-width:640px){.kbd-btn span{display:none}}
 
-  /* ============ LANGUAGE SWITCH ============ */
+  /* ================= LANGUAGE ================= */
   .lang{position:relative;flex:none}
-  .lang-btn{display:flex;align-items:center;gap:7px;padding:7px 12px;border:1px solid var(--rule);border-radius:8px;background:#fff;font-family:inherit;font-size:12.5px;font-weight:500;color:var(--ink-2);cursor:pointer;transition:.2s var(--ease)}
+  .lang-btn{display:flex;align-items:center;gap:7px;height:36px;padding:0 11px;border:1px solid var(--rule);border-radius:9px;background:var(--paper);font-family:inherit;font-size:12.5px;font-weight:500;color:var(--ink-2);cursor:pointer;transition:.2s var(--ease)}
   .lang-btn:hover{border-color:var(--ink-4);color:var(--ink)}
-  .lang-btn svg{width:14px;height:14px;opacity:.7;transition:transform .25s var(--ease)}
-  .lang[data-open="true"] .lang-btn svg{transform:rotate(180deg)}
-  .lang-menu{
-    position:absolute;top:calc(100% + 8px);right:0;min-width:184px;background:#fff;border:1px solid var(--rule);
-    border-radius:11px;padding:6px;box-shadow:0 18px 44px -20px rgba(10,10,11,.3);
-    opacity:0;visibility:hidden;transform:translateY(-6px);transition:.22s var(--ease);z-index:90;
-  }
+  .lang-btn svg{width:14px;height:14px;opacity:.7}
+  .lang-btn .chev{transition:transform .25s var(--ease)}
+  .lang[data-open="true"] .lang-btn .chev{transform:rotate(180deg)}
+  .lang-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:190px;background:var(--paper);border:1px solid var(--rule);border-radius:11px;padding:6px;box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translateY(-6px);transition:.22s var(--ease);z-index:90}
   .lang[data-open="true"] .lang-menu{opacity:1;visibility:visible;transform:none}
   .lang-item{display:flex;align-items:center;gap:11px;width:100%;padding:9px 11px;border:0;background:transparent;font-family:inherit;font-size:13.5px;color:var(--ink-2);cursor:pointer;border-radius:7px;text-align:left;transition:.16s}
   .lang-item:hover{background:var(--paper-3);color:var(--ink)}
@@ -107,11 +124,30 @@
   .lang-item[aria-current="true"]{color:var(--ink);font-weight:600}
   .lang-item[aria-current="true"]::before{content:"✓";color:var(--accent);font-size:12px;width:12px}
   .lang-item:not([aria-current="true"])::before{content:"";width:12px}
-  @media(max-width:920px){.nav-links a:not(.nav-cta){display:none}}
 
-  /* ============ HERO ============ */
+  /* ================= COMMAND PALETTE ================= */
+  #palette{position:fixed;inset:0;z-index:300;display:none}
+  #palette.on{display:block}
+  .pal-bg{position:absolute;inset:0;background:rgba(10,10,11,.42);backdrop-filter:blur(4px);animation:palIn .18s var(--ease)}
+  @keyframes palIn{from{opacity:0}to{opacity:1}}
+  .pal-box{position:relative;max-width:600px;margin:13vh auto 0;background:var(--paper);border:1px solid var(--rule);border-radius:15px;box-shadow:0 30px 80px -30px rgba(0,0,0,.5);overflow:hidden;animation:palUp .22s var(--ease)}
+  @keyframes palUp{from{opacity:0;transform:translateY(-12px) scale(.985)}to{opacity:1;transform:none}}
+  .pal-in{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--rule)}
+  .pal-in svg{width:17px;height:17px;color:var(--ink-4);flex:none}
+  .pal-in input{flex:1;border:0;background:transparent;font-family:inherit;font-size:15.5px;color:var(--ink);outline:0}
+  .pal-in input::placeholder{color:var(--ink-4)}
+  .pal-list{max-height:min(52vh,420px);overflow-y:auto;padding:7px}
+  .pal-item{display:flex;align-items:center;gap:12px;width:100%;padding:11px 13px;border:0;background:transparent;font-family:inherit;font-size:14.5px;color:var(--ink-2);cursor:pointer;border-radius:9px;text-align:left;transition:background .12s}
+  .pal-item .pi-ico{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;background:var(--paper-3);color:var(--ink-3);font-family:var(--mono);font-size:11px;flex:none;border:1px solid var(--rule)}
+  .pal-item .pi-sub{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--ink-4)}
+  .pal-item.sel,.pal-item:hover{background:var(--paper-3);color:var(--ink)}
+  .pal-item.sel .pi-ico{border-color:var(--accent);color:var(--accent)}
+  .pal-foot{display:flex;gap:16px;padding:11px 18px;border-top:1px solid var(--rule);font-size:11.5px;color:var(--ink-4);font-family:var(--mono);background:var(--paper-2)}
+  .pal-empty{padding:30px;text-align:center;color:var(--ink-4);font-size:14px}
+
+  /* ================= HERO ================= */
   header{padding:112px 0 0;position:relative;overflow:hidden}
-  .kicker{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--rule);padding:7px 14px;border-radius:999px;margin-bottom:30px;background:#fff}
+  .kicker{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--rule);padding:7px 14px;border-radius:999px;margin-bottom:30px;background:var(--paper)}
   .live{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:ping 2.4s var(--ease) infinite}
   @keyframes ping{0%{box-shadow:0 0 0 0 rgba(22,163,74,.45)}70%{box-shadow:0 0 0 9px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
   h1{font-size:clamp(40px,7.4vw,86px);line-height:1.02;font-weight:600;letter-spacing:-.045em;max-width:16ch}
@@ -121,43 +157,52 @@
   .hero-sub{font-size:clamp(17px,2.1vw,20.5px);color:var(--ink-2);max-width:57ch;margin:32px 0 42px;line-height:1.58}
   .hero-cta{display:flex;gap:13px;flex-wrap:wrap;align-items:center}
   .btn{display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:10px;font-size:14.5px;font-weight:500;transition:.24s var(--ease);cursor:pointer;border:1px solid transparent;font-family:inherit}
-  .btn-p{background:var(--ink);color:#fff}
-  .btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 28px -12px rgba(10,10,11,.55)}
-  .btn-s{border-color:var(--rule);color:var(--ink-2);background:#fff}
+  .btn-p{background:var(--ink);color:var(--paper)}
+  .btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 28px -12px rgba(10,10,11,.5)}
+  .btn-s{border-color:var(--rule);color:var(--ink-2);background:var(--paper)}
   .btn-s:hover{border-color:var(--ink-4);color:var(--ink);transform:translateY(-2px)}
   .arrow{transition:transform .24s var(--ease)}
   .btn:hover .arrow{transform:translateX(3px)}
 
-  /* ============ OBJECT STAGE ============ */
+  /* ================= OBJECT STAGE ================= */
   .stage{margin-top:88px;border-top:1px solid var(--rule);padding:76px 0 0;display:grid;place-items:center;position:relative}
   .stage-glow{position:absolute;width:820px;height:820px;top:-140px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(14,165,233,.075) 0%,rgba(99,102,241,.05) 42%,transparent 68%);pointer-events:none}
   #object{width:min(580px,88vw);height:auto;position:relative;transition:transform .5s var(--ease)}
+  .obj-mark{stroke:var(--ink)}
+  .obj-mark2{stroke:var(--ink-3)}
+  .obj-mark3{stroke:var(--ink-4)}
+  .obj-ring{stroke:var(--rule)}
+  .obj-node{fill:var(--ink)}
   .stage-hint{position:absolute;bottom:8px;font-size:12px;color:var(--ink-4);font-family:var(--mono);letter-spacing:.06em}
 
-  /* ============ GRAMMAR ============ */
-  .grammar{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper-2);padding:0;margin-top:78px}
-  .gram-rail{display:flex;overflow-x:auto;scrollbar-width:none}
-  .gram-rail::-webkit-scrollbar{display:none}
-  .gram-tab{flex:1 0 auto;min-width:132px;padding:22px 16px;border:0;background:transparent;cursor:pointer;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--ink-4);border-right:1px solid var(--rule);position:relative;transition:.24s var(--ease);white-space:nowrap}
-  .gram-tab:last-child{border-right:0}
-  .gram-tab .n{display:block;font-size:10px;letter-spacing:.14em;margin-bottom:5px;color:var(--ink-4);opacity:.7}
-  .gram-tab:hover{color:var(--ink-2);background:#fff}
-  .gram-tab[aria-selected="true"]{color:var(--ink);background:#fff;font-weight:600}
-  .gram-tab[aria-selected="true"]::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent)}
-  .gram-panel{background:#fff;border-top:1px solid var(--rule);padding:34px 32px;min-height:118px}
+  /* ================= PIPELINE ================= */
+  .pipe{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper-2);margin-top:78px;padding:34px 0;overflow-x:auto}
+  .pipe-in{display:flex;align-items:center;justify-content:center;gap:0;min-width:max-content;padding:0 32px}
+  .pipe-node{display:flex;flex-direction:column;align-items:center;gap:9px;padding:0 4px;cursor:pointer;background:none;border:0;font-family:inherit}
+  .pipe-dot{width:38px;height:38px;border-radius:11px;border:1px solid var(--rule);background:var(--paper);display:grid;place-items:center;font-family:var(--mono);font-size:11px;color:var(--ink-4);transition:.3s var(--ease)}
+  .pipe-lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--ink-4);transition:.3s var(--ease);white-space:nowrap}
+  .pipe-node:hover .pipe-dot{border-color:var(--ink-4);color:var(--ink-2)}
+  .pipe-node[aria-selected="true"] .pipe-dot{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 4px rgba(14,165,233,.11)}
+  .pipe-node[aria-selected="true"] .pipe-lbl{color:var(--ink);font-weight:600}
+  .pipe-node.lit .pipe-dot{border-color:var(--accent);color:var(--accent)}
+  .pipe-conn{width:clamp(18px,3vw,46px);height:1.5px;background:var(--rule);position:relative;overflow:hidden;flex:none;margin-bottom:22px}
+  .pipe-conn::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,var(--accent),transparent);transform:translateX(-100%)}
+  .pipe-conn.flow::after{animation:flow 1.5s linear infinite}
+  @keyframes flow{to{transform:translateX(100%)}}
+  .gram-panel{background:var(--paper);border-top:1px solid var(--rule);padding:32px;min-height:118px}
   .gram-panel h3{font-size:17px;font-weight:600;letter-spacing:-.015em;margin-bottom:8px}
   .gram-panel p{color:var(--ink-2);font-size:15px;max-width:74ch}
   .gram-panel .meta{margin-top:14px;font-family:var(--mono);font-size:11.5px;color:var(--ink-4)}
   .fade{animation:fade .45s var(--ease)}
   @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-  /* ============ SECTIONS ============ */
+  /* ================= SECTIONS ================= */
   section{padding:108px 0}
   .eyebrow{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-4);margin-bottom:16px}
   h2{font-size:clamp(28px,4.3vw,45px);font-weight:600;letter-spacing:-.036em;line-height:1.12;margin-bottom:20px;max-width:23ch}
   .lead{color:var(--ink-2);max-width:62ch;font-size:17px;margin-bottom:52px}
 
-  /* ============ OWNERSHIP ============ */
+  /* ================= OWNERSHIP ================= */
   .own{border-top:1px solid var(--rule)}
   .own-row{display:grid;grid-template-columns:minmax(190px,250px) 1fr;gap:30px;padding:25px 0;border-bottom:1px solid var(--rule);align-items:start;transition:background .22s}
   .own-row:hover{background:var(--paper-2)}
@@ -169,40 +214,42 @@
   .own-body .never{color:var(--ink-4)}
   @media(max-width:680px){.own-row{grid-template-columns:1fr;gap:9px}}
 
-  /* ============ DEMO ============ */
-  .demo-shell{border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(10,10,11,.04),0 24px 60px -40px rgba(10,10,11,.25)}
+  /* ================= DEMO ================= */
+  .demo-shell{border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--paper);box-shadow:0 1px 2px rgba(10,10,11,.04),0 24px 60px -40px rgba(10,10,11,.25)}
   .demo-bar{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--rule);background:var(--paper-2)}
   .demo-dots{display:flex;gap:6px}
   .demo-dots i{width:10px;height:10px;border-radius:50%;background:var(--rule);display:block}
   .demo-title{font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.05em}
-  .demo-badge{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--ink-3);border:1px solid var(--rule);padding:3px 9px;border-radius:6px;background:#fff}
+  .demo-badge{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--ink-3);border:1px solid var(--rule);padding:3px 9px;border-radius:6px;background:var(--paper)}
   .demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule)}
   @media(max-width:860px){.demo-grid{grid-template-columns:1fr}}
-  .demo-col{background:#fff;padding:26px}
+  .demo-col{background:var(--paper);padding:26px}
   .demo-col h4{font-size:12px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}
   .obj-card{border:1px solid var(--rule);border-radius:11px;padding:16px;margin-bottom:14px}
-  .obj-id{font-family:var(--mono);font-size:11px;color:var(--ink-4);letter-spacing:.04em;display:flex;align-items:center;gap:8px}
-  .obj-id button{background:none;border:0;cursor:pointer;color:var(--ink-4);font-family:inherit;font-size:10.5px;padding:2px 6px;border:1px solid var(--rule);border-radius:5px;transition:.18s}
+  .obj-id{font-family:var(--mono);font-size:11px;color:var(--ink-4);letter-spacing:.04em;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .obj-id button{background:none;cursor:pointer;color:var(--ink-4);font-family:inherit;font-size:10.5px;padding:2px 6px;border:1px solid var(--rule);border-radius:5px;transition:.18s}
   .obj-id button:hover{color:var(--ink);border-color:var(--ink-4)}
   .obj-name{font-weight:600;font-size:15px;margin:5px 0 10px}
   .state-pill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:500;padding:4px 11px;border-radius:999px;border:1px solid var(--rule);background:var(--paper-2);transition:.3s var(--ease)}
   .state-pill .d{width:6px;height:6px;border-radius:50%;background:var(--ink-4);transition:.3s}
-  .state-pill.active{border-color:rgba(14,165,233,.4);background:rgba(14,165,233,.07);color:#0369a1}
+  .state-pill.active{border-color:rgba(14,165,233,.4);background:rgba(14,165,233,.09);color:#0369a1}
+  [data-theme="dark"] .state-pill.active{color:#7dd3fc}
   .state-pill.active .d{background:var(--accent)}
-  .state-pill.done{border-color:rgba(22,163,74,.4);background:rgba(22,163,74,.07);color:#15803d}
+  .state-pill.done{border-color:rgba(22,163,74,.4);background:rgba(22,163,74,.09);color:#15803d}
+  [data-theme="dark"] .state-pill.done{color:#86efac}
   .state-pill.done .d{background:var(--ok)}
   .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:4px}
-  .act{font-family:inherit;font-size:13.5px;font-weight:500;padding:9px 17px;border-radius:9px;border:1px solid var(--rule);background:#fff;color:var(--ink-2);cursor:pointer;transition:.2s var(--ease)}
+  .act{font-family:inherit;font-size:13.5px;font-weight:500;padding:9px 17px;border-radius:9px;border:1px solid var(--rule);background:var(--paper);color:var(--ink-2);cursor:pointer;transition:.2s var(--ease)}
   .act:hover:not(:disabled){border-color:var(--ink);color:var(--ink);transform:translateY(-1px)}
   .act:disabled{opacity:.35;cursor:not-allowed}
-  .act.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .act.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
   .act.primary:hover:not(:disabled){box-shadow:0 8px 20px -10px rgba(10,10,11,.5)}
   .act.ghost{background:var(--paper-2)}
   .proj-tabs{display:flex;border:1px solid var(--rule);border-radius:9px;overflow:hidden;margin-bottom:16px}
-  .proj-tab{flex:1;padding:9px 8px;border:0;background:#fff;font-family:inherit;font-size:12.5px;font-weight:500;color:var(--ink-3);cursor:pointer;transition:.2s;border-right:1px solid var(--rule)}
+  .proj-tab{flex:1;padding:9px 8px;border:0;background:var(--paper);font-family:inherit;font-size:12.5px;font-weight:500;color:var(--ink-3);cursor:pointer;transition:.2s;border-right:1px solid var(--rule)}
   .proj-tab:last-child{border-right:0}
   .proj-tab:hover{background:var(--paper-2);color:var(--ink-2)}
-  .proj-tab[aria-selected="true"]{background:var(--ink);color:#fff}
+  .proj-tab[aria-selected="true"]{background:var(--ink);color:var(--paper)}
   .proj-view{border:1px solid var(--rule);border-radius:11px;padding:18px;min-height:186px;background:var(--paper-2)}
   .proj-view .pl{font-size:11px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin-bottom:12px}
   .proj-line{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px dashed var(--rule);font-size:13.5px}
@@ -212,10 +259,11 @@
   .hist{border-top:1px solid var(--rule);padding:20px 26px;background:var(--paper-2)}
   .hist h4{font-size:12px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin-bottom:14px}
   .hist-log{display:flex;flex-wrap:wrap;gap:8px;min-height:30px;align-items:center}
-  .ev{font-family:var(--mono);font-size:11.5px;padding:5px 11px;border-radius:7px;border:1px solid var(--rule);background:#fff;color:var(--ink-2);animation:evIn .4s var(--ease)}
-  .ev.final{border-color:rgba(22,163,74,.45);background:rgba(22,163,74,.07);color:#15803d;font-weight:600}
+  .ev{font-family:var(--mono);font-size:11.5px;padding:5px 11px;border-radius:7px;border:1px solid var(--rule);background:var(--paper);color:var(--ink-2);animation:evIn .4s var(--ease)}
+  .ev.final{border-color:rgba(22,163,74,.45);background:rgba(22,163,74,.09);color:#15803d;font-weight:600}
+  [data-theme="dark"] .ev.final{color:#86efac}
   @keyframes evIn{from{opacity:0;transform:translateY(7px) scale(.96)}to{opacity:1;transform:none}}
-  .brain{border:1px dashed var(--ink-4);border-radius:12px;padding:18px;background:#fff;margin-top:16px}
+  .brain{border:1px dashed var(--ink-4);border-radius:12px;padding:18px;background:var(--paper);margin-top:16px}
   .brain-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
   .brain-name{font-size:12.5px;font-weight:600;letter-spacing:.08em;font-family:var(--mono)}
   .brain-note{font-size:11.5px;color:var(--ink-4);font-style:italic}
@@ -226,25 +274,38 @@
   .brain-warn{margin-top:12px;font-size:12px;color:var(--warn);font-family:var(--mono);display:none}
   .brain-warn.on{display:block;animation:evIn .4s var(--ease)}
 
-  /* ============ CARDS ============ */
+  /* ================= LIVE GITHUB ================= */
+  .live-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:14px}
+  .repo{border:1px solid var(--rule);border-radius:13px;padding:20px;background:var(--paper);transition:.26s var(--ease);display:flex;flex-direction:column;gap:10px}
+  .repo:hover{transform:translateY(-3px);border-color:var(--ink-4)}
+  .repo-top{display:flex;align-items:center;gap:9px}
+  .repo-top svg{width:15px;height:15px;color:var(--ink-4);flex:none}
+  .repo-name{font-family:var(--mono);font-size:13.5px;font-weight:600;color:var(--ink)}
+  .repo-desc{font-size:13.5px;color:var(--ink-2);flex:1;line-height:1.55}
+  .repo-meta{display:flex;gap:15px;font-size:11.5px;color:var(--ink-4);font-family:var(--mono);align-items:center;flex-wrap:wrap}
+  .repo-meta .lang{display:inline-flex;align-items:center;gap:6px;position:static}
+  .repo-meta .lang i{width:8px;height:8px;border-radius:50%;background:var(--accent);display:block}
+  .live-status{font-family:var(--mono);font-size:11.5px;color:var(--ink-4);margin-bottom:20px;display:flex;align-items:center;gap:9px}
+  .live-status .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:ping 2.4s var(--ease) infinite}
+  .skel{height:132px;border-radius:13px;border:1px solid var(--rule);background:linear-gradient(100deg,var(--paper-2) 30%,var(--paper-3) 50%,var(--paper-2) 70%);background-size:200% 100%;animation:shim 1.4s linear infinite}
+  @keyframes shim{to{background-position:-200% 0}}
+
+  /* ================= CARDS / METRICS ================= */
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(278px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:13px;overflow:hidden}
-  .card{background:#fff;padding:29px;transition:.26s var(--ease)}
+  .card{background:var(--paper);padding:29px;transition:.26s var(--ease)}
   .card:hover{background:var(--paper-2);transform:translateY(-2px)}
   .card-tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-4);text-transform:uppercase;margin-bottom:13px}
   .card h3{font-size:17px;font-weight:600;letter-spacing:-.015em;margin-bottom:9px}
   .card p{font-size:14.5px;color:var(--ink-2);line-height:1.6}
-
   figure{margin:0}
   figure img{width:100%;border:1px solid var(--rule);border-radius:13px;display:block}
+  [data-theme="dark"] figure img{filter:invert(.92) hue-rotate(180deg)}
   figcaption{margin-top:15px;font-size:13.5px;color:var(--ink-4);text-align:center}
-
-  /* ============ METRICS ============ */
   .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:13px;overflow:hidden}
-  .metric{background:#fff;padding:30px 22px;text-align:center}
+  .metric{background:var(--paper);padding:30px 22px;text-align:center}
   .metric-n{font-size:34px;font-weight:600;letter-spacing:-.03em;font-family:var(--mono);line-height:1}
   .metric-l{font-size:11px;color:var(--ink-4);text-transform:uppercase;letter-spacing:.14em;margin-top:10px;font-weight:600}
 
-  /* ============ BAND ============ */
   .band{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper-2);padding:92px 0;text-align:center;position:relative;overflow:hidden}
   .band-glow{position:absolute;width:700px;height:700px;bottom:-420px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(14,165,233,.09),transparent 66%);pointer-events:none}
   .band h2{margin:0 auto 18px}
@@ -260,8 +321,7 @@
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
   .reveal.in{opacity:1;transform:none}
 
-  /* ============ TOAST ============ */
-  #toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:#fff;font-size:13px;font-family:var(--mono);padding:10px 18px;border-radius:9px;opacity:0;pointer-events:none;transition:.3s var(--ease);z-index:200}
+  #toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:var(--paper);font-size:13px;font-family:var(--mono);padding:10px 18px;border-radius:9px;opacity:0;pointer-events:none;transition:.3s var(--ease);z-index:400;max-width:88vw;text-align:center}
   #toast.on{opacity:1;transform:translate(-50%,0)}
 
   @media(prefers-reduced-motion:reduce){
@@ -275,12 +335,27 @@
 <div id="prog"></div>
 <div id="toast"></div>
 
+<!-- ================= COMMAND PALETTE ================= -->
+<div id="palette" role="dialog" aria-modal="true" aria-label="Command palette">
+  <div class="pal-bg" data-pal-close></div>
+  <div class="pal-box">
+    <div class="pal-in">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="pal-input" type="text" placeholder="Search sections, systems, actions…" autocomplete="off" spellcheck="false" aria-controls="pal-list" />
+    </div>
+    <div class="pal-list" id="pal-list" role="listbox"></div>
+    <div class="pal-foot">
+      <span>↑↓ navigate</span><span>↵ open</span><span>esc close</span>
+    </div>
+  </div>
+</div>
+
 <nav id="nav">
   <div class="wrap nav-in">
     <a href="#top" class="brand">
       <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
-        <polygon points="16,2.5 28.5,9.7 28.5,22.3 16,29.5 3.5,22.3 3.5,9.7" stroke="#0a0a0b" stroke-width="1.5"/>
-        <polygon points="16,9.5 22.5,13.2 22.5,19.8 16,23.5 9.5,19.8 9.5,13.2" stroke="#a1a1aa" stroke-width="1.5"/>
+        <polygon class="mk" points="16,2.5 28.5,9.7 28.5,22.3 16,29.5 3.5,22.3 3.5,9.7" stroke-width="1.5"/>
+        <polygon class="mk2" points="16,9.5 22.5,13.2 22.5,19.8 16,23.5 9.5,19.8 9.5,13.2" stroke-width="1.5"/>
         <circle cx="16" cy="16" r="2.4" fill="#0ea5e9"/>
       </svg>
       UNIFORMITY
@@ -288,19 +363,28 @@
     <div class="nav-links">
       <a href="#model" data-i18n="nav_model">Model</a>
       <a href="#demo" data-i18n="nav_demo">Live flow</a>
+      <a href="#live" data-i18n="nav_live">Repositories</a>
       <a href="#architecture" data-i18n="nav_arch">Architecture</a>
       <a href="#projections" data-i18n="nav_proj">Projections</a>
       <a class="nav-cta" href="https://github.com/UNIFORM1TY" data-i18n="nav_gh">GitHub</a>
     </div>
-    <div class="lang" id="lang" data-open="false">
-      <button class="lang-btn" id="lang-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-          <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/>
-        </svg>
-        <span id="lang-cur">EN</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    <div class="nav-tools">
+      <button class="kbd-btn" id="pal-open" aria-label="Open command palette">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <span data-i18n="pal_open">Search</span><kbd>⌘K</kbd>
       </button>
-      <div class="lang-menu" role="listbox" id="lang-menu" aria-label="Language"></div>
+      <button class="icon-btn" id="theme-btn" aria-label="Toggle colour theme">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <div class="lang" id="lang" data-open="false">
+        <button class="lang-btn" id="lang-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg>
+          <span id="lang-cur">EN</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:12px;height:12px"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="lang-menu" role="listbox" id="lang-menu" aria-label="Language"></div>
+      </div>
     </div>
   </div>
 </nav>
@@ -309,26 +393,26 @@
   <div class="wrap">
     <div class="kicker reveal"><span class="live"></span> <span data-i18n="kicker">Local-first · 91/91 tests passing</span></div>
     <h1 class="reveal"><span data-i18n="h1a">The OS composes.</span><br/><span class="dim" data-i18n="h1b">The domains remain real.</span><span class="cursor"></span></h1>
-    <p class="hero-sub reveal" data-i18n="hero">Uniformity is the operating system and composition layer for a portfolio of distinct products. One canonical object. Many projections. Boundaries that stay explicit even when the experience feels seamless.</p>
+    <p class="hero-sub reveal" data-i18n="hero">Uniformity is the operating system and composition layer for a portfolio of distinct products.</p>
     <div class="hero-cta reveal">
       <a class="btn btn-p" href="#demo"><span data-i18n="cta_demo">Run the live flow</span> <span class="arrow">→</span></a>
-      <a class="btn btn-s" href="#model" data-i18n="cta_model">The product model</a>
+      <a class="btn btn-s" href="#live" data-i18n="cta_live">Browse repositories</a>
     </div>
 
     <div class="stage">
       <div class="stage-glow"></div>
       <svg id="object" viewBox="0 0 580 580" fill="none" aria-label="One canonical object with projection rings">
-        <g stroke="#0a0a0b" stroke-width="1" opacity="0.11">
+        <g class="obj-ring" stroke-width="1" opacity="0.5">
           <line x1="290" y1="0" x2="290" y2="580"/><line x1="0" y1="290" x2="580" y2="290"/>
         </g>
-        <g id="ring3" opacity="0.45"><polygon points="290,58 490,173 490,407 290,522 90,407 90,173" stroke="#dcdce0" stroke-width="1" fill="none"/></g>
-        <g id="ring2" opacity="0.7"><polygon points="290,112 442,200 442,380 290,468 138,380 138,200" stroke="#b4b4b9" stroke-width="1.1" fill="none"/></g>
-        <g fill="#0a0a0b" opacity="0.5">
+        <g id="ring3" opacity="0.45"><polygon class="obj-mark3" points="290,58 490,173 490,407 290,522 90,407 90,173" stroke-width="1" fill="none"/></g>
+        <g id="ring2" opacity="0.7"><polygon class="obj-mark2" points="290,112 442,200 442,380 290,468 138,380 138,200" stroke-width="1.1" fill="none"/></g>
+        <g class="obj-node" opacity="0.5">
           <circle cx="490" cy="173" r="4"/><circle cx="490" cy="407" r="4"/><circle cx="290" cy="522" r="4"/>
           <circle cx="90" cy="407" r="4"/><circle cx="90" cy="173" r="4"/><circle cx="290" cy="58" r="4"/>
         </g>
-        <polygon points="290,178 385,232.5 385,347.5 290,402 195,347.5 195,232.5" stroke="#0a0a0b" stroke-width="1.6" fill="none"/>
-        <polygon points="290,220 342,250 342,310 290,340 238,310 238,250" stroke="#71717a" stroke-width="1.2" fill="none"/>
+        <polygon class="obj-mark" points="290,178 385,232.5 385,347.5 290,402 195,347.5 195,232.5" stroke-width="1.6" fill="none"/>
+        <polygon class="obj-mark3" points="290,220 342,250 342,310 290,340 238,310 238,250" stroke-width="1.2" fill="none"/>
         <circle cx="290" cy="290" r="14" fill="#0ea5e9" opacity="0.13"/>
         <circle cx="290" cy="290" r="5.5" fill="#0ea5e9"/>
         <text x="290" y="556" font-family="ui-monospace,Consolas,monospace" font-size="12" fill="#a1a1aa" text-anchor="middle" letter-spacing="1.4" data-i18n="obj_caption">one canonical object_id</text>
@@ -337,17 +421,8 @@
     </div>
   </div>
 
-  <div class="grammar" id="grammar">
-    <div class="gram-rail" role="tablist" aria-label="Shared runtime grammar">
-      <button class="gram-tab" role="tab" aria-selected="true" data-g="0"><span class="n">01</span><span data-i18n="g_object">Object</span></button>
-      <button class="gram-tab" role="tab" aria-selected="false" data-g="1"><span class="n">02</span><span data-i18n="g_state">State</span></button>
-      <button class="gram-tab" role="tab" aria-selected="false" data-g="2"><span class="n">03</span><span data-i18n="g_signal">Signal</span></button>
-      <button class="gram-tab" role="tab" aria-selected="false" data-g="3"><span class="n">04</span><span data-i18n="g_evidence">Evidence</span></button>
-      <button class="gram-tab" role="tab" aria-selected="false" data-g="4"><span class="n">05</span><span data-i18n="g_intel">Intelligence</span></button>
-      <button class="gram-tab" role="tab" aria-selected="false" data-g="5"><span class="n">06</span><span data-i18n="g_action">Action</span></button>
-      <button class="gram-tab" role="tab" aria-selected="false" data-g="6"><span class="n">07</span><span data-i18n="g_verif">Verification</span></button>
-      <button class="gram-tab" role="tab" aria-selected="false" data-g="7"><span class="n">08</span><span data-i18n="g_hist">History</span></button>
-    </div>
+  <div class="pipe" id="grammar">
+    <div class="pipe-in" id="pipe-in" role="tablist" aria-label="Shared runtime grammar"></div>
     <div class="gram-panel"><div id="gram-body" class="fade"></div></div>
   </div>
 </header>
@@ -357,31 +432,30 @@
     <div class="eyebrow" data-i18n="ey_model">Product model</div>
     <h2 data-i18n="h_model">One OS. Separate worlds.</h2>
     <p class="lead" data-i18n="p_model">Uniformity does not merge every project into one product.</p>
-
     <div class="own">
       <div class="own-row">
-        <div class="own-name"><span class="dot" style="background:#0a0a0b"></span><span>Uniformity<small data-i18n="own_os">the OS</small></span></div>
-        <div class="own-body" data-i18n-html="own_body_os">Owns <b>identity, canonical object and state, permissions, events, orchestration and role/context projections</b>. <span class="never">Must not own instrument semantics or advisory reasoning.</span></div>
+        <div class="own-name"><span class="dot" style="background:var(--ink)"></span><span>Uniformity<small data-i18n="own_os">the OS</small></span></div>
+        <div class="own-body" data-i18n-html="own_body_os">Owns identity.</div>
       </div>
       <div class="own-row">
         <div class="own-name"><span class="dot" style="background:#a855f7"></span><span>LOGARHYTHM / SUBANGEL<small data-i18n="own_world">one instrument world</small></span></div>
-        <div class="own-body" data-i18n-html="own_body_world">Public and cultural identity plus instrument archive, diagnostics, repair workflow and service-history depth. <span class="never">Must not own cross-domain OS truth.</span></div>
+        <div class="own-body" data-i18n-html="own_body_world">Instrument world.</div>
       </div>
       <div class="own-row">
         <div class="own-name"><span class="dot" style="background:#0ea5e9"></span><span>JUNO-106<small data-i18n="own_ref">reference object</small></span></div>
-        <div class="own-body" data-i18n-html="own_body_ref">A <b>reference object used to prove the runtime</b>. It is not a product and never becomes one.</div>
+        <div class="own-body" data-i18n-html="own_body_ref">Reference object.</div>
       </div>
       <div class="own-row">
         <div class="own-name"><span class="dot" style="background:#d97706"></span><span>Fridge Brain<small data-i18n="own_adv">advisory service</small></span></div>
-        <div class="own-body" data-i18n-html="own_body_adv">May retrieve, interpret, rank, cite and propose one next action. <span class="never">Must never mutate canonical state, accept actions, or write history.</span></div>
+        <div class="own-body" data-i18n-html="own_body_adv">Advisory.</div>
       </div>
       <div class="own-row">
         <div class="own-name"><span class="dot" style="background:#22d3ee"></span><span>RESELL · UCMR<small data-i18n="own_adapter">domain adapters</small></span></div>
-        <div class="own-body" data-i18n-html="own_body_adapter">Their own domain semantics and workflows, composed through the same runtime contract. <span class="never">Must not own instrument-domain truth.</span></div>
+        <div class="own-body" data-i18n-html="own_body_adapter">Adapters.</div>
       </div>
       <div class="own-row">
         <div class="own-name"><span class="dot" style="background:#6366f1"></span><span>Hermes + Nous<small data-i18n="own_res">research / operator</small></span></div>
-        <div class="own-body" data-i18n-html="own_body_res">The research and governed-execution cross-reference. <span class="never">Not product truth.</span></div>
+        <div class="own-body" data-i18n-html="own_body_res">Research.</div>
       </div>
     </div>
   </div>
@@ -399,16 +473,14 @@
         <div class="demo-title" data-i18n="demo_title">uniformity · juno-106 reference slice</div>
         <div class="demo-badge" id="transport" data-i18n="transport">transport: fallback · deterministic</div>
       </div>
-
       <div class="demo-grid">
         <div class="demo-col">
           <h4><span data-i18n="col_obj">Canonical object</span><span id="rev">rev 1</span></h4>
           <div class="obj-card">
-            <div class="obj-id"><span>object_id · juno106-7f3a91c4</span><button id="btn-copy" data-i18n="copy">Copy object_id</button></div>
+            <div class="obj-id"><span>object_id · juno106-7f3a91c4</span><button id="btn-copy" data-i18n="copy">Copy</button></div>
             <div class="obj-name" data-i18n="obj_name">JUNO-106 · voice board fault</div>
             <span class="state-pill" id="pill"><span class="d"></span><span id="pill-text">signal detected</span></span>
           </div>
-
           <h4 data-i18n="col_actions">Workshop actions</h4>
           <div class="actions">
             <button class="act primary" id="btn-accept" data-i18n="btn_accept">Accept action</button>
@@ -416,7 +488,6 @@
             <button class="act" id="btn-complete" disabled data-i18n="btn_complete">Complete + verify</button>
             <button class="act ghost" id="btn-reset" data-i18n="btn_reset">Reset</button>
           </div>
-
           <div class="brain">
             <div class="brain-top">
               <span class="brain-name">FRIDGE BRAIN</span>
@@ -427,7 +498,6 @@
             <div class="brain-warn" id="brain-warn" data-i18n="brain_warn">canonical state unchanged</div>
           </div>
         </div>
-
         <div class="demo-col">
           <h4><span data-i18n="col_proj">Role projection</span><span id="proj-id" data-i18n="same_id">same object_id</span></h4>
           <div class="proj-tabs" role="tablist">
@@ -439,7 +509,6 @@
           <div class="proj-view"><div id="proj-body"></div></div>
         </div>
       </div>
-
       <div class="hist">
         <h4><span data-i18n="hist">Immutable history</span> <span id="hist-count" style="color:var(--ink-3)"></span></h4>
         <div class="hist-log" id="hist-log"></div>
@@ -448,33 +517,45 @@
   </div>
 </section>
 
-<section id="architecture">
+<section id="live">
+  <div class="wrap reveal">
+    <div class="eyebrow" data-i18n="ey_live">Live from GitHub</div>
+    <h2 data-i18n="h_live">Real repositories. Real state.</h2>
+    <p class="lead" data-i18n="p_live">Fetched live from the public GitHub API — not a screenshot. Private repositories are not listed here.</p>
+    <div class="live-status"><span class="dot"></span><span id="live-msg" data-i18n="live_loading">Fetching public repositories…</span></div>
+    <div class="live-grid" id="live-grid">
+      <div class="skel"></div><div class="skel"></div><div class="skel"></div>
+    </div>
+  </div>
+</section>
+
+<section id="architecture" style="background:var(--paper-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
   <div class="wrap reveal">
     <div class="eyebrow" data-i18n="ey_arch">Architecture</div>
     <h2 data-i18n="h_arch">Governed evidence in. Advisory assessment out.</h2>
     <p class="lead" data-i18n="p_arch">Uniformity filters evidence before it crosses the Fridge Brain boundary.</p>
     <figure>
-      <img src="architecture.svg" alt="Uniformity runtime topology: the OS core governs evidence into the Fridge Brain advisory service, which returns assessment only to the instrument domain" loading="lazy" />
+      <img src="architecture.svg" alt="Uniformity runtime topology" loading="lazy" />
       <figcaption data-i18n="fig_cap">Uniformity OS · Fridge Brain advisory boundary · LOGARHYTHM / SUBANGEL instrument domain · role projections</figcaption>
     </figure>
   </div>
 </section>
 
-<section id="projections" style="background:var(--paper-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
+<section id="projections">
   <div class="wrap reveal">
     <div class="eyebrow" data-i18n="ey_proj">Role projections</div>
     <h2 data-i18n="h_proj">Same object. Different eyes.</h2>
     <p class="lead" data-i18n="p_proj">Every projection resolves the same canonical object_id.</p>
     <div class="cards">
-      <div class="card"><div class="card-tag">Matt · technical</div><h3 data-i18n="proj_matt_h">Signal → Reason → Evidence</h3><p data-i18n="proj_matt_p">The bench view. Full trace, ranked hypotheses, provenance, contradictions and missing evidence.</p></div>
-      <div class="card"><div class="card-tag">Susanna · operational</div><h3 data-i18n="proj_sus_h">Status · blocker · who acts</h3><p data-i18n="proj_sus_p">Compact and simple. What is happening, what is blocked, who needs to act next.</p></div>
-      <div class="card"><div class="card-tag">Customer · safe</div><h3 data-i18n="proj_cus_h">Customer-safe status</h3><p data-i18n="proj_cus_p">Only what is safe to show, plus any approval or action the customer must take.</p></div>
-      <div class="card"><div class="card-tag">Logarhythm · public</div><h3 data-i18n="proj_log_h">Public cultural view</h3><p data-i18n="proj_log_p">Presentation without private workshop intelligence. The story, not the bench.</p></div>
+      <div class="card"><div class="card-tag">Matt · technical</div><h3 data-i18n="proj_matt_h">Signal → Reason → Evidence</h3><p data-i18n="proj_matt_p">The bench view.</p></div>
+      <div class="card"><div class="card-tag">Susanna · operational</div><h3 data-i18n="proj_sus_h">Status · blocker · who acts</h3><p data-i18n="proj_sus_p">Compact and simple.</p></div>
+      <div class="card"><div class="card-tag">Customer · safe</div><h3 data-i18n="proj_cus_h">Customer-safe status</h3><p data-i18n="proj_cus_p">Only what is safe to show.</p></div>
+      <div class="card"><div class="card-tag">Logarhythm · public</div><h3 data-i18n="proj_log_h">Public cultural view</h3><p data-i18n="proj_log_p">The story, not the bench.</p></div>
     </div>
   </div>
 </section>
 
-<section>
+<section style="background:var(--paper-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
   <div class="wrap reveal">
     <div class="eyebrow" data-i18n="ey_verified">Verified state</div>
     <h2 data-i18n="h_verified">Measured, not asserted.</h2>
@@ -483,7 +564,7 @@
       <div class="metric"><div class="metric-n" data-count="91">0</div><div class="metric-l" data-i18n="m_tests">Tests passing</div></div>
       <div class="metric"><div class="metric-n" data-count="8">0</div><div class="metric-l" data-i18n="m_stages">Grammar stages</div></div>
       <div class="metric"><div class="metric-n" data-count="4">0</div><div class="metric-l" data-i18n="m_proj">Role projections</div></div>
-      <div class="metric"><div class="metric-n" data-count="1">0</div><div class="metric-l" data-i18n="m_obj">Canonical object_id</div></div>
+      <div class="metric"><div class="metric-n" data-count="3">0</div><div class="metric-l" data-i18n="m_lang">Languages</div></div>
     </div>
   </div>
 </section>
@@ -521,8 +602,28 @@
   var $ = function(id){ return document.getElementById(id); };
   var T = window.__I18N__ || {};
   var LANG = "en";
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- progress bar + nav ---------- */
+  function tr(k){
+    var d = T[LANG] || {}, e = T.en || {};
+    return d[k] !== undefined ? d[k] : (e[k] !== undefined ? e[k] : k);
+  }
+
+  /* ---------- theme ---------- */
+  function applyTheme(t){
+    document.documentElement.setAttribute('data-theme', t);
+    try{ localStorage.setItem('uniformity-theme', t); }catch(e){}
+  }
+  var savedTheme = null;
+  try{ savedTheme = localStorage.getItem('uniformity-theme'); }catch(e){}
+  applyTheme(savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+  $('theme-btn').addEventListener('click', function(){
+    var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    toast(tr(next === 'dark' ? 'theme_dark' : 'theme_light'));
+  });
+
+  /* ---------- progress + nav ---------- */
   var nav = $('nav'), prog = $('prog');
   addEventListener('scroll', function(){
     nav.classList.toggle('scrolled', scrollY > 12);
@@ -540,59 +641,70 @@
   });
 
   /* ---------- toast ---------- */
-  var toastTimer;
+  var tt;
   function toast(msg){
     var t = $('toast'); t.textContent = msg; t.classList.add('on');
-    clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.classList.remove('on'); }, 1900);
+    clearTimeout(tt); tt = setTimeout(function(){ t.classList.remove('on'); }, 2000);
   }
 
-  /* ---------- object parallax + rings ---------- */
+  /* ---------- object ---------- */
   var obj = $('object');
-  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!reduced){
     addEventListener('mousemove', function(e){
-      var x = (e.clientX / innerWidth - .5), y = (e.clientY / innerHeight - .5);
-      obj.style.transform = 'translate(' + (x*16) + 'px,' + (y*16) + 'px)';
+      obj.style.transform = 'translate(' + ((e.clientX/innerWidth-.5)*16) + 'px,' + ((e.clientY/innerHeight-.5)*16) + 'px)';
     }, {passive:true});
-    var t = 0, r2 = $('ring2'), r3 = $('ring3');
+    var t0=0, r2=$('ring2'), r3=$('ring3');
     (function spin(){
-      t += .0016;
-      r2.setAttribute('transform','rotate(' + (Math.sin(t)*2.6) + ' 290 290)');
-      r3.setAttribute('transform','rotate(' + (-Math.sin(t)*1.7) + ' 290 290)');
+      t0+=.0016;
+      r2.setAttribute('transform','rotate('+(Math.sin(t0)*2.6)+' 290 290)');
+      r3.setAttribute('transform','rotate('+(-Math.sin(t0)*1.7)+' 290 290)');
       requestAnimationFrame(spin);
     })();
   }
 
-  /* ---------- i18n ---------- */
+  /* ---------- pipeline + grammar ---------- */
   var G = [
-    {t:'g_obj_t', p:'g_obj_p', m:'object_id · juno106-7f3a91c4'},
-    {t:'g_state_t', p:'g_state_p', m:'rev 1 → rev 2 on verified completion'},
-    {t:'g_signal_t', p:'g_signal_p', m:'event · signal.detected'},
-    {t:'g_evidence_t', p:'g_evidence_p', m:'revision-aware · permission-scoped · provenance-bearing'},
-    {t:'g_intel_t', p:'g_intel_p', m:'Fridge Brain · POST /v1/assessments'},
-    {t:'g_action_t', p:'g_action_p', m:'action.accepted → action.started → action.completed'},
-    {t:'g_verif_t', p:'g_verif_p', m:'appends verified evidence · updates state exactly once'},
-    {t:'g_hist_t', p:'g_hist_p', m:'terminal state · action.completed'}
+    {k:'Object',   lk:'g_object_k',   t:'g_obj_t',      p:'g_obj_p',      m:'object_id · juno106-7f3a91c4'},
+    {k:'State',    lk:'g_state_k',    t:'g_state_t',    p:'g_state_p',    m:'rev 1 → rev 2 on verified completion'},
+    {k:'Signal',   lk:'g_signal_k',   t:'g_signal_t',   p:'g_signal_p',   m:'event · signal.detected'},
+    {k:'Evidence', lk:'g_evidence_k', t:'g_evidence_t', p:'g_evidence_p', m:'revision-aware · permission-scoped · provenance-bearing'},
+    {k:'Intelligence', lk:'g_intel_k',t:'g_intel_t',    p:'g_intel_p',    m:'Fridge Brain · POST /v1/assessments'},
+    {k:'Action',   lk:'g_action_k',   t:'g_action_t',   p:'g_action_p',   m:'action.accepted → action.started → action.completed'},
+    {k:'Verification', lk:'g_verif_k',t:'g_verif_t',    p:'g_verif_p',    m:'appends verified evidence · updates state exactly once'},
+    {k:'History',  lk:'g_hist_k',     t:'g_hist_t',     p:'g_hist_p',     m:'terminal state · action.completed'}
   ];
   var gBody = $('gram-body'), gIndex = 0;
+  var pipeIn = $('pipe-in');
+  pipeIn.innerHTML = G.map(function(g,i){
+    return (i ? '<span class="pipe-conn" data-conn="'+(i-1)+'"></span>' : '') +
+      '<button class="pipe-node" role="tab" aria-selected="'+(i===0)+'" data-g="'+i+'">' +
+      '<span class="pipe-dot">'+String(i+1).padStart(2,'0')+'</span>' +
+      '<span class="pipe-lbl" data-i18n="'+g.lk+'">'+g.k+'</span></button>';
+  }).join('');
 
-  function tr(k){
-    var d = T[LANG] || T.en || {};
-    return (d[k] !== undefined) ? d[k] : ((T.en||{})[k] !== undefined ? T.en[k] : k);
-  }
   function drawGram(i){
     gIndex = i;
     var g = G[i];
-    gBody.innerHTML = '<h3>' + tr(g.t) + '</h3><p>' + tr(g.p) + '</p><div class="meta">' + g.m + '</div>';
+    gBody.innerHTML = '<h3>'+tr(g.t)+'</h3><p>'+tr(g.p)+'</p><div class="meta">'+g.m+'</div>';
     gBody.classList.remove('fade'); void gBody.offsetWidth; gBody.classList.add('fade');
+    document.querySelectorAll('.pipe-node').forEach(function(b){
+      b.setAttribute('aria-selected', String(+b.dataset.g === i));
+    });
+    document.querySelectorAll('.pipe-conn').forEach(function(c){
+      c.classList.toggle('flow', +c.dataset.conn === i);
+    });
   }
+  pipeIn.addEventListener('click', function(e){
+    var b = e.target.closest('.pipe-node'); if(!b) return;
+    drawGram(+b.dataset.g);
+  });
 
+  /* ---------- i18n ---------- */
   function applyLang(lang){
     LANG = T[lang] ? lang : 'en';
     document.documentElement.lang = LANG;
     document.querySelectorAll('[data-i18n]').forEach(function(el){
-      var k = el.getAttribute('data-i18n');
-      if(k) el.textContent = tr(k);
+      var k = el.getAttribute('data-i18n'); if(k) el.textContent = tr(k);
     });
     document.querySelectorAll('[data-i18n-html]').forEach(function(el){
       var k = el.getAttribute('data-i18n-html');
@@ -602,17 +714,13 @@
     document.querySelectorAll('.lang-item').forEach(function(b){
       b.setAttribute('aria-current', b.dataset.lang === LANG ? 'true' : 'false');
     });
-    drawGram(gIndex);
-    render();
+    drawGram(gIndex); render(); buildPalette();
     try{ localStorage.setItem('uniformity-lang', LANG); }catch(e){}
   }
-
-  /* language menu */
   var menu = $('lang-menu'), langWrap = $('lang');
-  var ORDER = ['en','fr','es'];
-  menu.innerHTML = ORDER.filter(function(l){ return T[l]; }).map(function(l){
-    return '<button class="lang-item" role="option" data-lang="' + l + '" aria-current="false">' +
-      '<span>' + (T[l].lang_name || l) + '</span><span class="code">' + l + '</span></button>';
+  menu.innerHTML = ['en','fr','es'].filter(function(l){ return T[l]; }).map(function(l){
+    return '<button class="lang-item" role="option" data-lang="'+l+'" aria-current="false"><span>'+
+      (T[l].lang_name||l)+'</span><span class="code">'+l+'</span></button>';
   }).join('');
   $('lang-btn').addEventListener('click', function(e){
     e.stopPropagation();
@@ -623,152 +731,178 @@
   menu.addEventListener('click', function(e){
     var b = e.target.closest('.lang-item'); if(!b) return;
     applyLang(b.dataset.lang);
-    langWrap.dataset.open = 'false';
-    $('lang-btn').setAttribute('aria-expanded','false');
+    langWrap.dataset.open='false'; $('lang-btn').setAttribute('aria-expanded','false');
   });
   document.addEventListener('click', function(){
-    langWrap.dataset.open = 'false'; $('lang-btn').setAttribute('aria-expanded','false');
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape'){ langWrap.dataset.open = 'false'; $('lang-btn').setAttribute('aria-expanded','false'); }
+    langWrap.dataset.open='false'; $('lang-btn').setAttribute('aria-expanded','false');
   });
 
   /* ---------- live reference flow ---------- */
   var STATE = { stage:'signal', rev:1, events:['created','signal.detected'], proj:'matt' };
-  var STAGE_KEY = { signal:'st_signal', accepted:'st_accepted', started:'st_started', done:'st_done' };
-  var STAGE_CLS = { signal:'', accepted:'active', started:'active', done:'done' };
-
+  var SK = { signal:'st_signal', accepted:'st_accepted', started:'st_started', done:'st_done' };
+  var SC = { signal:'', accepted:'active', started:'active', done:'done' };
   function line(k,v){ return '<div class="proj-line"><span>'+k+'</span><span>'+v+'</span></div>'; }
   function projHTML(k){
-    var done = STATE.stage === 'done', acc = STATE.stage !== 'signal';
-    if(k === 'matt'){
-      return '<div class="pl">matt · technical bench</div>' +
-        line('object_id','juno106-7f3a91c4') +
-        line('signal','voice board — intermittent') +
-        line('reason','CEM3340 drift, thermal') +
-        line('evidence','rev '+STATE.rev+' · 3 items') +
-        line('action', acc ? (done ? 'completed · verified' : STATE.stage) : 'awaiting acceptance') +
-        line('trace', done ? 'full trace available' : 'trace partial');
-    }
-    if(k === 'susanna'){
-      return '<div class="pl">susanna · operational</div>' +
-        line('status', done ? 'Board repaired' : (acc ? 'In progress' : 'Reported')) +
-        line('blocker', acc ? 'none' : 'awaiting acceptance') +
-        line('next step', done ? 'Return to customer' : (STATE.stage==='started' ? 'Bench work underway' : 'Accept the action')) +
-        line('who acts', done ? '—' : 'Matt') +
-        line('object', 'juno106-7f3a91c4');
-    }
-    if(k === 'customer'){
-      return '<div class="pl">customer · safe view</div>' +
-        line('item','JUNO-106') +
-        line('status', done ? 'Repair complete' : (acc ? 'In progress' : 'Received')) +
-        line('your action', done ? 'Approve collection' : 'None required') +
-        line('eta', done ? 'ready' : 'in workshop');
-    }
-    return '<div class="pl">logarhythm · public</div>' +
-      line('story','JUNO-106 · voice board') +
-      line('theme','thermal drift in a 1984 classic') +
-      line('workshop','private intelligence withheld') +
-      line('status','narrative draft');
+    var done = STATE.stage==='done', acc = STATE.stage!=='signal';
+    if(k==='matt') return '<div class="pl">matt · technical bench</div>'+line('object_id','juno106-7f3a91c4')+line('signal','voice board — intermittent')+line('reason','CEM3340 drift, thermal')+line('evidence','rev '+STATE.rev+' · 3 items')+line('action', acc?(done?'completed · verified':STATE.stage):'awaiting acceptance')+line('trace', done?'full trace available':'trace partial');
+    if(k==='susanna') return '<div class="pl">susanna · operational</div>'+line('status', done?'Board repaired':(acc?'In progress':'Reported'))+line('blocker', acc?'none':'awaiting acceptance')+line('next step', done?'Return to customer':(STATE.stage==='started'?'Bench work underway':'Accept the action'))+line('who acts', done?'—':'Matt')+line('object','juno106-7f3a91c4');
+    if(k==='customer') return '<div class="pl">customer · safe view</div>'+line('item','JUNO-106')+line('status', done?'Repair complete':(acc?'In progress':'Received'))+line('your action', done?'Approve collection':'None required')+line('eta', done?'ready':'in workshop');
+    return '<div class="pl">logarhythm · public</div>'+line('story','JUNO-106 · voice board')+line('theme','thermal drift in a 1984 classic')+line('workshop','private intelligence withheld')+line('status','narrative draft');
   }
-
   function render(){
-    var pill = $('pill'), pillText = $('pill-text'), histLog = $('hist-log'), histCount = $('hist-count');
+    var pill=$('pill'), pillText=$('pill-text'), histLog=$('hist-log'), histCount=$('hist-count');
     if(!pill) return;
-    pill.className = 'state-pill ' + STAGE_CLS[STATE.stage];
-    pillText.textContent = tr(STAGE_KEY[STATE.stage]);
+    pill.className = 'state-pill ' + SC[STATE.stage];
+    pillText.textContent = tr(SK[STATE.stage]);
     $('rev').textContent = tr('rev') + ' ' + STATE.rev;
-
     histLog.innerHTML = STATE.events.map(function(e){
-      return '<span class="ev' + (e==='action.completed' ? ' final' : '') + '">' + e + '</span>';
+      return '<span class="ev'+(e==='action.completed'?' final':'')+'">'+e+'</span>';
     }).join('');
     histCount.textContent = '· ' + STATE.events.length + ' ' + tr('events');
-
     $('proj-body').innerHTML = projHTML(STATE.proj);
-
-    $('btn-accept').disabled   = STATE.stage !== 'signal';
-    $('btn-start').disabled    = STATE.stage !== 'accepted';
-    $('btn-complete').disabled = STATE.stage !== 'started';
-    $('btn-brain').disabled    = STATE.stage === 'done';
+    $('btn-accept').disabled = STATE.stage!=='signal';
+    $('btn-start').disabled = STATE.stage!=='accepted';
+    $('btn-complete').disabled = STATE.stage!=='started';
+    $('btn-brain').disabled = STATE.stage==='done';
   }
-
-  $('btn-accept').addEventListener('click', function(){
-    if(STATE.stage !== 'signal') return;
-    STATE.stage='accepted'; STATE.events.push('action.accepted'); render();
-    toast('action.accepted → state advanced');
-  });
-  $('btn-start').addEventListener('click', function(){
-    if(STATE.stage !== 'accepted') return;
-    STATE.stage='started'; STATE.events.push('action.started'); render();
-    toast('action.started → bench work');
-  });
-  $('btn-complete').addEventListener('click', function(){
-    if(STATE.stage !== 'started') return;
-    STATE.stage='done'; STATE.rev=2;
-    STATE.events.push('evidence.verified','action.completed'); render();
-    toast('rev 2 · verified · action.completed');
-  });
-  $('btn-reset').addEventListener('click', function(){
-    STATE = { stage:'signal', rev:1, events:['created','signal.detected'], proj:STATE.proj };
-    $('brain-out').textContent = tr('brain_idle');
-    $('brain-warn').classList.remove('on');
-    render(); toast('reset to rev 1');
-  });
-
+  $('btn-accept').addEventListener('click', function(){ if(STATE.stage!=='signal')return; STATE.stage='accepted'; STATE.events.push('action.accepted'); render(); toast('action.accepted → state advanced'); });
+  $('btn-start').addEventListener('click', function(){ if(STATE.stage!=='accepted')return; STATE.stage='started'; STATE.events.push('action.started'); render(); toast('action.started → bench work'); });
+  $('btn-complete').addEventListener('click', function(){ if(STATE.stage!=='started')return; STATE.stage='done'; STATE.rev=2; STATE.events.push('evidence.verified','action.completed'); render(); toast('rev 2 · verified · action.completed'); });
+  $('btn-reset').addEventListener('click', function(){ STATE={stage:'signal',rev:1,events:['created','signal.detected'],proj:STATE.proj}; $('brain-out').textContent=tr('brain_idle'); $('brain-warn').classList.remove('on'); render(); toast('reset to rev 1'); });
   document.querySelectorAll('.proj-tab').forEach(function(b){
     b.addEventListener('click', function(){
       document.querySelectorAll('.proj-tab').forEach(function(x){ x.setAttribute('aria-selected','false'); });
-      b.setAttribute('aria-selected','true');
-      STATE.proj = b.dataset.p; render();
+      b.setAttribute('aria-selected','true'); STATE.proj=b.dataset.p; render();
     });
   });
-
-  /* copy object_id */
   $('btn-copy').addEventListener('click', function(){
-    var id = 'juno106-7f3a91c4';
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(id).then(function(){ toast(tr('copied') + ' · ' + id); });
-    } else { toast(id); }
+    var id='juno106-7f3a91c4';
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(id).then(function(){ toast(tr('copied')+' · '+id); });
+    else toast(id);
+  });
+  $('btn-brain').addEventListener('click', function(){
+    var out=$('brain-out');
+    out.innerHTML='<span class="hyp">Retrieving governed evidence for revision '+STATE.rev+'…</span>';
+    setTimeout(function(){
+      var before=JSON.stringify(STATE.events);
+      out.innerHTML='<span class="hyp"><b>Hypothesis 1</b> · thermal drift in the CEM3340 VCO — confidence <b>0.72</b></span><span class="hyp"><b>Hypothesis 2</b> · failing electrolytic in the PSU rail — confidence <b>0.41</b></span><span class="hyp"><b>Missing</b> · bench temperature log; rail ripple measurement</span><span class="hyp"><b>Proposed next action</b> · reflow VCO pins and re-measure drift — <b>awaiting domain acceptance</b></span>';
+      if(JSON.stringify(STATE.events)===before) $('brain-warn').classList.add('on');
+    }, 620);
   });
 
-  /* ---------- Fridge Brain ---------- */
-  $('btn-brain').addEventListener('click', function(){
-    var out = $('brain-out');
-    out.innerHTML = '<span class="hyp">Retrieving governed evidence for revision ' + STATE.rev + '…</span>';
-    setTimeout(function(){
-      var before = JSON.stringify(STATE.events);
-      out.innerHTML =
-        '<span class="hyp"><b>Hypothesis 1</b> · thermal drift in the CEM3340 VCO — confidence <b>0.72</b></span>' +
-        '<span class="hyp"><b>Hypothesis 2</b> · failing electrolytic in the PSU rail — confidence <b>0.41</b></span>' +
-        '<span class="hyp"><b>Missing</b> · bench temperature log; rail ripple measurement</span>' +
-        '<span class="hyp"><b>Proposed next action</b> · reflow VCO pins and re-measure drift — <b>awaiting domain acceptance</b></span>';
-      if(JSON.stringify(STATE.events) === before) $('brain-warn').classList.add('on');
-    }, 620);
+  /* ---------- LIVE GITHUB ---------- */
+  var LANG_COLOR = {TypeScript:'#3178C6',JavaScript:'#F1E05A',Python:'#3572A5',CSS:'#563d7c',HTML:'#e34c26',Shell:'#89e051',Rust:'#dea584',Go:'#00ADD8'};
+  function ago(iso){
+    var s = (Date.now() - new Date(iso).getTime())/1000;
+    if(s < 3600) return Math.max(1,Math.round(s/60)) + 'm';
+    if(s < 86400) return Math.round(s/3600) + 'h';
+    if(s < 2592000) return Math.round(s/86400) + 'd';
+    return Math.round(s/2592000) + 'mo';
+  }
+  function repoCard(r){
+    var col = LANG_COLOR[r.language] || '#0ea5e9';
+    return '<a class="repo" href="'+r.html_url+'" target="_blank" rel="noopener">' +
+      '<div class="repo-top"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8V1.5z"/></svg>' +
+      '<span class="repo-name">'+r.name+'</span></div>' +
+      '<div class="repo-desc">'+(r.description ? r.description.replace(/</g,'&lt;') : '<span style="color:var(--ink-4)">No description</span>')+'</div>' +
+      '<div class="repo-meta">' +
+        (r.language ? '<span class="lang"><i style="background:'+col+'"></i>'+r.language+'</span>' : '') +
+        '<span>★ '+r.stargazers_count+'</span>' +
+        '<span>'+ago(r.pushed_at)+'</span>' +
+      '</div></a>';
+  }
+  var repos = [];
+  function loadLive(){
+    var msg = $('live-msg'), grid = $('live-grid');
+    fetch('https://api.github.com/orgs/UNIFORM1TY/repos?per_page=100&sort=pushed', {headers:{Accept:'application/vnd.github+json'}})
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(d){
+        repos = (d||[]).filter(function(x){ return !x.archived; }).slice(0,6);
+        if(!repos.length) throw new Error('empty');
+        grid.innerHTML = repos.map(repoCard).join('');
+        msg.textContent = tr('live_ok').replace('{n}', repos.length);
+      })
+      .catch(function(){
+        grid.innerHTML = '<div class="repo"><div class="repo-name">uniformity-os</div><div class="repo-desc">The operating system / composition layer.</div><div class="repo-meta"><span>private</span></div></div>';
+        msg.textContent = tr('live_fail');
+      });
+  }
+  loadLive();
+
+  /* ---------- COMMAND PALETTE ---------- */
+  var pal = $('palette'), palInput = $('pal-input'), palList = $('pal-list');
+  var palItems = [], palSel = 0;
+  function buildPalette(){
+    palItems = [
+      {ic:'§', label:tr('nav_model'), sub:'#model', act:function(){ go('#model'); }},
+      {ic:'▸', label:tr('nav_demo'), sub:'#demo', act:function(){ go('#demo'); }},
+      {ic:'★', label:tr('nav_live'), sub:'#live', act:function(){ go('#live'); }},
+      {ic:'⌗', label:tr('nav_arch'), sub:'#architecture', act:function(){ go('#architecture'); }},
+      {ic:'◫', label:tr('nav_proj'), sub:'#projections', act:function(){ go('#projections'); }},
+      {ic:'→', label:tr('pal_accept'), sub:'demo', act:function(){ go('#demo'); $('btn-accept').click(); }},
+      {ic:'→', label:tr('pal_start'), sub:'demo', act:function(){ go('#demo'); $('btn-start').click(); }},
+      {ic:'✓', label:tr('pal_complete'), sub:'demo', act:function(){ go('#demo'); $('btn-complete').click(); }},
+      {ic:'✦', label:tr('pal_brain'), sub:'advisory', act:function(){ go('#demo'); $('btn-brain').click(); }},
+      {ic:'◐', label:tr('theme_toggle'), sub:'ui', act:function(){ $('theme-btn').click(); }},
+      {ic:'⌘', label:tr('pal_gh'), sub:'github', act:function(){ window.open('https://github.com/UNIFORM1TY','_blank'); }},
+      {ic:'⌘', label:tr('pal_site'), sub:'site', act:function(){ window.open('https://uniform1ty.github.io','_blank'); }}
+    ];
+    T && Object.keys(T).forEach(function(l){
+      if(!T[l] || !T[l].lang_name) return;
+      palItems.push({ic:'⌾', label:T[l].lang_name, sub:l, act:function(){ applyLang(l); toast(T[l].lang_name); }});
+    });
+    renderPal();
+  }
+  function go(h){ closePal(); location.hash = h; var el=document.querySelector(h); if(el) el.scrollIntoView({behavior: reduced?'auto':'smooth'}); }
+  function renderPal(){
+    var q = palInput.value.trim().toLowerCase();
+    var list = palItems.filter(function(i){
+      return !q || i.label.toLowerCase().indexOf(q) > -1 || i.sub.toLowerCase().indexOf(q) > -1;
+    });
+    if(!list.length){ palList.innerHTML = '<div class="pal-empty">'+tr('pal_none')+'</div>'; return; }
+    if(palSel >= list.length) palSel = 0;
+    palList.innerHTML = list.map(function(i,n){
+      return '<button class="pal-item'+(n===palSel?' sel':'')+'" role="option" data-n="'+n+'">' +
+        '<span class="pi-ico">'+i.ic+'</span><span>'+i.label+'</span><span class="pi-sub">'+i.sub+'</span></button>';
+    }).join('');
+    palList._list = list;
+  }
+  function openPal(){
+    pal.classList.add('on'); palInput.value=''; palSel=0; renderPal();
+    setTimeout(function(){ palInput.focus(); }, 30);
+  }
+  function closePal(){ pal.classList.remove('on'); }
+  $('pal-open').addEventListener('click', openPal);
+  pal.addEventListener('click', function(e){ if(e.target.hasAttribute('data-pal-close')) closePal(); });
+  palList.addEventListener('click', function(e){
+    var b = e.target.closest('.pal-item'); if(!b) return;
+    var item = palList._list[+b.dataset.n]; if(item) item.act();
+  });
+  palInput.addEventListener('input', function(){ palSel=0; renderPal(); });
+  document.addEventListener('keydown', function(e){
+    if((e.metaKey||e.ctrlKey) && e.key.toLowerCase()==='k'){ e.preventDefault(); pal.classList.contains('on')?closePal():openPal(); return; }
+    if(e.key==='Escape'){ closePal(); langWrap.dataset.open='false'; }
+    if(!pal.classList.contains('on')) return;
+    if(e.key==='ArrowDown'){ e.preventDefault(); palSel=Math.min(palSel+1,(palList._list||[]).length-1); renderPal(); }
+    if(e.key==='ArrowUp'){ e.preventDefault(); palSel=Math.max(palSel-1,0); renderPal(); }
+    if(e.key==='Enter'){ e.preventDefault(); var it=(palList._list||[])[palSel]; if(it) it.act(); }
   });
 
   /* ---------- metric count-up ---------- */
   var mio = new IntersectionObserver(function(es){
     es.forEach(function(e){
       if(!e.isIntersecting) return;
-      var el = e.target, target = +el.dataset.count, n = 0;
-      var step = Math.max(1, Math.round(target/26));
-      (function tick(){
-        n += step;
-        if(n >= target){ el.textContent = target; return; }
-        el.textContent = n; requestAnimationFrame(tick);
-      })();
+      var el=e.target, target=+el.dataset.count, n=0, step=Math.max(1,Math.round(target/26));
+      (function tick(){ n+=step; if(n>=target){ el.textContent=target; return; } el.textContent=n; requestAnimationFrame(tick); })();
       mio.unobserve(el);
     });
   }, {threshold:.6});
   document.querySelectorAll('[data-count]').forEach(function(el){ mio.observe(el); });
 
   /* ---------- boot ---------- */
-  var saved = null;
-  try{ saved = localStorage.getItem('uniformity-lang'); }catch(e){}
-  var initial = saved || (navigator.language || 'en').slice(0,2).toLowerCase();
+  var saved=null; try{ saved=localStorage.getItem('uniformity-lang'); }catch(e){}
+  var initial = saved || (navigator.language||'en').slice(0,2).toLowerCase();
   applyLang(T[initial] ? initial : 'en');
-
-  /* deep-link language: ?lang=fr */
   var m = location.search.match(/[?&]lang=([a-z]{2})/i);
   if(m && T[m[1].toLowerCase()]) applyLang(m[1].toLowerCase());
 })();
