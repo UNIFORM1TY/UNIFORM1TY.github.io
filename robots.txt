@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://uniform1ty.github.io/sitemap.xml
