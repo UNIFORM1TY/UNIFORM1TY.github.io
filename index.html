@@ -3,92 +3,192 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Uniformity — the operating system that composes</title>
-<meta name="description" content="Uniformity is the operating system and composition layer for a portfolio of distinct products. Technical boundaries stay explicit even when the experience feels seamless." />
-<meta property="og:title" content="Uniformity — the operating system that composes" />
-<meta property="og:description" content="The OS composes; the domains remain real. Identity, canonical object state, evidence, action, verification and history." />
+<title>Uniformity — The OS composes. The domains remain real.</title>
+<meta name="description" content="Uniformity is the operating system and composition layer for a portfolio of distinct products. One canonical object. Many projections. Boundaries that stay explicit." />
+<meta property="og:title" content="Uniformity — The OS composes. The domains remain real." />
+<meta property="og:description" content="Identity, canonical object state, permissions, evidence, action, verification and history — without merging every project into one product." />
 <meta property="og:image" content="https://raw.githubusercontent.com/UNIFORM1TY/UNIFORM1TY.github.io/main/architecture.svg" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolygon points='16,3 28,10 28,22 16,29 4,22 4,10' fill='none' stroke='%23111' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%230ea5e9'/%3E%3C/svg%3E" />
+<meta name="theme-color" content="#ffffff" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolygon points='16,4 27,10.3 27,21.7 16,28 5,21.7 5,10.3' fill='none' stroke='%230a0a0b' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%230ea5e9'/%3E%3C/svg%3E" />
 <style>
   :root{
     --ink:#0a0a0b; --ink-2:#3f3f46; --ink-3:#71717a; --ink-4:#a1a1aa;
-    --rule:#e7e7ea; --rule-2:#f2f2f4; --paper:#ffffff; --paper-2:#fafafa;
-    --accent:#0ea5e9; --accent-2:#6366f1;
+    --rule:#e7e7ea; --rule-2:#f4f4f6; --paper:#ffffff; --paper-2:#fafafa; --paper-3:#f6f6f8;
+    --accent:#0ea5e9; --accent-2:#6366f1; --ok:#16a34a; --warn:#d97706;
     --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
     --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --ease:cubic-bezier(.16,1,.3,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.65;font-size:16px}
   a{color:inherit;text-decoration:none}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+  code{font-family:var(--mono);font-size:.9em;background:var(--paper-3);padding:2px 6px;border-radius:5px;border:1px solid var(--rule)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+  ::selection{background:rgba(14,165,233,.18)}
 
-  nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--rule-2)}
-  .nav-in{display:flex;align-items:center;justify-content:space-between;height:66px}
+  /* ============ NAV ============ */
+  nav{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(18px);-webkit-backdrop-filter:saturate(180%) blur(18px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+  nav.scrolled{border-bottom-color:var(--rule)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
   .brand{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:.2em;font-size:12.5px}
-  .brand svg{width:24px;height:24px}
-  .nav-links{display:flex;gap:30px;font-size:14px;color:var(--ink-3)}
-  .nav-links a{transition:color .2s}
+  .brand svg{width:23px;height:23px;transition:transform .6s var(--ease)}
+  .brand:hover svg{transform:rotate(60deg)}
+  .nav-links{display:flex;gap:30px;font-size:14px;color:var(--ink-3);align-items:center}
+  .nav-links a{transition:color .2s;position:relative}
+  .nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:-5px;height:1.5px;background:var(--ink);transition:right .3s var(--ease)}
   .nav-links a:hover{color:var(--ink)}
-  @media(max-width:800px){.nav-links{display:none}}
+  .nav-links a:hover::after{right:0}
+  .nav-cta{padding:8px 16px;border:1px solid var(--rule);border-radius:8px;color:var(--ink);font-weight:500}
+  .nav-cta:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .nav-cta::after{display:none}
+  @media(max-width:880px){.nav-links a:not(.nav-cta){display:none}}
 
-  header{padding:120px 0 0;position:relative;overflow:hidden}
-  .kicker{font-size:11.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-4);margin-bottom:26px}
-  h1{font-size:clamp(40px,7.6vw,88px);line-height:1.02;font-weight:600;letter-spacing:-.045em;max-width:15ch}
-  h1 em{font-style:normal;color:var(--ink-4)}
-  .hero-sub{font-size:clamp(17px,2.2vw,21px);color:var(--ink-2);max-width:56ch;margin:34px 0 44px;line-height:1.55;font-weight:400}
-  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-  .btn{display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:9px;font-size:14.5px;font-weight:500;transition:.22s}
+  /* ============ HERO ============ */
+  header{padding:112px 0 0;position:relative;overflow:hidden}
+  .kicker{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--rule);padding:7px 14px;border-radius:999px;margin-bottom:30px;background:#fff}
+  .live{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:ping 2.4s var(--ease) infinite}
+  @keyframes ping{0%{box-shadow:0 0 0 0 rgba(22,163,74,.45)}70%{box-shadow:0 0 0 9px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
+  h1{font-size:clamp(40px,7.4vw,86px);line-height:1.02;font-weight:600;letter-spacing:-.045em;max-width:16ch}
+  h1 .dim{color:var(--ink-4)}
+  h1 .cursor{display:inline-block;width:3px;height:.82em;background:var(--accent);margin-left:5px;vertical-align:-.06em;animation:blink 1.1s steps(2) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .hero-sub{font-size:clamp(17px,2.1vw,20.5px);color:var(--ink-2);max-width:57ch;margin:32px 0 42px;line-height:1.58}
+  .hero-cta{display:flex;gap:13px;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:10px;font-size:14.5px;font-weight:500;transition:.24s var(--ease);cursor:pointer;border:1px solid transparent;font-family:inherit}
   .btn-p{background:var(--ink);color:#fff}
-  .btn-p:hover{background:#27272a;transform:translateY(-1px)}
-  .btn-s{border:1px solid var(--rule);color:var(--ink-2);background:#fff}
-  .btn-s:hover{border-color:var(--ink-4);color:var(--ink)}
-  .arrow{transition:transform .22s}
+  .btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 28px -12px rgba(10,10,11,.55)}
+  .btn-s{border-color:var(--rule);color:var(--ink-2);background:#fff}
+  .btn-s:hover{border-color:var(--ink-4);color:var(--ink);transform:translateY(-2px)}
+  .arrow{transition:transform .24s var(--ease)}
   .btn:hover .arrow{transform:translateX(3px)}
 
-  .stage{margin-top:96px;border-top:1px solid var(--rule);padding:80px 0 0;display:grid;place-items:center;position:relative}
-  .stage-glow{position:absolute;width:760px;height:760px;top:-120px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(14,165,233,.07) 0%,rgba(99,102,241,.05) 40%,transparent 68%);pointer-events:none}
-  #object{width:min(560px,86vw);height:auto;position:relative}
+  /* ============ OBJECT STAGE ============ */
+  .stage{margin-top:88px;border-top:1px solid var(--rule);padding:76px 0 0;display:grid;place-items:center;position:relative}
+  .stage-glow{position:absolute;width:820px;height:820px;top:-140px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(14,165,233,.075) 0%,rgba(99,102,241,.05) 42%,transparent 68%);pointer-events:none}
+  #object{width:min(580px,88vw);height:auto;position:relative;transition:transform .5s var(--ease)}
+  .stage-hint{position:absolute;bottom:8px;font-size:12px;color:var(--ink-4);font-family:var(--mono);letter-spacing:.06em}
 
-  .grammar{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper-2);padding:40px 0;margin-top:80px;overflow-x:auto}
-  .grammar-in{display:flex;align-items:center;justify-content:center;gap:0;font-family:var(--mono);font-size:clamp(11px,1.5vw,14px);white-space:nowrap;color:var(--ink-3);min-width:max-content;padding:0 32px}
-  .g-step{color:var(--ink);font-weight:500}
-  .g-ar{color:var(--ink-4);margin:0 14px}
+  /* ============ GRAMMAR (interactive) ============ */
+  .grammar{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper-2);padding:0;margin-top:78px}
+  .gram-rail{display:flex;overflow-x:auto;scrollbar-width:none}
+  .gram-rail::-webkit-scrollbar{display:none}
+  .gram-tab{
+    flex:1 0 auto;min-width:132px;padding:22px 16px;border:0;background:transparent;cursor:pointer;
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--ink-4);
+    border-right:1px solid var(--rule);position:relative;transition:.24s var(--ease);white-space:nowrap;
+  }
+  .gram-tab:last-child{border-right:0}
+  .gram-tab .n{display:block;font-size:10px;letter-spacing:.14em;margin-bottom:5px;color:var(--ink-4);opacity:.7}
+  .gram-tab:hover{color:var(--ink-2);background:#fff}
+  .gram-tab[aria-selected="true"]{color:var(--ink);background:#fff;font-weight:600}
+  .gram-tab[aria-selected="true"]::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent)}
+  .gram-panel{background:#fff;border-top:1px solid var(--rule);padding:34px 32px;min-height:118px}
+  .gram-panel h3{font-size:17px;font-weight:600;letter-spacing:-.015em;margin-bottom:8px}
+  .gram-panel p{color:var(--ink-2);font-size:15px;max-width:74ch}
+  .gram-panel .meta{margin-top:14px;font-family:var(--mono);font-size:11.5px;color:var(--ink-4)}
+  .gram-panel .fade{animation:fade .45s var(--ease)}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-  section{padding:110px 0}
-  .eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-4);margin-bottom:18px}
-  h2{font-size:clamp(28px,4.4vw,46px);font-weight:600;letter-spacing:-.035em;line-height:1.12;margin-bottom:20px;max-width:22ch}
-  .lead{color:var(--ink-2);max-width:60ch;font-size:17px;margin-bottom:56px}
+  /* ============ SECTIONS ============ */
+  section{padding:108px 0}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-4);margin-bottom:16px}
+  h2{font-size:clamp(28px,4.3vw,45px);font-weight:600;letter-spacing:-.036em;line-height:1.12;margin-bottom:20px;max-width:23ch}
+  .lead{color:var(--ink-2);max-width:62ch;font-size:17px;margin-bottom:52px}
 
+  /* ============ OWNERSHIP ============ */
   .own{border-top:1px solid var(--rule)}
-  .own-row{display:grid;grid-template-columns:minmax(180px,240px) 1fr;gap:28px;padding:26px 0;border-bottom:1px solid var(--rule);align-items:start}
-  .own-name{font-weight:600;font-size:16px;letter-spacing:-.01em}
+  .own-row{display:grid;grid-template-columns:minmax(190px,250px) 1fr;gap:30px;padding:25px 0;border-bottom:1px solid var(--rule);align-items:start;transition:background .22s}
+  .own-row:hover{background:var(--paper-2)}
+  .own-name{font-weight:600;font-size:16px;letter-spacing:-.01em;display:flex;align-items:center;gap:9px}
+  .own-name .dot{width:7px;height:7px;border-radius:2px;flex:none}
   .own-name small{display:block;font-weight:400;font-size:12.5px;color:var(--ink-4);letter-spacing:0;margin-top:4px;font-family:var(--mono)}
   .own-body{color:var(--ink-2);font-size:15px}
   .own-body b{color:var(--ink);font-weight:500}
   .own-body .never{color:var(--ink-4)}
-  @media(max-width:680px){.own-row{grid-template-columns:1fr;gap:10px}}
+  @media(max-width:680px){.own-row{grid-template-columns:1fr;gap:9px}}
 
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
-  .card{background:#fff;padding:30px;transition:.25s}
-  .card:hover{background:var(--paper-2)}
-  .card-tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-4);text-transform:uppercase;margin-bottom:14px}
+  /* ============ INTERACTIVE DEMO ============ */
+  .demo-shell{border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(10,10,11,.04),0 24px 60px -40px rgba(10,10,11,.25)}
+  .demo-bar{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--rule);background:var(--paper-2)}
+  .demo-dots{display:flex;gap:6px}
+  .demo-dots i{width:10px;height:10px;border-radius:50%;background:var(--rule);display:block}
+  .demo-title{font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.05em}
+  .demo-badge{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--ink-3);border:1px solid var(--rule);padding:3px 9px;border-radius:6px;background:#fff}
+  .demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule)}
+  @media(max-width:860px){.demo-grid{grid-template-columns:1fr}}
+  .demo-col{background:#fff;padding:26px}
+  .demo-col h4{font-size:12px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}
+  .obj-card{border:1px solid var(--rule);border-radius:11px;padding:16px;margin-bottom:14px}
+  .obj-id{font-family:var(--mono);font-size:11px;color:var(--ink-4);letter-spacing:.04em}
+  .obj-name{font-weight:600;font-size:15px;margin:5px 0 10px}
+  .state-pill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:500;padding:4px 11px;border-radius:999px;border:1px solid var(--rule);background:var(--paper-2);transition:.3s var(--ease)}
+  .state-pill .d{width:6px;height:6px;border-radius:50%;background:var(--ink-4);transition:.3s}
+  .state-pill.active{border-color:rgba(14,165,233,.4);background:rgba(14,165,233,.07);color:#0369a1}
+  .state-pill.active .d{background:var(--accent)}
+  .state-pill.done{border-color:rgba(22,163,74,.4);background:rgba(22,163,74,.07);color:#15803d}
+  .state-pill.done .d{background:var(--ok)}
+  .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:4px}
+  .act{
+    font-family:inherit;font-size:13.5px;font-weight:500;padding:9px 17px;border-radius:9px;
+    border:1px solid var(--rule);background:#fff;color:var(--ink-2);cursor:pointer;transition:.2s var(--ease);
+  }
+  .act:hover:not(:disabled){border-color:var(--ink);color:var(--ink);transform:translateY(-1px)}
+  .act:disabled{opacity:.35;cursor:not-allowed}
+  .act.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .act.primary:hover:not(:disabled){box-shadow:0 8px 20px -10px rgba(10,10,11,.5)}
+  .act.ghost{background:var(--paper-2)}
+  .proj-tabs{display:flex;gap:0;border:1px solid var(--rule);border-radius:9px;overflow:hidden;margin-bottom:16px}
+  .proj-tab{flex:1;padding:9px 8px;border:0;background:#fff;font-family:inherit;font-size:12.5px;font-weight:500;color:var(--ink-3);cursor:pointer;transition:.2s;border-right:1px solid var(--rule)}
+  .proj-tab:last-child{border-right:0}
+  .proj-tab:hover{background:var(--paper-2);color:var(--ink-2)}
+  .proj-tab[aria-selected="true"]{background:var(--ink);color:#fff}
+  .proj-view{border:1px solid var(--rule);border-radius:11px;padding:18px;min-height:186px;background:var(--paper-2)}
+  .proj-view .pl{font-size:11px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin-bottom:12px}
+  .proj-line{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px dashed var(--rule);font-size:13.5px}
+  .proj-line:last-child{border-bottom:0}
+  .proj-line span:first-child{color:var(--ink-4);font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;flex:none}
+  .proj-line span:last-child{color:var(--ink);text-align:right;font-weight:500}
+  .hist{border-top:1px solid var(--rule);padding:20px 26px;background:var(--paper-2)}
+  .hist h4{font-size:12px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin-bottom:14px}
+  .hist-log{display:flex;flex-wrap:wrap;gap:8px;min-height:30px;align-items:center}
+  .ev{font-family:var(--mono);font-size:11.5px;padding:5px 11px;border-radius:7px;border:1px solid var(--rule);background:#fff;color:var(--ink-2);animation:evIn .4s var(--ease)}
+  .ev.final{border-color:rgba(22,163,74,.45);background:rgba(22,163,74,.07);color:#15803d;font-weight:600}
+  @keyframes evIn{from{opacity:0;transform:translateY(7px) scale(.96)}to{opacity:1;transform:none}}
+  .brain{border:1px dashed var(--ink-4);border-radius:12px;padding:18px;background:#fff;margin-top:16px}
+  .brain-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .brain-name{font-size:12.5px;font-weight:600;letter-spacing:.08em;font-family:var(--mono)}
+  .brain-note{font-size:11.5px;color:var(--ink-4);font-style:italic}
+  .brain-out{font-size:13.5px;color:var(--ink-2);min-height:44px}
+  .brain-out .hyp{display:block;padding:6px 0;border-bottom:1px dashed var(--rule)}
+  .brain-out .hyp:last-child{border-bottom:0}
+  .brain-out b{color:var(--ink);font-weight:500}
+  .brain-warn{margin-top:12px;font-size:12px;color:var(--warn);font-family:var(--mono);display:none}
+  .brain-warn.on{display:block}
+
+  /* ============ CARDS ============ */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(278px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:13px;overflow:hidden}
+  .card{background:#fff;padding:29px;transition:.26s var(--ease)}
+  .card:hover{background:var(--paper-2);transform:translateY(-2px)}
+  .card-tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-4);text-transform:uppercase;margin-bottom:13px}
   .card h3{font-size:17px;font-weight:600;letter-spacing:-.015em;margin-bottom:9px}
   .card p{font-size:14.5px;color:var(--ink-2);line-height:1.6}
 
-  .proj{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
-  .proj-cell{background:#fff;padding:26px}
-  .proj-cell h4{font-size:15px;font-weight:600;margin-bottom:8px}
-  .proj-cell p{font-size:14px;color:var(--ink-2)}
-  .proj-cell .same{margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--ink-4)}
-
   figure{margin:0}
-  figure img{width:100%;border:1px solid var(--rule);border-radius:12px;display:block}
-  figcaption{margin-top:16px;font-size:13.5px;color:var(--ink-4);text-align:center}
+  figure img{width:100%;border:1px solid var(--rule);border-radius:13px;display:block}
+  figcaption{margin-top:15px;font-size:13.5px;color:var(--ink-4);text-align:center}
 
-  .band{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper-2);padding:90px 0;text-align:center}
+  /* ============ METRICS ============ */
+  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:13px;overflow:hidden}
+  .metric{background:#fff;padding:30px 22px;text-align:center}
+  .metric-n{font-size:34px;font-weight:600;letter-spacing:-.03em;font-family:var(--mono);line-height:1}
+  .metric-l{font-size:11px;color:var(--ink-4);text-transform:uppercase;letter-spacing:.14em;margin-top:10px;font-weight:600}
+
+  /* ============ BAND ============ */
+  .band{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper-2);padding:92px 0;text-align:center;position:relative;overflow:hidden}
+  .band-glow{position:absolute;width:700px;height:700px;bottom:-420px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(14,165,233,.09),transparent 66%);pointer-events:none}
   .band h2{margin:0 auto 18px}
-  .band p{color:var(--ink-2);margin-bottom:36px;max-width:52ch;margin-left:auto;margin-right:auto}
+  .band p{color:var(--ink-2);margin-bottom:34px;max-width:52ch;margin-left:auto;margin-right:auto}
 
   footer{border-top:1px solid var(--rule);padding:44px 0;color:var(--ink-4);font-size:13.5px}
   .foot-in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
@@ -97,16 +197,19 @@
   .foot-links{display:flex;gap:22px}
   .foot-links a:hover{color:var(--ink)}
 
-  .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
   .reveal.in{opacity:1;transform:none}
-  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    *{animation-duration:.01ms!important;animation-iteration-count:1!important}
+  }
 </style>
 </head>
 <body>
 
-<nav>
+<nav id="nav">
   <div class="wrap nav-in">
-    <a href="#" class="brand">
+    <a href="#top" class="brand">
       <svg viewBox="0 0 32 32" fill="none">
         <polygon points="16,2.5 28.5,9.7 28.5,22.3 16,29.5 3.5,22.3 3.5,9.7" stroke="#0a0a0b" stroke-width="1.5"/>
         <polygon points="16,9.5 22.5,13.2 22.5,19.8 16,23.5 9.5,19.8 9.5,13.2" stroke="#a1a1aa" stroke-width="1.5"/>
@@ -116,62 +219,58 @@
     </a>
     <div class="nav-links">
       <a href="#model">Model</a>
-      <a href="#grammar">Grammar</a>
+      <a href="#demo">Live flow</a>
       <a href="#architecture">Architecture</a>
       <a href="#projections">Projections</a>
-      <a href="https://github.com/UNIFORM1TY">GitHub</a>
+      <a class="nav-cta" href="https://github.com/UNIFORM1TY">GitHub</a>
     </div>
   </div>
 </nav>
 
-<header>
+<header id="top">
   <div class="wrap">
-    <div class="kicker reveal">The operating system / composition layer</div>
-    <h1 class="reveal">The OS composes.<br/>The domains <em>remain real.</em></h1>
-    <p class="hero-sub reveal">Uniformity standardises identity, canonical object state, permissions, evidence, action, verification and history — without merging every project into one product.</p>
+    <div class="kicker reveal"><span class="live"></span> Local-first · 91/91 tests passing</div>
+    <h1 class="reveal">The OS composes.<br/><span class="dim">The domains remain real.</span><span class="cursor"></span></h1>
+    <p class="hero-sub reveal">Uniformity is the operating system and composition layer for a portfolio of distinct products. One canonical object. Many projections. Boundaries that stay explicit even when the experience feels seamless.</p>
     <div class="hero-cta reveal">
-      <a class="btn btn-p" href="#model">See the product model <span class="arrow">→</span></a>
-      <a class="btn btn-s" href="https://github.com/UNIFORM1TY">github.com/UNIFORM1TY</a>
+      <a class="btn btn-p" href="#demo">Run the live flow <span class="arrow">→</span></a>
+      <a class="btn btn-s" href="#model">The product model</a>
     </div>
 
     <div class="stage">
       <div class="stage-glow"></div>
-      <svg id="object" viewBox="0 0 560 560" fill="none" aria-label="Canonical object — one identity, many projections">
-        <g stroke="#0a0a0b" stroke-width="1" opacity="0.14">
-          <line x1="280" y1="0" x2="280" y2="560"/>
-          <line x1="0" y1="280" x2="560" y2="280"/>
+      <svg id="object" viewBox="0 0 580 580" fill="none" aria-label="One canonical object with projection rings">
+        <g stroke="#0a0a0b" stroke-width="1" opacity="0.11">
+          <line x1="290" y1="0" x2="290" y2="580"/><line x1="0" y1="290" x2="580" y2="290"/>
         </g>
-        <g id="ring3" opacity="0.5">
-          <polygon points="280,60 470,170 470,390 280,500 90,390 90,170" stroke="#d4d4d8" stroke-width="1" fill="none"/>
+        <g id="ring3" opacity="0.45"><polygon points="290,58 490,173 490,407 290,522 90,407 90,173" stroke="#dcdce0" stroke-width="1" fill="none"/></g>
+        <g id="ring2" opacity="0.7"><polygon points="290,112 442,200 442,380 290,468 138,380 138,200" stroke="#b4b4b9" stroke-width="1.1" fill="none"/></g>
+        <g fill="#0a0a0b" opacity="0.5">
+          <circle cx="490" cy="173" r="4"/><circle cx="490" cy="407" r="4"/><circle cx="290" cy="522" r="4"/>
+          <circle cx="90" cy="407" r="4"/><circle cx="90" cy="173" r="4"/><circle cx="290" cy="58" r="4"/>
         </g>
-        <g id="ring2" opacity="0.75">
-          <polygon points="280,110 427,195 427,365 280,450 133,365 133,195" stroke="#a1a1aa" stroke-width="1.1" fill="none"/>
-        </g>
-        <g fill="#0a0a0b" opacity="0.55">
-          <circle cx="470" cy="170" r="4"/><circle cx="470" cy="390" r="4"/>
-          <circle cx="280" cy="500" r="4"/><circle cx="90" cy="390" r="4"/>
-          <circle cx="90" cy="170" r="4"/><circle cx="280" cy="60" r="4"/>
-        </g>
-        <polygon points="280,175 371,227.5 371,332.5 280,385 189,332.5 189,227.5" stroke="#0a0a0b" stroke-width="1.6" fill="none"/>
-        <polygon points="280,215 330,244 330,301 280,330 230,301 230,244" stroke="#71717a" stroke-width="1.2" fill="none"/>
-        <circle cx="280" cy="280" r="13" fill="#0ea5e9" opacity="0.14"/>
-        <circle cx="280" cy="280" r="5.5" fill="#0ea5e9"/>
-        <text x="280" y="536" font-family="ui-monospace,Consolas,monospace" font-size="12" fill="#a1a1aa" text-anchor="middle" letter-spacing="1.4">one canonical object_id</text>
+        <polygon points="290,178 385,232.5 385,347.5 290,402 195,347.5 195,232.5" stroke="#0a0a0b" stroke-width="1.6" fill="none"/>
+        <polygon points="290,220 342,250 342,310 290,340 238,310 238,250" stroke="#71717a" stroke-width="1.2" fill="none"/>
+        <circle cx="290" cy="290" r="14" fill="#0ea5e9" opacity="0.13"/>
+        <circle id="objdot" cx="290" cy="290" r="5.5" fill="#0ea5e9"/>
+        <text x="290" y="556" font-family="ui-monospace,Consolas,monospace" font-size="12" fill="#a1a1aa" text-anchor="middle" letter-spacing="1.4">one canonical object_id</text>
       </svg>
+      <div class="stage-hint">JUNO-106 · reference object · not a product</div>
     </div>
   </div>
 
-  <div class="grammar">
-    <div class="grammar-in">
-      <span class="g-step">Object</span><span class="g-ar">→</span>
-      <span class="g-step">State</span><span class="g-ar">→</span>
-      <span class="g-step">Signal</span><span class="g-ar">→</span>
-      <span class="g-step">Evidence</span><span class="g-ar">→</span>
-      <span class="g-step">Intelligence</span><span class="g-ar">→</span>
-      <span class="g-step">Action</span><span class="g-ar">→</span>
-      <span class="g-step">Verification</span><span class="g-ar">→</span>
-      <span class="g-step">History</span>
+  <div class="grammar" id="grammar">
+    <div class="gram-rail" role="tablist" aria-label="Shared runtime grammar">
+      <button class="gram-tab" role="tab" aria-selected="true" data-g="0"><span class="n">01</span>Object</button>
+      <button class="gram-tab" role="tab" aria-selected="false" data-g="1"><span class="n">02</span>State</button>
+      <button class="gram-tab" role="tab" aria-selected="false" data-g="2"><span class="n">03</span>Signal</button>
+      <button class="gram-tab" role="tab" aria-selected="false" data-g="3"><span class="n">04</span>Evidence</button>
+      <button class="gram-tab" role="tab" aria-selected="false" data-g="4"><span class="n">05</span>Intelligence</button>
+      <button class="gram-tab" role="tab" aria-selected="false" data-g="5"><span class="n">06</span>Action</button>
+      <button class="gram-tab" role="tab" aria-selected="false" data-g="6"><span class="n">07</span>Verification</button>
+      <button class="gram-tab" role="tab" aria-selected="false" data-g="7"><span class="n">08</span>History</button>
     </div>
+    <div class="gram-panel"><div id="gram-body" class="fade"></div></div>
   </div>
 </header>
 
@@ -183,47 +282,92 @@
 
     <div class="own">
       <div class="own-row">
-        <div class="own-name">Uniformity<small>the OS</small></div>
+        <div class="own-name"><span class="dot" style="background:#0a0a0b"></span><span>Uniformity<small>the OS</small></span></div>
         <div class="own-body">Owns <b>identity, canonical object and state, permissions, events, orchestration and role/context projections</b>. <span class="never">Must not own instrument semantics or advisory reasoning.</span></div>
       </div>
       <div class="own-row">
-        <div class="own-name">LOGARHYTHM / SUBANGEL<small>one instrument world</small></div>
+        <div class="own-name"><span class="dot" style="background:#a855f7"></span><span>LOGARHYTHM / SUBANGEL<small>one instrument world</small></span></div>
         <div class="own-body">Public and cultural identity plus instrument archive, diagnostics, repair workflow and service-history depth. <span class="never">Must not own cross-domain OS truth.</span></div>
       </div>
       <div class="own-row">
-        <div class="own-name">JUNO-106<small>reference object</small></div>
+        <div class="own-name"><span class="dot" style="background:#0ea5e9"></span><span>JUNO-106<small>reference object</small></span></div>
         <div class="own-body">A <b>reference object used to prove the runtime</b>. It is not a product and never becomes one.</div>
       </div>
       <div class="own-row">
-        <div class="own-name">Fridge Brain<small>advisory service</small></div>
+        <div class="own-name"><span class="dot" style="background:#d97706"></span><span>Fridge Brain<small>advisory service</small></span></div>
         <div class="own-body">May retrieve, interpret, rank, cite and propose one next action. <span class="never">Must never mutate canonical state, accept actions, or write history.</span></div>
       </div>
       <div class="own-row">
-        <div class="own-name">RESELL · UCMR<small>domain adapters</small></div>
+        <div class="own-name"><span class="dot" style="background:#22d3ee"></span><span>RESELL · UCMR<small>domain adapters</small></span></div>
         <div class="own-body">Their own domain semantics and workflows, composed through the same runtime contract. <span class="never">Must not own instrument-domain truth.</span></div>
       </div>
       <div class="own-row">
-        <div class="own-name">Hermes + Nous<small>research / operator</small></div>
+        <div class="own-name"><span class="dot" style="background:#6366f1"></span><span>Hermes + Nous<small>research / operator</small></span></div>
         <div class="own-body">The research and governed-execution cross-reference. <span class="never">Not product truth.</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="grammar" style="background:var(--paper-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
+<section id="demo" style="background:var(--paper-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
   <div class="wrap reveal">
-    <div class="eyebrow">Shared runtime grammar</div>
-    <h2>Eight stages. Every domain.</h2>
-    <p class="lead">The same pipeline governs any object, whichever world owns it. Intelligence advises; it never mutates.</p>
-    <div class="cards">
-      <div class="card"><div class="card-tag">01 · Object</div><h3>Canonical identity</h3><p>One stable <code>object_id</code> that every projection resolves to.</p></div>
-      <div class="card"><div class="card-tag">02 · State</div><h3>Operational state</h3><p>The current condition of that object, versioned — never overwritten.</p></div>
-      <div class="card"><div class="card-tag">03 · Signal</div><h3>Observed event</h3><p>An event or condition detected against the object.</p></div>
-      <div class="card"><div class="card-tag">04 · Evidence</div><h3>Governed material</h3><p>Revision-aware, permission-scoped, provenance-bearing.</p></div>
-      <div class="card"><div class="card-tag">05 · Intelligence</div><h3>Advisory only</h3><p>Ranked hypotheses, confidence, contradictions — never canonical mutation.</p></div>
-      <div class="card"><div class="card-tag">06 · Action</div><h3>Domain-owned work</h3><p>Proposed, accepted, started, completed — owned by the workshop layer.</p></div>
-      <div class="card"><div class="card-tag">07 · Verification</div><h3>Result + new evidence</h3><p>Recorded at completion. Staging is not verification.</p></div>
-      <div class="card"><div class="card-tag">08 · History</div><h3>Immutable events</h3><p>The object can be reconstructed and audited from its history alone.</p></div>
+    <div class="eyebrow">Live reference flow</div>
+    <h2>Accept → start → complete. Watch truth propagate.</h2>
+    <p class="lead">This is the real reference slice, running in your browser. One action on one canonical object updates every permitted projection, appends verified evidence, and ends in an immutable <code>action.completed</code>. Fridge Brain can advise — it can never mutate.</p>
+
+    <div class="demo-shell">
+      <div class="demo-bar">
+        <div class="demo-dots"><i></i><i></i><i></i></div>
+        <div class="demo-title">uniformity · juno-106 reference slice</div>
+        <div class="demo-badge" id="transport">transport: fallback</div>
+      </div>
+
+      <div class="demo-grid">
+        <!-- LEFT: object + actions -->
+        <div class="demo-col">
+          <h4><span>Canonical object</span><span id="rev">rev 1</span></h4>
+          <div class="obj-card">
+            <div class="obj-id">object_id · juno106-7f3a91c4</div>
+            <div class="obj-name">JUNO-106 · voice board fault</div>
+            <span class="state-pill" id="pill"><span class="d"></span><span id="pill-text">signal detected</span></span>
+          </div>
+
+          <h4>Workshop actions</h4>
+          <div class="actions">
+            <button class="act primary" id="btn-accept">Accept action</button>
+            <button class="act" id="btn-start" disabled>Start</button>
+            <button class="act" id="btn-complete" disabled>Complete + verify</button>
+            <button class="act ghost" id="btn-reset">Reset</button>
+          </div>
+
+          <div class="brain">
+            <div class="brain-top">
+              <span class="brain-name">FRIDGE BRAIN</span>
+              <span class="brain-note">advisory only</span>
+            </div>
+            <div class="brain-out" id="brain-out">Assessment idle. Ask for an interpretation of the current evidence.</div>
+            <div style="margin-top:12px"><button class="act ghost" id="btn-brain">Ask Fridge Brain</button></div>
+            <div class="brain-warn" id="brain-warn">canonical state unchanged — the brain proposed, the OS decided</div>
+          </div>
+        </div>
+
+        <!-- RIGHT: projections -->
+        <div class="demo-col">
+          <h4><span>Role projection</span><span id="proj-id">same object_id</span></h4>
+          <div class="proj-tabs" role="tablist">
+            <button class="proj-tab" role="tab" aria-selected="true" data-p="matt">Matt</button>
+            <button class="proj-tab" role="tab" aria-selected="false" data-p="susanna">Susanna</button>
+            <button class="proj-tab" role="tab" aria-selected="false" data-p="customer">Customer</button>
+            <button class="proj-tab" role="tab" aria-selected="false" data-p="logarhythm">Logarhythm</button>
+          </div>
+          <div class="proj-view"><div id="proj-body"></div></div>
+        </div>
+      </div>
+
+      <div class="hist">
+        <h4>Immutable history <span id="hist-count" style="color:var(--ink-3)"></span></h4>
+        <div class="hist-log" id="hist-log"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -232,9 +376,9 @@
   <div class="wrap reveal">
     <div class="eyebrow">Architecture</div>
     <h2>Governed evidence in. Advisory assessment out.</h2>
-    <p class="lead">Uniformity filters evidence before it crosses the Fridge Brain boundary. The service validates defensively and returns interpretation — never authority.</p>
+    <p class="lead">Uniformity filters evidence before it crosses the Fridge Brain boundary. The service validates defensively and returns interpretation — never authority. The client records whether transport is <code>service</code> or <code>fallback</code>.</p>
     <figure>
-      <img src="architecture.svg" alt="Uniformity runtime topology: the OS core governs evidence into the Fridge Brain advisory service, which returns assessment only to the instrument domain" />
+      <img src="architecture.svg" alt="Uniformity runtime topology: the OS core governs evidence into the Fridge Brain advisory service, which returns assessment only to the instrument domain" loading="lazy" />
       <figcaption>Uniformity OS · Fridge Brain advisory boundary · LOGARHYTHM / SUBANGEL instrument domain · role projections</figcaption>
     </figure>
   </div>
@@ -245,27 +389,34 @@
     <div class="eyebrow">Role projections</div>
     <h2>Same object. Different eyes.</h2>
     <p class="lead">Every projection resolves the same canonical <code>object_id</code>. Depth and language change; truth does not.</p>
-    <div class="proj">
-      <div class="proj-cell"><h4>Matt</h4><p>Technical bench projection. Signal → Reason → Evidence → full trace.</p><div class="same">object_id · identical</div></div>
-      <div class="proj-cell"><h4>Susanna</h4><p>Operational. Status, blocker, who acts next, the next workshop step.</p><div class="same">object_id · identical</div></div>
-      <div class="proj-cell"><h4>Customer</h4><p>Customer-safe status and any approval or action required.</p><div class="same">object_id · identical</div></div>
-      <div class="proj-cell"><h4>Logarhythm</h4><p>Public cultural presentation — no private workshop intelligence.</p><div class="same">object_id · identical</div></div>
+    <div class="cards">
+      <div class="card"><div class="card-tag">Matt · technical</div><h3>Signal → Reason → Evidence</h3><p>The bench view. Full trace, ranked hypotheses, provenance, contradictions and missing evidence — governed intelligence shown progressively.</p></div>
+      <div class="card"><div class="card-tag">Susanna · operational</div><h3>Status · blocker · who acts</h3><p>Compact and simple. What is happening, what is blocked, who needs to act next, and the next workshop step.</p></div>
+      <div class="card"><div class="card-tag">Customer · safe</div><h3>Customer-safe status</h3><p>Only what is safe to show, plus any approval or action the customer must take.</p></div>
+      <div class="card"><div class="card-tag">Logarhythm · public</div><h3>Public cultural view</h3><p>Presentation without private workshop intelligence. The story, not the bench.</p></div>
     </div>
   </div>
 </section>
 
 <section>
   <div class="wrap reveal">
-    <div class="eyebrow">Principle</div>
-    <h2>Technical boundaries stay explicit even when the experience feels seamless.</h2>
-    <p class="lead" style="margin-bottom:0">A completed action appends verified evidence, updates canonical state exactly once, and becomes visible through every permitted projection. The OS composes; the domains remain real.</p>
+    <div class="eyebrow">Verified state</div>
+    <h2>Measured, not asserted.</h2>
+    <p class="lead">Every claim in this ecosystem carries a command, a result and a timestamp. Staging is not verification.</p>
+    <div class="metrics">
+      <div class="metric"><div class="metric-n" data-count="91">0</div><div class="metric-l">Tests passing</div></div>
+      <div class="metric"><div class="metric-n" data-count="8">0</div><div class="metric-l">Grammar stages</div></div>
+      <div class="metric"><div class="metric-n" data-count="4">0</div><div class="metric-l">Role projections</div></div>
+      <div class="metric"><div class="metric-n" data-count="1">0</div><div class="metric-l">Canonical object_id</div></div>
+    </div>
   </div>
 </section>
 
 <div class="band">
+  <div class="band-glow"></div>
   <div class="wrap reveal">
-    <h2>The OS composes. The domains remain real.</h2>
-    <p>Browse the runtime, the contracts and the reference slice.</p>
+    <h2>Technical boundaries stay explicit even when the experience feels seamless.</h2>
+    <p>The OS composes; the domains remain real.</p>
     <a class="btn btn-p" href="https://github.com/UNIFORM1TY">github.com/UNIFORM1TY <span class="arrow">→</span></a>
   </div>
 </div>
@@ -287,23 +438,195 @@
 </footer>
 
 <script>
-  const io = new IntersectionObserver((es)=>{
-    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-  },{threshold:.1});
-  document.querySelectorAll('.reveal').forEach((el,i)=>{
-    el.style.transitionDelay = (Math.min(i,4)*60)+'ms';
+(function(){
+  "use strict";
+
+  /* ---------- nav shadow ---------- */
+  var nav = document.getElementById('nav');
+  addEventListener('scroll', function(){ nav.classList.toggle('scrolled', scrollY > 12); }, {passive:true});
+
+  /* ---------- reveal ---------- */
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.1});
+  document.querySelectorAll('.reveal').forEach(function(el,i){
+    el.style.transitionDelay = Math.min(i,4)*60 + 'ms';
     io.observe(el);
   });
-  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
-    let t=0;
-    const r2=document.getElementById('ring2'), r3=document.getElementById('ring3');
+
+  /* ---------- object: parallax + rings ---------- */
+  var obj = document.getElementById('object');
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduced){
+    addEventListener('mousemove', function(e){
+      var x = (e.clientX / innerWidth - .5), y = (e.clientY / innerHeight - .5);
+      obj.style.transform = 'translate(' + (x*16) + 'px,' + (y*16) + 'px)';
+    }, {passive:true});
+    var t = 0, r2 = document.getElementById('ring2'), r3 = document.getElementById('ring3');
     (function spin(){
-      t+=0.0016;
-      r2.setAttribute('transform','rotate('+(Math.sin(t)*2.4)+' 280 280)');
-      r3.setAttribute('transform','rotate('+(-Math.sin(t)*1.6)+' 280 280)');
+      t += .0016;
+      r2.setAttribute('transform','rotate(' + (Math.sin(t)*2.6) + ' 290 290)');
+      r3.setAttribute('transform','rotate(' + (-Math.sin(t)*1.7) + ' 290 290)');
       requestAnimationFrame(spin);
     })();
   }
+
+  /* ---------- grammar tabs ---------- */
+  var G = [
+    {n:'01 · Object',  t:'Canonical identity',      p:'One stable <code>object_id</code> that every projection resolves to. Identity is not duplicated per view — it is shared, and the views differ only in depth and language.', m:'object_id · juno106-7f3a91c4'},
+    {n:'02 · State',   t:'Operational state',       p:'The current condition of that object. State advances through verified events and is versioned — never silently overwritten.', m:'rev 1 → rev 2 on verified completion'},
+    {n:'03 · Signal',  t:'Observed event',          p:'An event or condition detected against the object. A signal is an observation, not a conclusion.', m:'event · signal.detected'},
+    {n:'04 · Evidence',t:'Governed material',       p:'Revision-aware, permission-scoped and provenance-bearing. Uniformity filters evidence <em>before</em> it crosses the Fridge Brain boundary.', m:'revision-aware · permission-scoped · provenance-bearing'},
+    {n:'05 · Intelligence', t:'Advisory only',      p:'Ranked hypotheses, confidence, contradictions and missing information — plus exactly one proposed next action. It may never contain or perform canonical state mutation.', m:'Fridge Brain · POST /v1/assessments'},
+    {n:'06 · Action',  t:'Domain-owned work',       p:'Proposed, accepted, started and completed — owned by the domain or workshop layer, never by the OS and never by the advisory service.', m:'events · action.accepted → action.started → action.completed'},
+    {n:'07 · Verification', t:'Result + new evidence', p:'Recorded at completion: result, verification status and the evidence that proves it. Staging is not verification.', m:'appends verified evidence · updates state exactly once'},
+    {n:'08 · History', t:'Immutable events',        p:'Append-only events that allow the object to be reconstructed and audited from history alone. Records are superseded, never erased.', m:'terminal state · action.completed'}
+  ];
+  var gBody = document.getElementById('gram-body');
+  function drawGram(i){
+    var g = G[i];
+    gBody.innerHTML = '<h3>' + g.t + '</h3><p>' + g.p + '</p><div class="meta">' + g.m + '</div>';
+    gBody.classList.remove('fade'); void gBody.offsetWidth; gBody.classList.add('fade');
+  }
+  drawGram(0);
+  document.querySelectorAll('.gram-tab').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.gram-tab').forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      b.setAttribute('aria-selected','true');
+      drawGram(+b.dataset.g);
+    });
+  });
+
+  /* ---------- live reference flow ---------- */
+  var STATE = { stage:'signal', rev:1, events:['created','signal.detected'], proj:'matt', brain:null };
+  var STATES = {
+    signal:   { label:'signal detected', cls:'' },
+    accepted: { label:'action accepted', cls:'active' },
+    started:  { label:'action in progress', cls:'active' },
+    done:     { label:'verified · complete', cls:'done' }
+  };
+  var $ = function(id){ return document.getElementById(id); };
+  var pill = $('pill'), pillText = $('pill-text'), histLog = $('hist-log'), histCount = $('hist-count');
+
+  function projHTML(k){
+    var done = STATE.stage === 'done', acc = STATE.stage !== 'signal';
+    if(k === 'matt'){
+      return '<div class="pl">matt · technical bench</div>' +
+        line('object_id','juno106-7f3a91c4') +
+        line('signal','voice board — intermittent') +
+        line('reason','CEM3340 drift, thermal') +
+        line('evidence','rev '+STATE.rev+' · 3 items') +
+        line('action', acc ? (done ? 'completed · verified' : STATE.stage) : 'awaiting acceptance') +
+        line('trace', done ? 'full trace available' : 'trace partial');
+    }
+    if(k === 'susanna'){
+      return '<div class="pl">susanna · operational</div>' +
+        line('status', done ? 'Board repaired' : (acc ? 'In progress' : 'Reported')) +
+        line('blocker', acc ? 'none' : 'awaiting acceptance') +
+        line('next step', done ? 'Return to customer' : (STATE.stage==='started' ? 'Bench work underway' : 'Accept the action')) +
+        line('who acts', done ? '—' : 'Matt') +
+        line('object', 'juno106-7f3a91c4');
+    }
+    if(k === 'customer'){
+      return '<div class="pl">customer · safe view</div>' +
+        line('item','JUNO-106') +
+        line('status', done ? 'Repair complete' : (acc ? 'In progress' : 'Received')) +
+        line('your action', done ? 'Approve collection' : 'None required') +
+        line('eta', done ? 'ready' : 'in workshop');
+    }
+    return '<div class="pl">logarhythm · public</div>' +
+      line('story','JUNO-106 · voice board') +
+      line('theme','thermal drift in a 1984 classic') +
+      line('workshop','private intelligence withheld') +
+      line('status','narrative draft');
+  }
+  function line(k,v){ return '<div class="proj-line"><span>'+k+'</span><span>'+v+'</span></div>'; }
+
+  function render(){
+    var s = STATES[STATE.stage];
+    pill.className = 'state-pill ' + s.cls;
+    pillText.textContent = s.label;
+    $('rev').textContent = 'rev ' + STATE.rev;
+
+    histLog.innerHTML = STATE.events.map(function(e){
+      return '<span class="ev' + (e==='action.completed' ? ' final' : '') + '">' + e + '</span>';
+    }).join('');
+    histCount.textContent = '· ' + STATE.events.length + ' events';
+
+    $('proj-body').innerHTML = projHTML(STATE.proj);
+
+    $('btn-accept').disabled   = STATE.stage !== 'signal';
+    $('btn-start').disabled    = STATE.stage !== 'accepted';
+    $('btn-complete').disabled = STATE.stage !== 'started';
+    $('btn-brain').disabled    = STATE.stage === 'done';
+  }
+
+  $('btn-accept').addEventListener('click', function(){
+    if(STATE.stage !== 'signal') return;
+    STATE.stage = 'accepted'; STATE.events.push('action.accepted'); render();
+  });
+  $('btn-start').addEventListener('click', function(){
+    if(STATE.stage !== 'accepted') return;
+    STATE.stage = 'started'; STATE.events.push('action.started'); render();
+  });
+  $('btn-complete').addEventListener('click', function(){
+    if(STATE.stage !== 'started') return;
+    STATE.stage = 'done'; STATE.rev = 2;
+    STATE.events.push('evidence.verified','action.completed'); render();
+  });
+  $('btn-reset').addEventListener('click', function(){
+    STATE = { stage:'signal', rev:1, events:['created','signal.detected'], proj:STATE.proj, brain:null };
+    $('brain-out').textContent = 'Assessment idle. Ask for an interpretation of the current evidence.';
+    $('brain-warn').classList.remove('on');
+    render();
+  });
+
+  document.querySelectorAll('.proj-tab').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.proj-tab').forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      b.setAttribute('aria-selected','true');
+      STATE.proj = b.dataset.p; render();
+    });
+  });
+
+  /* ---------- Fridge Brain ---------- */
+  $('btn-brain').addEventListener('click', function(){
+    var out = $('brain-out');
+    out.innerHTML = '<span class="hyp">Retrieving governed evidence for revision ' + STATE.rev + '…</span>';
+    setTimeout(function(){
+      var before = JSON.stringify(STATE.events);
+      out.innerHTML =
+        '<span class="hyp"><b>Hypothesis 1</b> · thermal drift in the CEM3340 VCO — confidence <b>0.72</b></span>' +
+        '<span class="hyp"><b>Hypothesis 2</b> · failing electrolytic in the PSU rail — confidence <b>0.41</b></span>' +
+        '<span class="hyp"><b>Missing</b> · bench temperature log; rail ripple measurement</span>' +
+        '<span class="hyp"><b>Proposed next action</b> · reflow VCO pins and re-measure drift — <b>awaiting domain acceptance</b></span>';
+      if(JSON.stringify(STATE.events) === before){
+        $('brain-warn').classList.add('on');
+      }
+    }, 620);
+  });
+
+  /* ---------- transport indicator ---------- */
+  $('transport').textContent = 'transport: fallback · deterministic';
+
+  /* ---------- metric count-up ---------- */
+  var mio = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var el = e.target, target = +el.dataset.count, n = 0;
+      var step = Math.max(1, Math.round(target/26));
+      (function tick(){
+        n += step;
+        if(n >= target){ el.textContent = target; return; }
+        el.textContent = n; requestAnimationFrame(tick);
+      })();
+      mio.unobserve(el);
+    });
+  }, {threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(function(el){ mio.observe(el); });
+
+  render();
+})();
 </script>
 </body>
 </html>
