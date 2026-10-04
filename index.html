@@ -1,15 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Uniformity — The OS composes. The domains remain real.</title>
 <meta name="description" content="Uniformity is the operating system and composition layer for a portfolio of distinct products. One canonical object. Many projections. Boundaries that stay explicit." />
+<meta name="author" content="Maximilien White" />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0a0a0b" media="(prefers-color-scheme: dark)" />
+<link rel="canonical" href="https://uniform1ty.github.io/" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="apple-touch-icon" href="favicon.svg" />
+<link rel="preconnect" href="https://img.shields.io" />
+<link rel="preconnect" href="https://raw.githubusercontent.com" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Uniformity" />
 <meta property="og:title" content="Uniformity — The OS composes. The domains remain real." />
 <meta property="og:description" content="Identity, canonical object state, permissions, evidence, action, verification and history — without merging every project into one product." />
+<meta property="og:url" content="https://uniform1ty.github.io/" />
 <meta property="og:image" content="https://raw.githubusercontent.com/UNIFORM1TY/UNIFORM1TY.github.io/main/architecture.svg" />
-<meta name="theme-color" content="#ffffff" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolygon points='16,4 27,10.3 27,21.7 16,28 5,21.7 5,10.3' fill='none' stroke='%230a0a0b' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%230ea5e9'/%3E%3C/svg%3E" />
+<meta property="og:locale" content="en" />
+<meta property="og:locale:alternate" content="fr" />
+<meta property="og:locale:alternate" content="es" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Uniformity — The OS composes." />
+<meta name="twitter:description" content="The operating system and composition layer for a portfolio of distinct products." />
+
+<!-- hreflang -->
+<link rel="alternate" hreflang="en" href="https://uniform1ty.github.io/" />
+<link rel="alternate" hreflang="fr" href="https://uniform1ty.github.io/" />
+<link rel="alternate" hreflang="es" href="https://uniform1ty.github.io/" />
+<link rel="alternate" hreflang="x-default" href="https://uniform1ty.github.io/" />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Uniformity",
+  "alternateName": "Uniformity OS",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Local-first",
+  "description": "The operating system and composition layer for a portfolio of distinct products. Standardises identity, canonical object state, permissions, evidence, action, verification and history.",
+  "url": "https://uniform1ty.github.io/",
+  "author": { "@type": "Person", "name": "Maximilien White", "url": "https://github.com/maxiwhite" },
+  "codeRepository": "https://github.com/UNIFORM1TY/uniformity-os",
+  "slogan": "The OS composes. The domains remain real."
+}
+</script>
+
 <style>
   :root{
     --ink:#0a0a0b; --ink-2:#3f3f46; --ink-3:#71717a; --ink-4:#a1a1aa;
@@ -26,23 +68,46 @@
   code{font-family:var(--mono);font-size:.9em;background:var(--paper-3);padding:2px 6px;border-radius:5px;border:1px solid var(--rule)}
   .wrap{max-width:1120px;margin:0 auto;padding:0 32px}
   ::selection{background:rgba(14,165,233,.18)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+  /* ============ reading progress ============ */
+  #prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0;z-index:200;transition:width .1s linear}
 
   /* ============ NAV ============ */
   nav{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(18px);-webkit-backdrop-filter:saturate(180%) blur(18px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
   nav.scrolled{border-bottom-color:var(--rule)}
-  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
-  .brand{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:.2em;font-size:12.5px}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px;gap:18px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:.2em;font-size:12.5px;flex:none}
   .brand svg{width:23px;height:23px;transition:transform .6s var(--ease)}
   .brand:hover svg{transform:rotate(60deg)}
-  .nav-links{display:flex;gap:30px;font-size:14px;color:var(--ink-3);align-items:center}
-  .nav-links a{transition:color .2s;position:relative}
+  .nav-links{display:flex;gap:28px;font-size:14px;color:var(--ink-3);align-items:center}
+  .nav-links a{transition:color .2s;position:relative;white-space:nowrap}
   .nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:-5px;height:1.5px;background:var(--ink);transition:right .3s var(--ease)}
   .nav-links a:hover{color:var(--ink)}
   .nav-links a:hover::after{right:0}
   .nav-cta{padding:8px 16px;border:1px solid var(--rule);border-radius:8px;color:var(--ink);font-weight:500}
   .nav-cta:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
   .nav-cta::after{display:none}
-  @media(max-width:880px){.nav-links a:not(.nav-cta){display:none}}
+
+  /* ============ LANGUAGE SWITCH ============ */
+  .lang{position:relative;flex:none}
+  .lang-btn{display:flex;align-items:center;gap:7px;padding:7px 12px;border:1px solid var(--rule);border-radius:8px;background:#fff;font-family:inherit;font-size:12.5px;font-weight:500;color:var(--ink-2);cursor:pointer;transition:.2s var(--ease)}
+  .lang-btn:hover{border-color:var(--ink-4);color:var(--ink)}
+  .lang-btn svg{width:14px;height:14px;opacity:.7;transition:transform .25s var(--ease)}
+  .lang[data-open="true"] .lang-btn svg{transform:rotate(180deg)}
+  .lang-menu{
+    position:absolute;top:calc(100% + 8px);right:0;min-width:184px;background:#fff;border:1px solid var(--rule);
+    border-radius:11px;padding:6px;box-shadow:0 18px 44px -20px rgba(10,10,11,.3);
+    opacity:0;visibility:hidden;transform:translateY(-6px);transition:.22s var(--ease);z-index:90;
+  }
+  .lang[data-open="true"] .lang-menu{opacity:1;visibility:visible;transform:none}
+  .lang-item{display:flex;align-items:center;gap:11px;width:100%;padding:9px 11px;border:0;background:transparent;font-family:inherit;font-size:13.5px;color:var(--ink-2);cursor:pointer;border-radius:7px;text-align:left;transition:.16s}
+  .lang-item:hover{background:var(--paper-3);color:var(--ink)}
+  .lang-item .code{font-family:var(--mono);font-size:11px;color:var(--ink-4);text-transform:uppercase;margin-left:auto}
+  .lang-item[aria-current="true"]{color:var(--ink);font-weight:600}
+  .lang-item[aria-current="true"]::before{content:"✓";color:var(--accent);font-size:12px;width:12px}
+  .lang-item:not([aria-current="true"])::before{content:"";width:12px}
+  @media(max-width:920px){.nav-links a:not(.nav-cta){display:none}}
 
   /* ============ HERO ============ */
   header{padding:112px 0 0;position:relative;overflow:hidden}
@@ -69,15 +134,11 @@
   #object{width:min(580px,88vw);height:auto;position:relative;transition:transform .5s var(--ease)}
   .stage-hint{position:absolute;bottom:8px;font-size:12px;color:var(--ink-4);font-family:var(--mono);letter-spacing:.06em}
 
-  /* ============ GRAMMAR (interactive) ============ */
+  /* ============ GRAMMAR ============ */
   .grammar{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper-2);padding:0;margin-top:78px}
   .gram-rail{display:flex;overflow-x:auto;scrollbar-width:none}
   .gram-rail::-webkit-scrollbar{display:none}
-  .gram-tab{
-    flex:1 0 auto;min-width:132px;padding:22px 16px;border:0;background:transparent;cursor:pointer;
-    font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--ink-4);
-    border-right:1px solid var(--rule);position:relative;transition:.24s var(--ease);white-space:nowrap;
-  }
+  .gram-tab{flex:1 0 auto;min-width:132px;padding:22px 16px;border:0;background:transparent;cursor:pointer;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--ink-4);border-right:1px solid var(--rule);position:relative;transition:.24s var(--ease);white-space:nowrap}
   .gram-tab:last-child{border-right:0}
   .gram-tab .n{display:block;font-size:10px;letter-spacing:.14em;margin-bottom:5px;color:var(--ink-4);opacity:.7}
   .gram-tab:hover{color:var(--ink-2);background:#fff}
@@ -87,7 +148,7 @@
   .gram-panel h3{font-size:17px;font-weight:600;letter-spacing:-.015em;margin-bottom:8px}
   .gram-panel p{color:var(--ink-2);font-size:15px;max-width:74ch}
   .gram-panel .meta{margin-top:14px;font-family:var(--mono);font-size:11.5px;color:var(--ink-4)}
-  .gram-panel .fade{animation:fade .45s var(--ease)}
+  .fade{animation:fade .45s var(--ease)}
   @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
   /* ============ SECTIONS ============ */
@@ -108,7 +169,7 @@
   .own-body .never{color:var(--ink-4)}
   @media(max-width:680px){.own-row{grid-template-columns:1fr;gap:9px}}
 
-  /* ============ INTERACTIVE DEMO ============ */
+  /* ============ DEMO ============ */
   .demo-shell{border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(10,10,11,.04),0 24px 60px -40px rgba(10,10,11,.25)}
   .demo-bar{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--rule);background:var(--paper-2)}
   .demo-dots{display:flex;gap:6px}
@@ -120,7 +181,9 @@
   .demo-col{background:#fff;padding:26px}
   .demo-col h4{font-size:12px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}
   .obj-card{border:1px solid var(--rule);border-radius:11px;padding:16px;margin-bottom:14px}
-  .obj-id{font-family:var(--mono);font-size:11px;color:var(--ink-4);letter-spacing:.04em}
+  .obj-id{font-family:var(--mono);font-size:11px;color:var(--ink-4);letter-spacing:.04em;display:flex;align-items:center;gap:8px}
+  .obj-id button{background:none;border:0;cursor:pointer;color:var(--ink-4);font-family:inherit;font-size:10.5px;padding:2px 6px;border:1px solid var(--rule);border-radius:5px;transition:.18s}
+  .obj-id button:hover{color:var(--ink);border-color:var(--ink-4)}
   .obj-name{font-weight:600;font-size:15px;margin:5px 0 10px}
   .state-pill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:500;padding:4px 11px;border-radius:999px;border:1px solid var(--rule);background:var(--paper-2);transition:.3s var(--ease)}
   .state-pill .d{width:6px;height:6px;border-radius:50%;background:var(--ink-4);transition:.3s}
@@ -129,16 +192,13 @@
   .state-pill.done{border-color:rgba(22,163,74,.4);background:rgba(22,163,74,.07);color:#15803d}
   .state-pill.done .d{background:var(--ok)}
   .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:4px}
-  .act{
-    font-family:inherit;font-size:13.5px;font-weight:500;padding:9px 17px;border-radius:9px;
-    border:1px solid var(--rule);background:#fff;color:var(--ink-2);cursor:pointer;transition:.2s var(--ease);
-  }
+  .act{font-family:inherit;font-size:13.5px;font-weight:500;padding:9px 17px;border-radius:9px;border:1px solid var(--rule);background:#fff;color:var(--ink-2);cursor:pointer;transition:.2s var(--ease)}
   .act:hover:not(:disabled){border-color:var(--ink);color:var(--ink);transform:translateY(-1px)}
   .act:disabled{opacity:.35;cursor:not-allowed}
   .act.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
   .act.primary:hover:not(:disabled){box-shadow:0 8px 20px -10px rgba(10,10,11,.5)}
   .act.ghost{background:var(--paper-2)}
-  .proj-tabs{display:flex;gap:0;border:1px solid var(--rule);border-radius:9px;overflow:hidden;margin-bottom:16px}
+  .proj-tabs{display:flex;border:1px solid var(--rule);border-radius:9px;overflow:hidden;margin-bottom:16px}
   .proj-tab{flex:1;padding:9px 8px;border:0;background:#fff;font-family:inherit;font-size:12.5px;font-weight:500;color:var(--ink-3);cursor:pointer;transition:.2s;border-right:1px solid var(--rule)}
   .proj-tab:last-child{border-right:0}
   .proj-tab:hover{background:var(--paper-2);color:var(--ink-2)}
@@ -164,7 +224,7 @@
   .brain-out .hyp:last-child{border-bottom:0}
   .brain-out b{color:var(--ink);font-weight:500}
   .brain-warn{margin-top:12px;font-size:12px;color:var(--warn);font-family:var(--mono);display:none}
-  .brain-warn.on{display:block}
+  .brain-warn.on{display:block;animation:evIn .4s var(--ease)}
 
   /* ============ CARDS ============ */
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(278px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:13px;overflow:hidden}
@@ -194,23 +254,31 @@
   .foot-in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
   .foot-brand{display:flex;align-items:center;gap:10px;color:var(--ink-2);font-weight:600;letter-spacing:.2em;font-size:12px}
   .foot-brand svg{width:18px;height:18px}
-  .foot-links{display:flex;gap:22px}
+  .foot-links{display:flex;gap:22px;flex-wrap:wrap}
   .foot-links a:hover{color:var(--ink)}
 
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
   .reveal.in{opacity:1;transform:none}
+
+  /* ============ TOAST ============ */
+  #toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:#fff;font-size:13px;font-family:var(--mono);padding:10px 18px;border-radius:9px;opacity:0;pointer-events:none;transition:.3s var(--ease);z-index:200}
+  #toast.on{opacity:1;transform:translate(-50%,0)}
+
   @media(prefers-reduced-motion:reduce){
     .reveal{opacity:1;transform:none;transition:none}
-    *{animation-duration:.01ms!important;animation-iteration-count:1!important}
+    *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   }
 </style>
 </head>
 <body>
 
+<div id="prog"></div>
+<div id="toast"></div>
+
 <nav id="nav">
   <div class="wrap nav-in">
     <a href="#top" class="brand">
-      <svg viewBox="0 0 32 32" fill="none">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
         <polygon points="16,2.5 28.5,9.7 28.5,22.3 16,29.5 3.5,22.3 3.5,9.7" stroke="#0a0a0b" stroke-width="1.5"/>
         <polygon points="16,9.5 22.5,13.2 22.5,19.8 16,23.5 9.5,19.8 9.5,13.2" stroke="#a1a1aa" stroke-width="1.5"/>
         <circle cx="16" cy="16" r="2.4" fill="#0ea5e9"/>
@@ -218,23 +286,33 @@
       UNIFORMITY
     </a>
     <div class="nav-links">
-      <a href="#model">Model</a>
-      <a href="#demo">Live flow</a>
-      <a href="#architecture">Architecture</a>
-      <a href="#projections">Projections</a>
-      <a class="nav-cta" href="https://github.com/UNIFORM1TY">GitHub</a>
+      <a href="#model" data-i18n="nav_model">Model</a>
+      <a href="#demo" data-i18n="nav_demo">Live flow</a>
+      <a href="#architecture" data-i18n="nav_arch">Architecture</a>
+      <a href="#projections" data-i18n="nav_proj">Projections</a>
+      <a class="nav-cta" href="https://github.com/UNIFORM1TY" data-i18n="nav_gh">GitHub</a>
+    </div>
+    <div class="lang" id="lang" data-open="false">
+      <button class="lang-btn" id="lang-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/>
+        </svg>
+        <span id="lang-cur">EN</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="lang-menu" role="listbox" id="lang-menu" aria-label="Language"></div>
     </div>
   </div>
 </nav>
 
 <header id="top">
   <div class="wrap">
-    <div class="kicker reveal"><span class="live"></span> Local-first · 91/91 tests passing</div>
-    <h1 class="reveal">The OS composes.<br/><span class="dim">The domains remain real.</span><span class="cursor"></span></h1>
-    <p class="hero-sub reveal">Uniformity is the operating system and composition layer for a portfolio of distinct products. One canonical object. Many projections. Boundaries that stay explicit even when the experience feels seamless.</p>
+    <div class="kicker reveal"><span class="live"></span> <span data-i18n="kicker">Local-first · 91/91 tests passing</span></div>
+    <h1 class="reveal"><span data-i18n="h1a">The OS composes.</span><br/><span class="dim" data-i18n="h1b">The domains remain real.</span><span class="cursor"></span></h1>
+    <p class="hero-sub reveal" data-i18n="hero">Uniformity is the operating system and composition layer for a portfolio of distinct products. One canonical object. Many projections. Boundaries that stay explicit even when the experience feels seamless.</p>
     <div class="hero-cta reveal">
-      <a class="btn btn-p" href="#demo">Run the live flow <span class="arrow">→</span></a>
-      <a class="btn btn-s" href="#model">The product model</a>
+      <a class="btn btn-p" href="#demo"><span data-i18n="cta_demo">Run the live flow</span> <span class="arrow">→</span></a>
+      <a class="btn btn-s" href="#model" data-i18n="cta_model">The product model</a>
     </div>
 
     <div class="stage">
@@ -252,23 +330,23 @@
         <polygon points="290,178 385,232.5 385,347.5 290,402 195,347.5 195,232.5" stroke="#0a0a0b" stroke-width="1.6" fill="none"/>
         <polygon points="290,220 342,250 342,310 290,340 238,310 238,250" stroke="#71717a" stroke-width="1.2" fill="none"/>
         <circle cx="290" cy="290" r="14" fill="#0ea5e9" opacity="0.13"/>
-        <circle id="objdot" cx="290" cy="290" r="5.5" fill="#0ea5e9"/>
-        <text x="290" y="556" font-family="ui-monospace,Consolas,monospace" font-size="12" fill="#a1a1aa" text-anchor="middle" letter-spacing="1.4">one canonical object_id</text>
+        <circle cx="290" cy="290" r="5.5" fill="#0ea5e9"/>
+        <text x="290" y="556" font-family="ui-monospace,Consolas,monospace" font-size="12" fill="#a1a1aa" text-anchor="middle" letter-spacing="1.4" data-i18n="obj_caption">one canonical object_id</text>
       </svg>
-      <div class="stage-hint">JUNO-106 · reference object · not a product</div>
+      <div class="stage-hint" data-i18n="obj_hint">JUNO-106 · reference object · not a product</div>
     </div>
   </div>
 
   <div class="grammar" id="grammar">
     <div class="gram-rail" role="tablist" aria-label="Shared runtime grammar">
-      <button class="gram-tab" role="tab" aria-selected="true" data-g="0"><span class="n">01</span>Object</button>
-      <button class="gram-tab" role="tab" aria-selected="false" data-g="1"><span class="n">02</span>State</button>
-      <button class="gram-tab" role="tab" aria-selected="false" data-g="2"><span class="n">03</span>Signal</button>
-      <button class="gram-tab" role="tab" aria-selected="false" data-g="3"><span class="n">04</span>Evidence</button>
-      <button class="gram-tab" role="tab" aria-selected="false" data-g="4"><span class="n">05</span>Intelligence</button>
-      <button class="gram-tab" role="tab" aria-selected="false" data-g="5"><span class="n">06</span>Action</button>
-      <button class="gram-tab" role="tab" aria-selected="false" data-g="6"><span class="n">07</span>Verification</button>
-      <button class="gram-tab" role="tab" aria-selected="false" data-g="7"><span class="n">08</span>History</button>
+      <button class="gram-tab" role="tab" aria-selected="true" data-g="0"><span class="n">01</span><span data-i18n="g_object">Object</span></button>
+      <button class="gram-tab" role="tab" aria-selected="false" data-g="1"><span class="n">02</span><span data-i18n="g_state">State</span></button>
+      <button class="gram-tab" role="tab" aria-selected="false" data-g="2"><span class="n">03</span><span data-i18n="g_signal">Signal</span></button>
+      <button class="gram-tab" role="tab" aria-selected="false" data-g="3"><span class="n">04</span><span data-i18n="g_evidence">Evidence</span></button>
+      <button class="gram-tab" role="tab" aria-selected="false" data-g="4"><span class="n">05</span><span data-i18n="g_intel">Intelligence</span></button>
+      <button class="gram-tab" role="tab" aria-selected="false" data-g="5"><span class="n">06</span><span data-i18n="g_action">Action</span></button>
+      <button class="gram-tab" role="tab" aria-selected="false" data-g="6"><span class="n">07</span><span data-i18n="g_verif">Verification</span></button>
+      <button class="gram-tab" role="tab" aria-selected="false" data-g="7"><span class="n">08</span><span data-i18n="g_hist">History</span></button>
     </div>
     <div class="gram-panel"><div id="gram-body" class="fade"></div></div>
   </div>
@@ -276,34 +354,34 @@
 
 <section id="model">
   <div class="wrap reveal">
-    <div class="eyebrow">Product model</div>
-    <h2>One OS. Separate worlds.</h2>
-    <p class="lead">Uniformity does not merge every project into one product. Each surface owns its own domain truth, and the boundary stays explicit even when the experience feels seamless.</p>
+    <div class="eyebrow" data-i18n="ey_model">Product model</div>
+    <h2 data-i18n="h_model">One OS. Separate worlds.</h2>
+    <p class="lead" data-i18n="p_model">Uniformity does not merge every project into one product.</p>
 
     <div class="own">
       <div class="own-row">
-        <div class="own-name"><span class="dot" style="background:#0a0a0b"></span><span>Uniformity<small>the OS</small></span></div>
-        <div class="own-body">Owns <b>identity, canonical object and state, permissions, events, orchestration and role/context projections</b>. <span class="never">Must not own instrument semantics or advisory reasoning.</span></div>
+        <div class="own-name"><span class="dot" style="background:#0a0a0b"></span><span>Uniformity<small data-i18n="own_os">the OS</small></span></div>
+        <div class="own-body" data-i18n-html="own_body_os">Owns <b>identity, canonical object and state, permissions, events, orchestration and role/context projections</b>. <span class="never">Must not own instrument semantics or advisory reasoning.</span></div>
       </div>
       <div class="own-row">
-        <div class="own-name"><span class="dot" style="background:#a855f7"></span><span>LOGARHYTHM / SUBANGEL<small>one instrument world</small></span></div>
-        <div class="own-body">Public and cultural identity plus instrument archive, diagnostics, repair workflow and service-history depth. <span class="never">Must not own cross-domain OS truth.</span></div>
+        <div class="own-name"><span class="dot" style="background:#a855f7"></span><span>LOGARHYTHM / SUBANGEL<small data-i18n="own_world">one instrument world</small></span></div>
+        <div class="own-body" data-i18n-html="own_body_world">Public and cultural identity plus instrument archive, diagnostics, repair workflow and service-history depth. <span class="never">Must not own cross-domain OS truth.</span></div>
       </div>
       <div class="own-row">
-        <div class="own-name"><span class="dot" style="background:#0ea5e9"></span><span>JUNO-106<small>reference object</small></span></div>
-        <div class="own-body">A <b>reference object used to prove the runtime</b>. It is not a product and never becomes one.</div>
+        <div class="own-name"><span class="dot" style="background:#0ea5e9"></span><span>JUNO-106<small data-i18n="own_ref">reference object</small></span></div>
+        <div class="own-body" data-i18n-html="own_body_ref">A <b>reference object used to prove the runtime</b>. It is not a product and never becomes one.</div>
       </div>
       <div class="own-row">
-        <div class="own-name"><span class="dot" style="background:#d97706"></span><span>Fridge Brain<small>advisory service</small></span></div>
-        <div class="own-body">May retrieve, interpret, rank, cite and propose one next action. <span class="never">Must never mutate canonical state, accept actions, or write history.</span></div>
+        <div class="own-name"><span class="dot" style="background:#d97706"></span><span>Fridge Brain<small data-i18n="own_adv">advisory service</small></span></div>
+        <div class="own-body" data-i18n-html="own_body_adv">May retrieve, interpret, rank, cite and propose one next action. <span class="never">Must never mutate canonical state, accept actions, or write history.</span></div>
       </div>
       <div class="own-row">
-        <div class="own-name"><span class="dot" style="background:#22d3ee"></span><span>RESELL · UCMR<small>domain adapters</small></span></div>
-        <div class="own-body">Their own domain semantics and workflows, composed through the same runtime contract. <span class="never">Must not own instrument-domain truth.</span></div>
+        <div class="own-name"><span class="dot" style="background:#22d3ee"></span><span>RESELL · UCMR<small data-i18n="own_adapter">domain adapters</small></span></div>
+        <div class="own-body" data-i18n-html="own_body_adapter">Their own domain semantics and workflows, composed through the same runtime contract. <span class="never">Must not own instrument-domain truth.</span></div>
       </div>
       <div class="own-row">
-        <div class="own-name"><span class="dot" style="background:#6366f1"></span><span>Hermes + Nous<small>research / operator</small></span></div>
-        <div class="own-body">The research and governed-execution cross-reference. <span class="never">Not product truth.</span></div>
+        <div class="own-name"><span class="dot" style="background:#6366f1"></span><span>Hermes + Nous<small data-i18n="own_res">research / operator</small></span></div>
+        <div class="own-body" data-i18n-html="own_body_res">The research and governed-execution cross-reference. <span class="never">Not product truth.</span></div>
       </div>
     </div>
   </div>
@@ -311,49 +389,47 @@
 
 <section id="demo" style="background:var(--paper-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
   <div class="wrap reveal">
-    <div class="eyebrow">Live reference flow</div>
-    <h2>Accept → start → complete. Watch truth propagate.</h2>
-    <p class="lead">This is the real reference slice, running in your browser. One action on one canonical object updates every permitted projection, appends verified evidence, and ends in an immutable <code>action.completed</code>. Fridge Brain can advise — it can never mutate.</p>
+    <div class="eyebrow" data-i18n="ey_demo">Live reference flow</div>
+    <h2 data-i18n="h_demo">Accept → start → complete. Watch truth propagate.</h2>
+    <p class="lead" data-i18n="p_demo">This is the real reference slice, running in your browser.</p>
 
     <div class="demo-shell">
       <div class="demo-bar">
         <div class="demo-dots"><i></i><i></i><i></i></div>
-        <div class="demo-title">uniformity · juno-106 reference slice</div>
-        <div class="demo-badge" id="transport">transport: fallback</div>
+        <div class="demo-title" data-i18n="demo_title">uniformity · juno-106 reference slice</div>
+        <div class="demo-badge" id="transport" data-i18n="transport">transport: fallback · deterministic</div>
       </div>
 
       <div class="demo-grid">
-        <!-- LEFT: object + actions -->
         <div class="demo-col">
-          <h4><span>Canonical object</span><span id="rev">rev 1</span></h4>
+          <h4><span data-i18n="col_obj">Canonical object</span><span id="rev">rev 1</span></h4>
           <div class="obj-card">
-            <div class="obj-id">object_id · juno106-7f3a91c4</div>
-            <div class="obj-name">JUNO-106 · voice board fault</div>
+            <div class="obj-id"><span>object_id · juno106-7f3a91c4</span><button id="btn-copy" data-i18n="copy">Copy object_id</button></div>
+            <div class="obj-name" data-i18n="obj_name">JUNO-106 · voice board fault</div>
             <span class="state-pill" id="pill"><span class="d"></span><span id="pill-text">signal detected</span></span>
           </div>
 
-          <h4>Workshop actions</h4>
+          <h4 data-i18n="col_actions">Workshop actions</h4>
           <div class="actions">
-            <button class="act primary" id="btn-accept">Accept action</button>
-            <button class="act" id="btn-start" disabled>Start</button>
-            <button class="act" id="btn-complete" disabled>Complete + verify</button>
-            <button class="act ghost" id="btn-reset">Reset</button>
+            <button class="act primary" id="btn-accept" data-i18n="btn_accept">Accept action</button>
+            <button class="act" id="btn-start" disabled data-i18n="btn_start">Start</button>
+            <button class="act" id="btn-complete" disabled data-i18n="btn_complete">Complete + verify</button>
+            <button class="act ghost" id="btn-reset" data-i18n="btn_reset">Reset</button>
           </div>
 
           <div class="brain">
             <div class="brain-top">
               <span class="brain-name">FRIDGE BRAIN</span>
-              <span class="brain-note">advisory only</span>
+              <span class="brain-note" data-i18n="brain_only">advisory only</span>
             </div>
-            <div class="brain-out" id="brain-out">Assessment idle. Ask for an interpretation of the current evidence.</div>
-            <div style="margin-top:12px"><button class="act ghost" id="btn-brain">Ask Fridge Brain</button></div>
-            <div class="brain-warn" id="brain-warn">canonical state unchanged — the brain proposed, the OS decided</div>
+            <div class="brain-out" id="brain-out" data-i18n="brain_idle">Assessment idle.</div>
+            <div style="margin-top:12px"><button class="act ghost" id="btn-brain" data-i18n="brain_ask">Ask Fridge Brain</button></div>
+            <div class="brain-warn" id="brain-warn" data-i18n="brain_warn">canonical state unchanged</div>
           </div>
         </div>
 
-        <!-- RIGHT: projections -->
         <div class="demo-col">
-          <h4><span>Role projection</span><span id="proj-id">same object_id</span></h4>
+          <h4><span data-i18n="col_proj">Role projection</span><span id="proj-id" data-i18n="same_id">same object_id</span></h4>
           <div class="proj-tabs" role="tablist">
             <button class="proj-tab" role="tab" aria-selected="true" data-p="matt">Matt</button>
             <button class="proj-tab" role="tab" aria-selected="false" data-p="susanna">Susanna</button>
@@ -365,7 +441,7 @@
       </div>
 
       <div class="hist">
-        <h4>Immutable history <span id="hist-count" style="color:var(--ink-3)"></span></h4>
+        <h4><span data-i18n="hist">Immutable history</span> <span id="hist-count" style="color:var(--ink-3)"></span></h4>
         <div class="hist-log" id="hist-log"></div>
       </div>
     </div>
@@ -374,40 +450,40 @@
 
 <section id="architecture">
   <div class="wrap reveal">
-    <div class="eyebrow">Architecture</div>
-    <h2>Governed evidence in. Advisory assessment out.</h2>
-    <p class="lead">Uniformity filters evidence before it crosses the Fridge Brain boundary. The service validates defensively and returns interpretation — never authority. The client records whether transport is <code>service</code> or <code>fallback</code>.</p>
+    <div class="eyebrow" data-i18n="ey_arch">Architecture</div>
+    <h2 data-i18n="h_arch">Governed evidence in. Advisory assessment out.</h2>
+    <p class="lead" data-i18n="p_arch">Uniformity filters evidence before it crosses the Fridge Brain boundary.</p>
     <figure>
       <img src="architecture.svg" alt="Uniformity runtime topology: the OS core governs evidence into the Fridge Brain advisory service, which returns assessment only to the instrument domain" loading="lazy" />
-      <figcaption>Uniformity OS · Fridge Brain advisory boundary · LOGARHYTHM / SUBANGEL instrument domain · role projections</figcaption>
+      <figcaption data-i18n="fig_cap">Uniformity OS · Fridge Brain advisory boundary · LOGARHYTHM / SUBANGEL instrument domain · role projections</figcaption>
     </figure>
   </div>
 </section>
 
 <section id="projections" style="background:var(--paper-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
   <div class="wrap reveal">
-    <div class="eyebrow">Role projections</div>
-    <h2>Same object. Different eyes.</h2>
-    <p class="lead">Every projection resolves the same canonical <code>object_id</code>. Depth and language change; truth does not.</p>
+    <div class="eyebrow" data-i18n="ey_proj">Role projections</div>
+    <h2 data-i18n="h_proj">Same object. Different eyes.</h2>
+    <p class="lead" data-i18n="p_proj">Every projection resolves the same canonical object_id.</p>
     <div class="cards">
-      <div class="card"><div class="card-tag">Matt · technical</div><h3>Signal → Reason → Evidence</h3><p>The bench view. Full trace, ranked hypotheses, provenance, contradictions and missing evidence — governed intelligence shown progressively.</p></div>
-      <div class="card"><div class="card-tag">Susanna · operational</div><h3>Status · blocker · who acts</h3><p>Compact and simple. What is happening, what is blocked, who needs to act next, and the next workshop step.</p></div>
-      <div class="card"><div class="card-tag">Customer · safe</div><h3>Customer-safe status</h3><p>Only what is safe to show, plus any approval or action the customer must take.</p></div>
-      <div class="card"><div class="card-tag">Logarhythm · public</div><h3>Public cultural view</h3><p>Presentation without private workshop intelligence. The story, not the bench.</p></div>
+      <div class="card"><div class="card-tag">Matt · technical</div><h3 data-i18n="proj_matt_h">Signal → Reason → Evidence</h3><p data-i18n="proj_matt_p">The bench view. Full trace, ranked hypotheses, provenance, contradictions and missing evidence.</p></div>
+      <div class="card"><div class="card-tag">Susanna · operational</div><h3 data-i18n="proj_sus_h">Status · blocker · who acts</h3><p data-i18n="proj_sus_p">Compact and simple. What is happening, what is blocked, who needs to act next.</p></div>
+      <div class="card"><div class="card-tag">Customer · safe</div><h3 data-i18n="proj_cus_h">Customer-safe status</h3><p data-i18n="proj_cus_p">Only what is safe to show, plus any approval or action the customer must take.</p></div>
+      <div class="card"><div class="card-tag">Logarhythm · public</div><h3 data-i18n="proj_log_h">Public cultural view</h3><p data-i18n="proj_log_p">Presentation without private workshop intelligence. The story, not the bench.</p></div>
     </div>
   </div>
 </section>
 
 <section>
   <div class="wrap reveal">
-    <div class="eyebrow">Verified state</div>
-    <h2>Measured, not asserted.</h2>
-    <p class="lead">Every claim in this ecosystem carries a command, a result and a timestamp. Staging is not verification.</p>
+    <div class="eyebrow" data-i18n="ey_verified">Verified state</div>
+    <h2 data-i18n="h_verified">Measured, not asserted.</h2>
+    <p class="lead" data-i18n="p_verified">Every claim carries a command, a result and a timestamp.</p>
     <div class="metrics">
-      <div class="metric"><div class="metric-n" data-count="91">0</div><div class="metric-l">Tests passing</div></div>
-      <div class="metric"><div class="metric-n" data-count="8">0</div><div class="metric-l">Grammar stages</div></div>
-      <div class="metric"><div class="metric-n" data-count="4">0</div><div class="metric-l">Role projections</div></div>
-      <div class="metric"><div class="metric-n" data-count="1">0</div><div class="metric-l">Canonical object_id</div></div>
+      <div class="metric"><div class="metric-n" data-count="91">0</div><div class="metric-l" data-i18n="m_tests">Tests passing</div></div>
+      <div class="metric"><div class="metric-n" data-count="8">0</div><div class="metric-l" data-i18n="m_stages">Grammar stages</div></div>
+      <div class="metric"><div class="metric-n" data-count="4">0</div><div class="metric-l" data-i18n="m_proj">Role projections</div></div>
+      <div class="metric"><div class="metric-n" data-count="1">0</div><div class="metric-l" data-i18n="m_obj">Canonical object_id</div></div>
     </div>
   </div>
 </section>
@@ -415,8 +491,8 @@
 <div class="band">
   <div class="band-glow"></div>
   <div class="wrap reveal">
-    <h2>Technical boundaries stay explicit even when the experience feels seamless.</h2>
-    <p>The OS composes; the domains remain real.</p>
+    <h2 data-i18n="band_h">Technical boundaries stay explicit even when the experience feels seamless.</h2>
+    <p data-i18n="band_p">The OS composes; the domains remain real.</p>
     <a class="btn btn-p" href="https://github.com/UNIFORM1TY">github.com/UNIFORM1TY <span class="arrow">→</span></a>
   </div>
 </div>
@@ -424,7 +500,7 @@
 <footer>
   <div class="wrap foot-in">
     <div class="foot-brand">
-      <svg viewBox="0 0 32 32" fill="none">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
         <polygon points="16,2.5 28.5,9.7 28.5,22.3 16,29.5 3.5,22.3 3.5,9.7" stroke="#3f3f46" stroke-width="1.5"/>
         <circle cx="16" cy="16" r="2.4" fill="#0ea5e9"/>
       </svg>
@@ -433,17 +509,26 @@
     <div class="foot-links">
       <a href="https://github.com/UNIFORM1TY/uniformity-os">uniformity-os</a>
       <a href="https://github.com/UNIFORM1TY">Organization</a>
+      <a href="https://github.com/maxiwhite">Maximilien White</a>
     </div>
   </div>
 </footer>
 
+<script src="i18n.js"></script>
 <script>
 (function(){
   "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+  var T = window.__I18N__ || {};
+  var LANG = "en";
 
-  /* ---------- nav shadow ---------- */
-  var nav = document.getElementById('nav');
-  addEventListener('scroll', function(){ nav.classList.toggle('scrolled', scrollY > 12); }, {passive:true});
+  /* ---------- progress bar + nav ---------- */
+  var nav = $('nav'), prog = $('prog');
+  addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', scrollY > 12);
+    var h = document.documentElement.scrollHeight - innerHeight;
+    prog.style.width = (h > 0 ? (scrollY / h) * 100 : 0) + '%';
+  }, {passive:true});
 
   /* ---------- reveal ---------- */
   var io = new IntersectionObserver(function(es){
@@ -454,15 +539,22 @@
     io.observe(el);
   });
 
-  /* ---------- object: parallax + rings ---------- */
-  var obj = document.getElementById('object');
+  /* ---------- toast ---------- */
+  var toastTimer;
+  function toast(msg){
+    var t = $('toast'); t.textContent = msg; t.classList.add('on');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.classList.remove('on'); }, 1900);
+  }
+
+  /* ---------- object parallax + rings ---------- */
+  var obj = $('object');
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!reduced){
     addEventListener('mousemove', function(e){
       var x = (e.clientX / innerWidth - .5), y = (e.clientY / innerHeight - .5);
       obj.style.transform = 'translate(' + (x*16) + 'px,' + (y*16) + 'px)';
     }, {passive:true});
-    var t = 0, r2 = document.getElementById('ring2'), r3 = document.getElementById('ring3');
+    var t = 0, r2 = $('ring2'), r3 = $('ring3');
     (function spin(){
       t += .0016;
       r2.setAttribute('transform','rotate(' + (Math.sin(t)*2.6) + ' 290 290)');
@@ -471,43 +563,82 @@
     })();
   }
 
-  /* ---------- grammar tabs ---------- */
+  /* ---------- i18n ---------- */
   var G = [
-    {n:'01 · Object',  t:'Canonical identity',      p:'One stable <code>object_id</code> that every projection resolves to. Identity is not duplicated per view — it is shared, and the views differ only in depth and language.', m:'object_id · juno106-7f3a91c4'},
-    {n:'02 · State',   t:'Operational state',       p:'The current condition of that object. State advances through verified events and is versioned — never silently overwritten.', m:'rev 1 → rev 2 on verified completion'},
-    {n:'03 · Signal',  t:'Observed event',          p:'An event or condition detected against the object. A signal is an observation, not a conclusion.', m:'event · signal.detected'},
-    {n:'04 · Evidence',t:'Governed material',       p:'Revision-aware, permission-scoped and provenance-bearing. Uniformity filters evidence <em>before</em> it crosses the Fridge Brain boundary.', m:'revision-aware · permission-scoped · provenance-bearing'},
-    {n:'05 · Intelligence', t:'Advisory only',      p:'Ranked hypotheses, confidence, contradictions and missing information — plus exactly one proposed next action. It may never contain or perform canonical state mutation.', m:'Fridge Brain · POST /v1/assessments'},
-    {n:'06 · Action',  t:'Domain-owned work',       p:'Proposed, accepted, started and completed — owned by the domain or workshop layer, never by the OS and never by the advisory service.', m:'events · action.accepted → action.started → action.completed'},
-    {n:'07 · Verification', t:'Result + new evidence', p:'Recorded at completion: result, verification status and the evidence that proves it. Staging is not verification.', m:'appends verified evidence · updates state exactly once'},
-    {n:'08 · History', t:'Immutable events',        p:'Append-only events that allow the object to be reconstructed and audited from history alone. Records are superseded, never erased.', m:'terminal state · action.completed'}
+    {t:'g_obj_t', p:'g_obj_p', m:'object_id · juno106-7f3a91c4'},
+    {t:'g_state_t', p:'g_state_p', m:'rev 1 → rev 2 on verified completion'},
+    {t:'g_signal_t', p:'g_signal_p', m:'event · signal.detected'},
+    {t:'g_evidence_t', p:'g_evidence_p', m:'revision-aware · permission-scoped · provenance-bearing'},
+    {t:'g_intel_t', p:'g_intel_p', m:'Fridge Brain · POST /v1/assessments'},
+    {t:'g_action_t', p:'g_action_p', m:'action.accepted → action.started → action.completed'},
+    {t:'g_verif_t', p:'g_verif_p', m:'appends verified evidence · updates state exactly once'},
+    {t:'g_hist_t', p:'g_hist_p', m:'terminal state · action.completed'}
   ];
-  var gBody = document.getElementById('gram-body');
+  var gBody = $('gram-body'), gIndex = 0;
+
+  function tr(k){
+    var d = T[LANG] || T.en || {};
+    return (d[k] !== undefined) ? d[k] : ((T.en||{})[k] !== undefined ? T.en[k] : k);
+  }
   function drawGram(i){
+    gIndex = i;
     var g = G[i];
-    gBody.innerHTML = '<h3>' + g.t + '</h3><p>' + g.p + '</p><div class="meta">' + g.m + '</div>';
+    gBody.innerHTML = '<h3>' + tr(g.t) + '</h3><p>' + tr(g.p) + '</p><div class="meta">' + g.m + '</div>';
     gBody.classList.remove('fade'); void gBody.offsetWidth; gBody.classList.add('fade');
   }
-  drawGram(0);
-  document.querySelectorAll('.gram-tab').forEach(function(b){
-    b.addEventListener('click', function(){
-      document.querySelectorAll('.gram-tab').forEach(function(x){ x.setAttribute('aria-selected','false'); });
-      b.setAttribute('aria-selected','true');
-      drawGram(+b.dataset.g);
+
+  function applyLang(lang){
+    LANG = T[lang] ? lang : 'en';
+    document.documentElement.lang = LANG;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var k = el.getAttribute('data-i18n');
+      if(k) el.textContent = tr(k);
     });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+      var k = el.getAttribute('data-i18n-html');
+      if(k && T[LANG] && T[LANG][k] !== undefined) el.innerHTML = T[LANG][k];
+    });
+    $('lang-cur').textContent = LANG.toUpperCase();
+    document.querySelectorAll('.lang-item').forEach(function(b){
+      b.setAttribute('aria-current', b.dataset.lang === LANG ? 'true' : 'false');
+    });
+    drawGram(gIndex);
+    render();
+    try{ localStorage.setItem('uniformity-lang', LANG); }catch(e){}
+  }
+
+  /* language menu */
+  var menu = $('lang-menu'), langWrap = $('lang');
+  var ORDER = ['en','fr','es'];
+  menu.innerHTML = ORDER.filter(function(l){ return T[l]; }).map(function(l){
+    return '<button class="lang-item" role="option" data-lang="' + l + '" aria-current="false">' +
+      '<span>' + (T[l].lang_name || l) + '</span><span class="code">' + l + '</span></button>';
+  }).join('');
+  $('lang-btn').addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = langWrap.dataset.open === 'true';
+    langWrap.dataset.open = open ? 'false' : 'true';
+    $('lang-btn').setAttribute('aria-expanded', String(!open));
+  });
+  menu.addEventListener('click', function(e){
+    var b = e.target.closest('.lang-item'); if(!b) return;
+    applyLang(b.dataset.lang);
+    langWrap.dataset.open = 'false';
+    $('lang-btn').setAttribute('aria-expanded','false');
+  });
+  document.addEventListener('click', function(){
+    langWrap.dataset.open = 'false'; $('lang-btn').setAttribute('aria-expanded','false');
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ langWrap.dataset.open = 'false'; $('lang-btn').setAttribute('aria-expanded','false'); }
   });
 
   /* ---------- live reference flow ---------- */
-  var STATE = { stage:'signal', rev:1, events:['created','signal.detected'], proj:'matt', brain:null };
-  var STATES = {
-    signal:   { label:'signal detected', cls:'' },
-    accepted: { label:'action accepted', cls:'active' },
-    started:  { label:'action in progress', cls:'active' },
-    done:     { label:'verified · complete', cls:'done' }
-  };
-  var $ = function(id){ return document.getElementById(id); };
-  var pill = $('pill'), pillText = $('pill-text'), histLog = $('hist-log'), histCount = $('hist-count');
+  var STATE = { stage:'signal', rev:1, events:['created','signal.detected'], proj:'matt' };
+  var STAGE_KEY = { signal:'st_signal', accepted:'st_accepted', started:'st_started', done:'st_done' };
+  var STAGE_CLS = { signal:'', accepted:'active', started:'active', done:'done' };
 
+  function line(k,v){ return '<div class="proj-line"><span>'+k+'</span><span>'+v+'</span></div>'; }
   function projHTML(k){
     var done = STATE.stage === 'done', acc = STATE.stage !== 'signal';
     if(k === 'matt'){
@@ -540,18 +671,18 @@
       line('workshop','private intelligence withheld') +
       line('status','narrative draft');
   }
-  function line(k,v){ return '<div class="proj-line"><span>'+k+'</span><span>'+v+'</span></div>'; }
 
   function render(){
-    var s = STATES[STATE.stage];
-    pill.className = 'state-pill ' + s.cls;
-    pillText.textContent = s.label;
-    $('rev').textContent = 'rev ' + STATE.rev;
+    var pill = $('pill'), pillText = $('pill-text'), histLog = $('hist-log'), histCount = $('hist-count');
+    if(!pill) return;
+    pill.className = 'state-pill ' + STAGE_CLS[STATE.stage];
+    pillText.textContent = tr(STAGE_KEY[STATE.stage]);
+    $('rev').textContent = tr('rev') + ' ' + STATE.rev;
 
     histLog.innerHTML = STATE.events.map(function(e){
       return '<span class="ev' + (e==='action.completed' ? ' final' : '') + '">' + e + '</span>';
     }).join('');
-    histCount.textContent = '· ' + STATE.events.length + ' events';
+    histCount.textContent = '· ' + STATE.events.length + ' ' + tr('events');
 
     $('proj-body').innerHTML = projHTML(STATE.proj);
 
@@ -563,22 +694,25 @@
 
   $('btn-accept').addEventListener('click', function(){
     if(STATE.stage !== 'signal') return;
-    STATE.stage = 'accepted'; STATE.events.push('action.accepted'); render();
+    STATE.stage='accepted'; STATE.events.push('action.accepted'); render();
+    toast('action.accepted → state advanced');
   });
   $('btn-start').addEventListener('click', function(){
     if(STATE.stage !== 'accepted') return;
-    STATE.stage = 'started'; STATE.events.push('action.started'); render();
+    STATE.stage='started'; STATE.events.push('action.started'); render();
+    toast('action.started → bench work');
   });
   $('btn-complete').addEventListener('click', function(){
     if(STATE.stage !== 'started') return;
-    STATE.stage = 'done'; STATE.rev = 2;
+    STATE.stage='done'; STATE.rev=2;
     STATE.events.push('evidence.verified','action.completed'); render();
+    toast('rev 2 · verified · action.completed');
   });
   $('btn-reset').addEventListener('click', function(){
-    STATE = { stage:'signal', rev:1, events:['created','signal.detected'], proj:STATE.proj, brain:null };
-    $('brain-out').textContent = 'Assessment idle. Ask for an interpretation of the current evidence.';
+    STATE = { stage:'signal', rev:1, events:['created','signal.detected'], proj:STATE.proj };
+    $('brain-out').textContent = tr('brain_idle');
     $('brain-warn').classList.remove('on');
-    render();
+    render(); toast('reset to rev 1');
   });
 
   document.querySelectorAll('.proj-tab').forEach(function(b){
@@ -587,6 +721,14 @@
       b.setAttribute('aria-selected','true');
       STATE.proj = b.dataset.p; render();
     });
+  });
+
+  /* copy object_id */
+  $('btn-copy').addEventListener('click', function(){
+    var id = 'juno106-7f3a91c4';
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(id).then(function(){ toast(tr('copied') + ' · ' + id); });
+    } else { toast(id); }
   });
 
   /* ---------- Fridge Brain ---------- */
@@ -600,14 +742,9 @@
         '<span class="hyp"><b>Hypothesis 2</b> · failing electrolytic in the PSU rail — confidence <b>0.41</b></span>' +
         '<span class="hyp"><b>Missing</b> · bench temperature log; rail ripple measurement</span>' +
         '<span class="hyp"><b>Proposed next action</b> · reflow VCO pins and re-measure drift — <b>awaiting domain acceptance</b></span>';
-      if(JSON.stringify(STATE.events) === before){
-        $('brain-warn').classList.add('on');
-      }
+      if(JSON.stringify(STATE.events) === before) $('brain-warn').classList.add('on');
     }, 620);
   });
-
-  /* ---------- transport indicator ---------- */
-  $('transport').textContent = 'transport: fallback · deterministic';
 
   /* ---------- metric count-up ---------- */
   var mio = new IntersectionObserver(function(es){
@@ -625,7 +762,15 @@
   }, {threshold:.6});
   document.querySelectorAll('[data-count]').forEach(function(el){ mio.observe(el); });
 
-  render();
+  /* ---------- boot ---------- */
+  var saved = null;
+  try{ saved = localStorage.getItem('uniformity-lang'); }catch(e){}
+  var initial = saved || (navigator.language || 'en').slice(0,2).toLowerCase();
+  applyLang(T[initial] ? initial : 'en');
+
+  /* deep-link language: ?lang=fr */
+  var m = location.search.match(/[?&]lang=([a-z]{2})/i);
+  if(m && T[m[1].toLowerCase()]) applyLang(m[1].toLowerCase());
 })();
 </script>
 </body>
